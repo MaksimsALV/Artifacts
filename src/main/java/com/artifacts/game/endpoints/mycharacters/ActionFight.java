@@ -22,6 +22,7 @@ public class ActionFight {
             var responseBody = response.body();
 
             if (response.statusCode() == 200) {
+                System.out.println("200: actionFight was successful");
                 var object = new JSONObject(responseBody);
                 var responseDataObject = object.getJSONObject("data");
                 var responseCharacterDataObject = responseDataObject.getJSONObject("character");
