@@ -13,7 +13,7 @@ public class Request {
             return HttpRequest.newBuilder()
                     .uri(URI.create(endpoint))
                     .header("Accept", "application/json")
-                    .header("Authorization", "Bearer " + Token.getToken()) // or just the token if needed
+                    .header("Authorization", "Bearer " + Token.token) // or just the token if needed
                     .GET()
                     .build();
         } else {

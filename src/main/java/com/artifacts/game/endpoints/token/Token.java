@@ -17,8 +17,7 @@ public class Token {
             if (response.statusCode() == 200) {
                 var responseBody = response.body();
                 var object = new JSONObject(responseBody);
-                var token = object.getString("token");
-                Token.setToken(token);
+                token = object.getString("token");
                 return response;
             } else if (response.statusCode() == 455) {
                 System.err.println("Failed to generate token");
@@ -29,10 +28,6 @@ public class Token {
             System.err.println(getTokenError.getMessage());
         }
         return null;
-    }
-
-    public static void setToken(String tokenValue) {
-        var token = tokenValue;
     }
 }
 
