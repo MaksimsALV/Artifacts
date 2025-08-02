@@ -21,10 +21,10 @@ public class GetCharacter {
             if (response.statusCode() == 200) {
                 var responseBody = response.body();
                 var object = new JSONObject(responseBody);
-                var data = object.getJSONObject("data");
-                positionX = data.getInt("x");
-                positionY = data.getInt("y");
-                hp = data.getInt("hp");
+                var responseDataObject = object.getJSONObject("data");
+                positionX = responseDataObject.getInt("x");
+                positionY = responseDataObject.getInt("y");
+                hp = responseDataObject.getInt("hp");
                 return response;
             } else if (response.statusCode() == 404) {
                 System.err.println("getCharacter Character not found.");
