@@ -11,8 +11,7 @@ public class Level1 {
             GetCharacter.getCharacter();
             if (statusOK()) {
                 System.out.println("runLevel1: statusOK, fighting!");
-                //ActionFight.actionFight();
-                break;
+                ActionFight.actionFight();
             } else if (badPosition()) {
                 System.out.println("runLevel1: badPosition, moving");
                 ActionMove.actionMove(0, 1);
