@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class BaseURL {
-    public static final Properties properties = new Properties();
+    public static final Properties BASE_URL = new Properties();
 
     static {
         try {
             var fileInputStream = new FileInputStream("config/config.properties");
-                properties.load(fileInputStream);
+            BASE_URL.load(fileInputStream);
             } catch (FileNotFoundException fileInputStreamError) {
                 throw new RuntimeException(fileInputStreamError.getMessage());
         } catch (IOException ioError) {
@@ -20,6 +20,6 @@ public class BaseURL {
     }
 
     public static String getBaseUrl(String key) {
-        return properties.getProperty(key);
+        return BASE_URL.getProperty(key);
     }
 }

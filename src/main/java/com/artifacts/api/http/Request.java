@@ -1,7 +1,10 @@
 package com.artifacts.api.http;
 
+import com.artifacts.game.config.Auth;
+
 import java.net.URI;
 import java.net.http.HttpRequest;
+import java.util.Base64;
 
 public class Request {
     public static HttpRequest buildGetRequest(String endpoint) {
@@ -13,10 +16,17 @@ public class Request {
     }
 
     public static HttpRequest buildPostRequest(String endpoint, String body) {
+        var username = Auth.getUsername();
+        var password = Auth.getPassword();
+        var auth = username + ":" + password;
+        var encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
+        var authHeader = "Basic " + encodedAuth;
+
         return HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
+                .header("Authorization", authHeader)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }

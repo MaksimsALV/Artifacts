@@ -10,13 +10,14 @@ public class Token {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/token";
         try {
-            HttpResponse<String> response = Send.get(endpoint);
+            HttpResponse<String> response = Send.post(endpoint, "");
             if (response.statusCode() == 200) {
+                //System.out.println(response.body());
                 return response;
             } else if (response.statusCode() == 455) {
                 System.err.println("Failed to generate token");
             } else {
-                System.err.println("Unexpected status code: " + response.statusCode());
+                System.err.println("Unexpected status code: " + response.statusCode() + response.body());
             }
         } catch (Exception getTokenError) {
             System.err.println(getTokenError.getMessage());
