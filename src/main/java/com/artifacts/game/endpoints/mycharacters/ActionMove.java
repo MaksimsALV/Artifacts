@@ -28,7 +28,9 @@ public class ActionMove {
             } else if (response.statusCode() == 498) {
                 System.err.println("actionMove Character not found.");
             } else if (response.statusCode() == 499) {
-                System.err.println("actionMove The character is in cooldown.");
+                //todo need to call getCharacter in order to retrieve current cooldown=value, then put that value +1000 millis inside the logic. There is also cooldown_expiration timestamp for minmaxing
+                Thread.sleep(1000);
+                actionMove(x, y);
             } else {
                 System.err.println("actionMove unexpected status code: " + response.statusCode() + response.body());
             }
