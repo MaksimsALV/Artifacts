@@ -3,7 +3,7 @@ package com.artifacts;
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
-import com.artifacts.game.engine.strategy.level1.Level1;
+import com.artifacts.game.engine.logic.strategy.level1.Level1;
 
 public class MainForConsole {
     public static void main(String[] args) throws Exception {

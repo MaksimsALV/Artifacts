@@ -29,6 +29,7 @@ public class ActionMove {
                 System.err.println("actionMove Character not found.");
             } else if (response.statusCode() == 499) {
                 //todo need to call getCharacter in order to retrieve current cooldown=value, then put that value +1000 millis inside the logic. There is also cooldown_expiration timestamp for minmaxing
+                System.err.println("actionMove An action is already in progress for this character: Thread.sleep(1000)");
                 Thread.sleep(1000);
                 actionMove(x, y);
             } else {
