@@ -11,13 +11,14 @@ public class ServerDetails {
         var endpoint = baseUrl + "/";
         try {
             HttpResponse<String> response = Send.get(endpoint);
-            if (response.statusCode() != 200) {
-                System.err.println("Server status is unknown: " + response.statusCode());
+            if (response.statusCode() == 200) {
+                return response;
+            } else {
+                System.err.println("Unexpected status code: " + response.statusCode());
             }
-            return response;
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return null;
+        } catch (Exception getServerDetailsError) {
+            System.err.println(getServerDetailsError.getMessage());
         }
+        return null;
     }
 }
