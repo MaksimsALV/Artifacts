@@ -11,6 +11,7 @@ import java.net.http.HttpResponse;
 public class GetCharacter {
     public static int positionX;
     public static int positionY;
+    public static int hp;
 
     public static HttpResponse<String> getCharacter() {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
@@ -23,6 +24,7 @@ public class GetCharacter {
                 var data = object.getJSONObject("data");
                 positionX = data.getInt("x");
                 positionY = data.getInt("y");
+                hp = data.getInt("hp");
                 return response;
             } else if (response.statusCode() == 404) {
                 System.err.println("getCharacter Character not found.");
