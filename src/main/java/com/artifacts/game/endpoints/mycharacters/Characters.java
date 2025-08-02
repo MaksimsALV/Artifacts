@@ -14,10 +14,10 @@ public class Characters {
             if (response.statusCode() == 200) {
                 return response;
             } else {
-                System.err.println("Unexpected status code: " + response.statusCode());
+                System.err.println("getMyCharacters unexpected status code: " + response.statusCode());
             }
-        } catch (Exception getServerDetailsError) {
-            System.err.println(getServerDetailsError.getMessage());
+        } catch (Exception getMyCharactersError) {
+            System.err.println("Exception getMyCharactersError: " + getMyCharactersError.getMessage());
         }
         return null;
     }

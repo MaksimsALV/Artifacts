@@ -20,12 +20,12 @@ public class Token {
                 token = object.getString("token");
                 return response;
             } else if (response.statusCode() == 455) {
-                System.err.println("Failed to generate token");
+                System.err.println("getToken failed to generate token");
             } else {
-                System.err.println("Unexpected status code: " + response.statusCode() + response.body());
+                System.err.println("getToken unexpected status code: " + response.statusCode() + response.body());
             }
         } catch (Exception getTokenError) {
-            System.err.println(getTokenError.getMessage());
+            System.err.println("Exception getTokenError: " + getTokenError.getMessage());
         }
         return null;
     }
