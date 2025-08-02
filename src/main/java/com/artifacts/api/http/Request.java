@@ -26,18 +26,28 @@ public class Request {
     }
 
     public static HttpRequest buildPostRequest(String endpoint, String body, boolean useToken) {
-        var username = Auth.getUsername();
-        var password = Auth.getPassword();
-        var auth = username + ":" + password;
-        var encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
-        var authHeader = "Basic " + encodedAuth;
+        if (useToken) {
+            return HttpRequest.newBuilder()
+                    .uri(URI.create(endpoint))
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .header("Authorization", "Bearer " + Token.token)
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+        } else {
+            var username = Auth.getUsername();
+            var password = Auth.getPassword();
+            var auth = username + ":" + password;
+            var encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
+            var authHeader = "Basic " + encodedAuth;
 
-        return HttpRequest.newBuilder()
-                .uri(URI.create(endpoint))
-                .header("Content-Type", "application/json")
-                .header("Accept", "application/json")
-                .header("Authorization", authHeader)
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build();
+            return HttpRequest.newBuilder()
+                    .uri(URI.create(endpoint))
+                    .header("Content-Type", "application/json")
+                    .header("Accept", "application/json")
+                    .header("Authorization", authHeader)
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+        }
     }
 }

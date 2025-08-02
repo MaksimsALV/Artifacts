@@ -5,7 +5,7 @@ import com.artifacts.game.config.BaseURL;
 
 import java.net.http.HttpResponse;
 
-public class ServerDetails {
+public class GetServerDetails {
     public static boolean serverIsUp;
 
     public static HttpResponse<String> getServerDetails() {

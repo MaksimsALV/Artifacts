@@ -1,5 +1,6 @@
 package com.artifacts.api.http;
 
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class Send {

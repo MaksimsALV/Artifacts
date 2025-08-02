@@ -1,11 +1,13 @@
 package com.artifacts;
 
-import com.artifacts.game.endpoints.mycharacters.Characters;
+import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
+import com.artifacts.game.engine.strategy.level1.Level1;
 
 public class MainForConsole {
     public static void main(String[] args) throws Exception {
         Login.login();
-        Characters.getMyCharacters();
+        GetMyCharacters.getMyCharacters();
+        Level1.runLevel1Strategy();
     }
 }
