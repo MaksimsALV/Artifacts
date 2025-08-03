@@ -2,11 +2,13 @@ package com.artifacts.game.endpoints.mycharacters;
 
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
+import com.artifacts.tools.Converter;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
 import java.util.regex.Pattern;
 
+//todo redo using global logic
 public class ActionRest {
     public static int cooldownTotalSeconds;
     public static int cooldownRemainingSeconds;
@@ -46,10 +48,9 @@ public class ActionRest {
                 if (errorMessageFinder.find()) {
                     seconds = Double.parseDouble(errorMessageFinder.group());
                 }
-                var time = (long) (seconds * 1000);
-
+                //var time = (long) (seconds * 1000);
                 System.err.println("499: actionRest The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
-                Thread.sleep(time);
+                Thread.sleep(Converter.SecondsToMillisConverter(seconds));
                 actionRest();
             } else {
                 System.err.println("actionRest unexpected status code: " + response.statusCode() + response.body());

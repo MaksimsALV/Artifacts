@@ -2,6 +2,7 @@ package com.artifacts.game.endpoints.mycharacters;
 
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
+import com.artifacts.tools.Converter;
 import org.json.JSONObject;
 import com.artifacts.game.endpoints.characters.GetCharacter;
 
@@ -19,7 +20,6 @@ public class ActionMove {
     public static List<HashMap<String, String>> MOVE = new ArrayList<>();
 
     public static HttpResponse<String> actionMove(int x, int y) {
-        //var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
         var name = GetCharacter.CHARACTER.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/move";
@@ -62,10 +62,10 @@ public class ActionMove {
                 if (errorMessageFinder.find()) {
                     seconds = Double.parseDouble(errorMessageFinder.group());
                 }
-                var time = (long) (seconds * 1000);
+                //var time = (long) (seconds * 1000);
 
                 System.err.println("499: actionMove The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
-                Thread.sleep(time);
+                Thread.sleep(Converter.SecondsToMillisConverter(seconds));
                 actionMove(x, y);
             }
         } catch (Exception actionMoveException) {
