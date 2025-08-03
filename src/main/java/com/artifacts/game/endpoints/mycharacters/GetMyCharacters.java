@@ -29,13 +29,14 @@ public class GetMyCharacters {
                 var responseDataArray = object.getJSONArray("data");
                 MY_CHARACTERS.clear();
 
-                for (var line : responseDataArray) {
-                    var responseData = (JSONObject) line;
-                    HashMap<String, String> dataMap = new HashMap<>();
-                    for (String key : responseData.keySet()) {
-                        dataMap.put(key, responseData.get(key).toString());
+                for (var characterObject : responseDataArray) {
+                    var eachCharacter = (JSONObject) characterObject;
+                    HashMap<String, String> characterData = new HashMap<>();
+                    for (var key : eachCharacter.keySet()) {
+                        var value = eachCharacter.get(key).toString();
+                        characterData.put(key, value);
                     }
-                    MY_CHARACTERS.add(dataMap);
+                    MY_CHARACTERS.add(characterData);
                 }
             }
         } catch (Exception getMyCharactersException) {
