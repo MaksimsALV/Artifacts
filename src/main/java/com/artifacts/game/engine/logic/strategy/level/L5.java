@@ -5,18 +5,18 @@ import com.artifacts.game.endpoints.mycharacters.ActionFight;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
 import com.artifacts.game.endpoints.mycharacters.ActionRest;
 
-public class Level1 {
-    public static void runLevel1() throws InterruptedException {
+public class L5 {
+    public static void runLoop() throws InterruptedException {
         while (true) {
             GetCharacter.getCharacter();
             if (statusOK()) {
-                System.out.println("runLevel1: statusOK, fighting!");
+                System.out.println("L5: statusOK, fighting!");
                 ActionFight.actionFight();
             } else if (badPosition()) {
-                System.out.println("runLevel1: badPosition, moving");
+                System.out.println("L5: badPosition, moving");
                 ActionMove.actionMove(0, 1);
             } else if (badHealth()) {
-                System.out.println("runLevel1: badHealth, resting");
+                System.out.println("L5: badHealth, resting");
                 ActionRest.actionRest();
             }
         }
