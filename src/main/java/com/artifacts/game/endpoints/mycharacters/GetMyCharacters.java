@@ -6,6 +6,9 @@ import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+
 public class GetMyCharacters {
     public static String name;
 
@@ -14,7 +17,9 @@ public class GetMyCharacters {
         var endpoint = baseUrl + "/my/characters";
         try {
             HttpResponse<String> response = Send.get(endpoint, true);
-            if (response.statusCode() == 200) {
+            globalErrorHandler(response);
+
+            if (response.statusCode() == CODE_SUCCESS) {
                 var responseBody = response.body();
                 JSONObject object = new JSONObject(responseBody);
                 name = object
@@ -28,6 +33,7 @@ public class GetMyCharacters {
         } catch (Exception getMyCharactersError) {
             System.err.println("Exception getMyCharactersError: " + getMyCharactersError.getMessage());
         }
+
         return null;
     }
 }

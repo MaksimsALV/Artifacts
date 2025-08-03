@@ -7,9 +7,16 @@ import java.net.http.HttpResponse;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 
 public class GlobalErrorHandler {
+    public static String extractErrorMessage(JSONObject object) {
+        if (object.has("message")) {
+            return object.getString("message");
+        }
+        return null;
+    }
+
     public static void globalErrorHandler(HttpResponse<String> response) {
         var object = new JSONObject(response.body());
-        var responseErrorMessage = object.getString("message");
+        var responseErrorMessage = extractErrorMessage(object);
 
         try {
             if (response.statusCode() == CODE_SUCCESS) {
