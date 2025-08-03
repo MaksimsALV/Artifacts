@@ -1,8 +1,8 @@
 package com.artifacts.game.endpoints.mycharacters;
 
+import com.artifacts.api.errorhandling.GlobalErrorHandler;
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
-import com.artifacts.tools.Converter;
 import org.json.JSONObject;
 import com.artifacts.game.endpoints.characters.GetCharacter;
 
@@ -10,9 +10,9 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.extractCooldownSecondsFromErrorMessage;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.game.endpoints.characters.GetCharacter.*;
 
@@ -27,7 +27,6 @@ public class ActionMove {
 
         try {
             HttpResponse<String> response = Send.post(endpoint, body, true);
-            //globalErrorHandler(response); //i moved it into if/else logic. because if 200, then i have logic for that, ELSE i call globalErrorHandler
 
             if (response.statusCode() == CODE_SUCCESS) {
                 var object = new JSONObject(response.body());
@@ -49,31 +48,10 @@ public class ActionMove {
                     cooldownData.put(key, value);
                 }
                 MOVE.add(cooldownData);
-
-            //todo all else if logic requires automation to do something once certain error code appears, for example: wait on 486 or 499 and repeat again after certain time due to CD.
-            }
-            else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
-                var object = new JSONObject(response.body());
-                var responseErrorObject = object.getJSONObject("error");
-                var responseErrorMessage = responseErrorObject.getString("message");
-                var errorMessageFinder = Pattern.compile("\\d+(\\.\\d+)?").matcher(responseErrorMessage);
-                var seconds = 1.0;
-                if (errorMessageFinder.find()) {
-                    seconds = Double.parseDouble(errorMessageFinder.group());
-                }
-
-                System.err.println("499: actionMove The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
-                Thread.sleep(Converter.SecondsToMillisConverter(seconds));
-                actionMove(x, y);
-
-            }
-
-            /* //todo commenting it out for now. will to-do later
-            else {
+            } else {
                 globalErrorHandler(response);
+                actionMove(x, y);
             }
-
-             */
         } catch (Exception actionMoveException) {
             System.err.println("actionMove() exception occurred: " + actionMoveException.getMessage());
         }

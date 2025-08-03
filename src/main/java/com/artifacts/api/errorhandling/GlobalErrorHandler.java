@@ -3,6 +3,9 @@ package com.artifacts.api.errorhandling;
 import com.artifacts.tools.Converter;
 //import com.artifacts.tools.Regex;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import java.net.http.HttpResponse;
@@ -20,17 +23,19 @@ public class GlobalErrorHandler {
         return null;
     }
 
-/*
     //todo WIP
-    public static Double extractSecondsFromErrorMessage(String responseErrorMessage) {
-        var object = new JSONObject(response.body());
-        var errorMessageFinder = Pattern.compile("\\d+(\\.\\d+)?").matcher(responseErrorMessage);
-        if (errorMessageFinder.find()) {
-            return Double.parseDouble(errorMessageFinder.group());
+    public static Double extractCooldownSecondsFromErrorMessage(String errorMessage) {
+        if (errorMessage != null) {
+            var matcher = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s+seconds?\\s+remaining")
+                    .matcher(errorMessage);
+            if (matcher.find()) {
+                return Double.parseDouble(matcher.group(1));
+            }
         }
+        return null;
     }
 
- */
+
 
     public static void globalErrorHandler(HttpResponse<String> response) {
         var object = new JSONObject(response.body());
@@ -112,6 +117,15 @@ public class GlobalErrorHandler {
                 System.err.println(CODE_CHARACTER_NOT_FOUND + responseErrorMessage);
             } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
                 System.err.println(CODE_CHARACTER_IN_COOLDOWN + responseErrorMessage);
+                var cooldownSeconds = extractCooldownSecondsFromErrorMessage(responseErrorMessage);
+                try {
+                    if (cooldownSeconds != null && cooldownSeconds > 0) {
+                        Thread.sleep(Converter.SecondsToMillisConverter(cooldownSeconds));
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.err.println("CODE_CHARACTER_IN_COOLDOWN Sleep interrupted: " + e.getMessage());
+                }
             } else if (response.statusCode() == CODE_ITEM_INSUFFICIENT_QUANTITY) {
                 System.err.println(CODE_ITEM_INSUFFICIENT_QUANTITY + responseErrorMessage);
             } else if (response.statusCode() == CODE_ITEM_INVALID_EQUIPMENT) {
