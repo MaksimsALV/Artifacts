@@ -27,7 +27,7 @@ public class ActionMove {
 
         try {
             HttpResponse<String> response = Send.post(endpoint, body, true);
-            globalErrorHandler(response);
+            //globalErrorHandler(response); //i moved it into if/else logic. because if 200, then i have logic for that, ELSE i call globalErrorHandler
 
             if (response.statusCode() == CODE_SUCCESS) {
                 var object = new JSONObject(response.body());
@@ -51,7 +51,8 @@ public class ActionMove {
                 MOVE.add(cooldownData);
 
             //todo all else if logic requires automation to do something once certain error code appears, for example: wait on 486 or 499 and repeat again after certain time due to CD.
-            } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
+            }
+            else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
                 var object = new JSONObject(response.body());
                 var responseErrorObject = object.getJSONObject("error");
                 var responseErrorMessage = responseErrorObject.getString("message");
@@ -64,7 +65,15 @@ public class ActionMove {
                 System.err.println("499: actionMove The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
                 Thread.sleep(Converter.SecondsToMillisConverter(seconds));
                 actionMove(x, y);
+
             }
+
+            /* //todo commenting it out for now. will to-do later
+            else {
+                globalErrorHandler(response);
+            }
+
+             */
         } catch (Exception actionMoveException) {
             System.err.println("actionMove() exception occurred: " + actionMoveException.getMessage());
         }
