@@ -10,13 +10,27 @@ import java.net.http.HttpResponse;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 
 public class GlobalErrorHandler {
-    
     public static String extractErrorMessage(JSONObject object) {
-        if (object.has("message")) {
-            return object.getString("message");
+        if (object.has("error")) {
+            var responseErrorObject = object.getJSONObject("error");
+            if (responseErrorObject.has("message")) {
+                return responseErrorObject.getString("message");
+            }
         }
         return null;
     }
+
+/*
+    //todo WIP
+    public static Double extractSecondsFromErrorMessage(String responseErrorMessage) {
+        var object = new JSONObject(response.body());
+        var errorMessageFinder = Pattern.compile("\\d+(\\.\\d+)?").matcher(responseErrorMessage);
+        if (errorMessageFinder.find()) {
+            return Double.parseDouble(errorMessageFinder.group());
+        }
+    }
+
+ */
 
     public static void globalErrorHandler(HttpResponse<String> response) {
         var object = new JSONObject(response.body());
