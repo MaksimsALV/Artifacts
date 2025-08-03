@@ -23,15 +23,21 @@ public class L5 {
     }
 
     public static boolean statusOK() {
-        return GetCharacter.positionX == 0 && GetCharacter.positionY == 1 && GetCharacter.hp >= 61;
+        int x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
+        int y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
+        int hp = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("hp"));
+        return x == 0 && y == 1 && hp >= 61;
     }
 
     public static boolean badPosition() {
-        return GetCharacter.positionX != 0 && GetCharacter.positionY != 1;
+        int x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
+        int y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
+        return x != 0 && y != 1;
     }
 
     public static boolean badHealth() {
-        return GetCharacter.hp <= 60;
+        int hp = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("hp"));
+        return hp <= 60;
     }
 
 }

@@ -7,33 +7,39 @@ import org.json.JSONObject;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
 public class GetCharacter {
-    public static int positionX;
-    public static int positionY;
-    public static int hp;
+    public static List<HashMap<String, String>> CHARACTER = new ArrayList<>();
 
     public static HttpResponse<String> getCharacter() {
         var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/characters/" + name;
+
         try {
             HttpResponse<String> response = Send.get(endpoint, false);
-            if (response.statusCode() == 200) {
-                var responseBody = response.body();
-                var object = new JSONObject(responseBody);
+            globalErrorHandler(response);
+
+            if (response.statusCode() == CODE_SUCCESS) {
+                var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
-                positionX = responseDataObject.getInt("x");
-                positionY = responseDataObject.getInt("y");
-                hp = responseDataObject.getInt("hp");
-                return response;
-            } else if (response.statusCode() == 404) {
-                System.err.println("getCharacter Character not found.");
-            } else {
-                System.err.println("getCharacter unexpected status code: " + response.statusCode());
+                CHARACTER.clear();
+
+                HashMap<String, String> characterData = new HashMap<>();
+                for (var key : responseDataObject.keySet()) {
+                    var value = responseDataObject.get(key).toString();
+                    characterData.put(key, value);
+                }
+                CHARACTER.add(characterData);
             }
-        } catch (Exception getCharacterError) {
-            System.err.println("Exception getCharacterError: " + getCharacterError.getMessage());
+        } catch (Exception getCharacterException) {
+            System.err.println("getCharacter() exception occurred: " + getCharacterException.getMessage());
         }
         return null;
     }

@@ -13,7 +13,6 @@ import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
 public class GetMyCharacters {
-    public static String name;
     public static List<HashMap<String, String>> MY_CHARACTERS = new ArrayList<>();
 
     public static HttpResponse<String> getMyCharacters() {
