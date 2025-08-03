@@ -15,7 +15,7 @@ public class ActionMove {
     public static int hp;
 
     public static HttpResponse<String> actionMove(int x, int y) {
-        var name = GetMyCharacters.name;
+        var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/move";
         var body = actionMoveBody(x, y);

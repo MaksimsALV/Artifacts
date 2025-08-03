@@ -1,4 +1,4 @@
-package com.artifacts.game.engine.logic.strategy.level;
+package com.artifacts.game.logic.leveling;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionFight;

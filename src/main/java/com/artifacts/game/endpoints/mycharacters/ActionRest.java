@@ -13,7 +13,8 @@ public class ActionRest {
     public static int hp;
 
     public static HttpResponse<String> actionRest() {
-        var name = GetMyCharacters.name;
+        var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
+
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/rest";
         try {

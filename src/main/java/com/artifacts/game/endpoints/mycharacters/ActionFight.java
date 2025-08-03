@@ -13,7 +13,8 @@ public class ActionFight {
     public static int hp;
 
     public static HttpResponse<String> actionFight() {
-        var name = GetMyCharacters.name;
+        var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
+
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/fight";
 

@@ -14,8 +14,9 @@ public class GetCharacter {
     public static int hp;
 
     public static HttpResponse<String> getCharacter() {
+        var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/characters/" + GetMyCharacters.name;
+        var endpoint = baseUrl + "/characters/" + name;
         try {
             HttpResponse<String> response = Send.get(endpoint, false);
             if (response.statusCode() == 200) {
