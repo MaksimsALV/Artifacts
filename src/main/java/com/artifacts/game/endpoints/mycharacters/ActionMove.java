@@ -3,50 +3,56 @@ package com.artifacts.game.endpoints.mycharacters;
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
 import org.json.JSONObject;
+import com.artifacts.game.endpoints.characters.GetCharacter;
 
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Pattern;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.game.endpoints.characters.GetCharacter.*;
+
 public class ActionMove {
-    public static int positionX;
-    public static int positionY;
-    public static int cooldownTotalSeconds;
-    public static int cooldownRemainingSeconds;
-    public static int hp;
+    public static List<HashMap<String, String>> MOVE = new ArrayList<>();
 
     public static HttpResponse<String> actionMove(int x, int y) {
-        var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
+        //var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
+        var name = GetCharacter.CHARACTER.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/move";
         var body = actionMoveBody(x, y);
 
         try {
             HttpResponse<String> response = Send.post(endpoint, body, true);
-            var responseBody = response.body();
+            globalErrorHandler(response);
 
-            if (response.statusCode() == 200) {
-                System.out.println("200: actionMove was successful");
-                var object = new JSONObject(responseBody);
+            if (response.statusCode() == CODE_SUCCESS) {
+                var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
-                var responseCharacterDataObject = responseDataObject.getJSONObject("character");
-                var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
-                positionX = responseCharacterDataObject.getInt("x");
-                positionY = responseCharacterDataObject.getInt("y");
-                cooldownTotalSeconds = responseCooldownDataObject.getInt("total_seconds");
-                cooldownRemainingSeconds = responseCooldownDataObject.getInt("remaining_seconds");
-                hp = responseCharacterDataObject.getInt("hp");
-                return response;
+                    var responseCharacterDataObject = responseDataObject.getJSONObject("character");
+                    var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                MOVE.clear();
+
+                HashMap<String, String> characterData = new HashMap<>();
+                for (var key : responseCharacterDataObject.keySet()) {
+                    var value = responseCharacterDataObject.getString(key).toString();
+                    characterData.put(key, value);
+                }
+                MOVE.add(characterData);
+
+                HashMap<String, String> cooldownData = new HashMap<>();
+                for (var key : responseCooldownDataObject.keySet()) {
+                    var value = responseCooldownDataObject.getString(key).toString();
+                    cooldownData.put(key, value);
+                }
+                MOVE.add(cooldownData);
+
             //todo all else if logic requires automation to do something once certain error code appears, for example: wait on 486 or 499 and repeat again after certain time due to CD.
-            } else if (response.statusCode() == 404) {
-                System.err.println("404: actionMove Map not found.");
-            } else if (response.statusCode() == 486) {
-                System.err.println("486: actionMove An action is already in progress for this character.");
-            } else if (response.statusCode() == 490) {
-                System.err.println("490: actionMove The character is already at the destination.");
-            } else if (response.statusCode() == 498) {
-                System.err.println("498: actionMove Character not found.");
-            } else if (response.statusCode() == 499) {
-                var object = new JSONObject(responseBody);
+            } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
+                var object = new JSONObject(response.body());
                 var responseErrorObject = object.getJSONObject("error");
                 var responseErrorMessage = responseErrorObject.getString("message");
 
@@ -61,11 +67,9 @@ public class ActionMove {
                 System.err.println("499: actionMove The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
                 Thread.sleep(time);
                 actionMove(x, y);
-            } else {
-                System.err.println("actionMove unexpected status code: " + response.statusCode() + response.body());
             }
-        } catch (Exception actionMoveError) {
-            System.err.println("Exception actionMoveError: " + actionMoveError.getMessage());
+        } catch (Exception actionMoveException) {
+            System.err.println("actionMove() exception occurred: " + actionMoveException.getMessage());
         }
         return null;
     }
