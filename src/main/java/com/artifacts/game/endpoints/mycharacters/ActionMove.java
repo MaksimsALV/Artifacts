@@ -38,14 +38,14 @@ public class ActionMove {
 
                 HashMap<String, String> characterData = new HashMap<>();
                 for (var key : responseCharacterDataObject.keySet()) {
-                    var value = responseCharacterDataObject.getString(key).toString();
+                    var value = responseCharacterDataObject.get(key).toString();
                     characterData.put(key, value);
                 }
                 MOVE.add(characterData);
 
                 HashMap<String, String> cooldownData = new HashMap<>();
                 for (var key : responseCooldownDataObject.keySet()) {
-                    var value = responseCooldownDataObject.getString(key).toString();
+                    var value = responseCooldownDataObject.get(key).toString();
                     cooldownData.put(key, value);
                 }
                 MOVE.add(cooldownData);
@@ -55,14 +55,11 @@ public class ActionMove {
                 var object = new JSONObject(response.body());
                 var responseErrorObject = object.getJSONObject("error");
                 var responseErrorMessage = responseErrorObject.getString("message");
-
-                //todo should move whole regex logic somewhere else.
                 var errorMessageFinder = Pattern.compile("\\d+(\\.\\d+)?").matcher(responseErrorMessage);
                 var seconds = 1.0;
                 if (errorMessageFinder.find()) {
                     seconds = Double.parseDouble(errorMessageFinder.group());
                 }
-                //var time = (long) (seconds * 1000);
 
                 System.err.println("499: actionMove The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
                 Thread.sleep(Converter.SecondsToMillisConverter(seconds));

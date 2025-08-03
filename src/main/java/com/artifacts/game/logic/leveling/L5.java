@@ -32,14 +32,13 @@ public class L5 {
     public static boolean badPosition() {
         int x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
         int y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
-        return x != 0 && y != 1;
+        return x != 0 || y != 1;
     }
 
     public static boolean badHealth() {
         int hp = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("hp"));
         return hp <= 60;
     }
-
 }
 
 

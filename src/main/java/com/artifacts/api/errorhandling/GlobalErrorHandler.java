@@ -10,6 +10,7 @@ import java.net.http.HttpResponse;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 
 public class GlobalErrorHandler {
+    
     public static String extractErrorMessage(JSONObject object) {
         if (object.has("message")) {
             return object.getString("message");

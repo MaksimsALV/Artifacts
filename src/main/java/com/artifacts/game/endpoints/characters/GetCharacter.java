@@ -30,7 +30,6 @@ public class GetCharacter {
                 var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
                 CHARACTER.clear();
-
                 HashMap<String, String> characterData = new HashMap<>();
                 for (var key : responseDataObject.keySet()) {
                     var value = responseDataObject.get(key).toString();

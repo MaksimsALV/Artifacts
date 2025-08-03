@@ -1,6 +1,7 @@
 package com.artifacts;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
+import com.artifacts.game.endpoints.mycharacters.ActionMove;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.leveling.L5;
