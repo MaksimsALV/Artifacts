@@ -36,6 +36,7 @@ public class GetMyCharacters {
                     }
                     MY_CHARACTERS.add(characterData);
                 }
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
             } else {
                 globalErrorHandler(response, endpoint);
             }
