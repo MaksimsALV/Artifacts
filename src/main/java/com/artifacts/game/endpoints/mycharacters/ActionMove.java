@@ -20,8 +20,7 @@ public class ActionMove {
     public static List<HashMap<String, String>> MOVE = new ArrayList<>();
 
     public static HttpResponse<String> actionMove(int x, int y) {
-        //var name = GetCharacter.CHARACTER.get(0).get("name");
-        var name = "abc";
+        var name = GetCharacter.CHARACTER.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/move";
         var body = actionMoveBody(x, y);
