@@ -9,14 +9,11 @@ public class Converter {
         return (long) (seconds * 1000);
     }
 
-    //todo need to convert millis to seconds too, else this happens: Character is currently on cooldown for: 22392s
+    //todo need to think if I need this converter even. Some endpoints convert seconds to millis and other way around via seconds * millis or millis / seconds.
+    //todo maybe in good practice i should use a converter like this instead of writing above mentioned equation in every endpoint
     public static long convertCooldownExpirationTimeToMillis() {
         var cooldownExpirationDateTime = GetCharacter.CHARACTER.get(0).get("cooldown_expiration");
         var cooldownExpirationDateTimeInMillis = Instant.parse(cooldownExpirationDateTime).toEpochMilli();
-        //var convertedCurrentDateTimeToMillis = Instant.now().toEpochMilli();
-
-        //var cooldownTimeInMillis = convertedCooldownExpirationDateTimeToMillis - convertedCurrentDateTimeToMillis;
-        //return cooldownTimeInMillis;
         return cooldownExpirationDateTimeInMillis;
     }
 }

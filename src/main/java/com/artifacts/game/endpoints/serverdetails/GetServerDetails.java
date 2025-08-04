@@ -9,6 +9,7 @@ public class GetServerDetails {
     public static boolean serverIsUp;
 
     public static HttpResponse<String> getServerDetails() {
+        //todo should redo the logic similar to other endpoints
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/";
         try {

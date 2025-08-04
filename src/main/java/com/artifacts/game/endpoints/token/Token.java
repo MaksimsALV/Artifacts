@@ -10,6 +10,7 @@ public class Token {
     public static String token;
 
     public static HttpResponse<String> getToken() {
+        //todo should redo whole logic similar to other endpoints
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/token";
         try {

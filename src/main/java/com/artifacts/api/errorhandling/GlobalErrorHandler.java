@@ -23,7 +23,7 @@ public class GlobalErrorHandler {
         return null;
     }
 
-    //todo WIP
+    //todo I dont think i need it anymore, because i am no longer relying on error code specific handling
     public static Double extractCooldownSecondsFromErrorMessage(String errorMessage) {
         if (errorMessage != null) {
             var matcher = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s+seconds?\\s+remaining")
@@ -42,6 +42,7 @@ public class GlobalErrorHandler {
         var responseErrorMessage = extractErrorMessage(object);
 
         try {
+            //todo I dont think i need code 200 here, because 200 is not an error, and im handling each 200 separatelly in each own endpoint class
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
 
@@ -116,6 +117,7 @@ public class GlobalErrorHandler {
             } else if (response.statusCode() == CODE_CHARACTER_NOT_FOUND) {
                 System.err.println(endpoint + " | " + CODE_CHARACTER_NOT_FOUND + " " + responseErrorMessage);
             } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
+                //todo I think i need to totally remove this part from here, because i am not relying on bad error handling anymore. I take cooldown data from 200 response body
                 System.err.println(CODE_CHARACTER_IN_COOLDOWN + responseErrorMessage);
                 var cooldownSeconds = extractCooldownSecondsFromErrorMessage(responseErrorMessage);
                 try {
