@@ -52,10 +52,10 @@ public class ActionMove {
                 }
                 MOVE.add(cooldownData);
                 var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
+                var reason = responseCooldownDataObject.getString("reason");
                 var millis = cooldown * 1000;
                 if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
-                    //todo need to add reason from response
-                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s");
+                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                     Thread.sleep(millis);
                 } else {
                     globalErrorHandler(response, endpoint);
