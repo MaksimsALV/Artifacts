@@ -23,6 +23,7 @@ public class GetMyCharacters {
             HttpResponse<String> response = Send.get(endpoint, true);
 
             if (response.statusCode() == CODE_SUCCESS) {
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(response.body());
                 var responseDataArray = object.getJSONArray("data");
                 MY_CHARACTERS.clear();
@@ -36,7 +37,6 @@ public class GetMyCharacters {
                     }
                     MY_CHARACTERS.add(characterData);
                 }
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
             } else {
                 globalErrorHandler(response, endpoint);
             }
