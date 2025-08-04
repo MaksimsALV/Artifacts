@@ -62,30 +62,6 @@ public class ActionFight {
                 } else {
                     globalErrorHandler(response, endpoint);
                 }
-
-                /*
-                //todo i am handling cooldown via response 200 result data, so should remove this if all tests pass good.
-            } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
-                var object = new JSONObject(responseBody);
-                var responseErrorObject = object.getJSONObject("error");
-                var responseErrorMessage = responseErrorObject.getString("message");
-                var errorMessageFinder = Pattern.compile("\\d+(\\.\\d+)?").matcher(responseErrorMessage);
-                var seconds = 1.0;
-                if (errorMessageFinder.find()) {
-                    seconds = Double.parseDouble(errorMessageFinder.group());
-                }
-                //var time = (long) (seconds * 1000);
-
-                System.err.println("499: actionFight The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
-                Thread.sleep(Converter.SecondsToMillisConverter(seconds));
-                actionFight();
-                /*
-            } else if (response.statusCode() == 598) {
-                    System.err.println("actionFight Monster not found on this map.");
-            } else {
-                System.err.println("actionFight unexpected status code: " + response.statusCode() + response.body());
-            }
-                 */
             }
         } catch (Exception actionFightException) {
             System.err.println(endpoint + " | Exception: " + actionFightException.getMessage());
