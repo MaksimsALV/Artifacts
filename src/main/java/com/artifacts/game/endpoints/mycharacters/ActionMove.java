@@ -29,7 +29,7 @@ public class ActionMove {
             HttpResponse<String> response = Send.post(endpoint, body, true);
 
             if (response.statusCode() == CODE_SUCCESS) {
-                //todo need to add Thread.sleep() after success from the response.
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
                     var responseCharacterDataObject = responseDataObject.getJSONObject("character");
