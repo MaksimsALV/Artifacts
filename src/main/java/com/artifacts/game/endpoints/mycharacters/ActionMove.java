@@ -49,6 +49,12 @@ public class ActionMove {
                     cooldownData.put(key, value);
                 }
                 MOVE.add(cooldownData);
+                var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
+                var millis = cooldown * 1000;
+                if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
+                    System.out.println(endpoint + " | " + CODE_SUCCESS + " - Character is now on a cooldown for: " + cooldown + "s");
+                    Thread.sleep(millis);
+                }
             } else {
                 globalErrorHandler(response, endpoint);
             }
