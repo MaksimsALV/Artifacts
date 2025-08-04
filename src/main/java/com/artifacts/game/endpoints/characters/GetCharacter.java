@@ -39,6 +39,7 @@ public class GetCharacter {
                 var cooldownExpirationMillis = convertCooldownExpirationTimeToMillis();
                 var cooldown = cooldownExpirationMillis - System.currentTimeMillis();
                 if (cooldown > 0) {
+                    System.out.println("getCharacter: Character is currently on cooldown for: " + cooldown + "s");
                     Thread.sleep(cooldown);
                 } else {
                     return null;
