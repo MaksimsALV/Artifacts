@@ -13,6 +13,7 @@ import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.tools.Converter.convertCooldownExpirationTimeToMillis;
 
 public class GetCharacter {
     public static List<HashMap<String, String>> CHARACTER = new ArrayList<>();
@@ -35,6 +36,13 @@ public class GetCharacter {
                     characterData.put(key, value);
                 }
                 CHARACTER.add(characterData);
+                var cooldownExpirationMillis = convertCooldownExpirationTimeToMillis();
+                var cooldown = cooldownExpirationMillis - System.currentTimeMillis();
+                if (cooldown > 0) {
+                    Thread.sleep(cooldown);
+                } else {
+                    return null;
+                }
             } else {
                 globalErrorHandler(response);
             }

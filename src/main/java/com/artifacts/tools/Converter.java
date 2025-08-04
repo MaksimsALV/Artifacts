@@ -9,12 +9,13 @@ public class Converter {
         return (long) (seconds * 1000);
     }
 
-    public static long cooldownExpirationTimeToNowTimeToMillisConverter() {
+    public static long convertCooldownExpirationTimeToMillis() {
         var cooldownExpirationDateTime = GetCharacter.CHARACTER.get(0).get("cooldown_expiration");
-            var convertedCooldownExpirationDateTimeToMillis = Instant.parse(cooldownExpirationDateTime).toEpochMilli();
-            var convertedCurrentDateTimeToMillis = Instant.now().toEpochMilli();
+        var cooldownExpirationDateTimeInMillis = Instant.parse(cooldownExpirationDateTime).toEpochMilli();
+        //var convertedCurrentDateTimeToMillis = Instant.now().toEpochMilli();
 
-            var cooldownTimeInMillis = convertedCooldownExpirationDateTimeToMillis - convertedCurrentDateTimeToMillis;
-            return cooldownTimeInMillis;
+        //var cooldownTimeInMillis = convertedCooldownExpirationDateTimeToMillis - convertedCurrentDateTimeToMillis;
+        //return cooldownTimeInMillis;
+        return cooldownExpirationDateTimeInMillis;
     }
 }
