@@ -59,7 +59,7 @@ public class ActionMove {
                 globalErrorHandler(response, endpoint);
             }
         } catch (Exception actionMoveException) {
-            System.err.println(endpoint + " | Exception in getCharacter: " + actionMoveException.getMessage());
+            System.err.println(endpoint + " | Exception: " + actionMoveException.getMessage());
         }
         return null;
     }

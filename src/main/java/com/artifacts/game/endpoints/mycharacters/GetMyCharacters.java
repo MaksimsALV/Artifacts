@@ -41,7 +41,7 @@ public class GetMyCharacters {
                 globalErrorHandler(response, endpoint);
             }
         } catch (Exception getMyCharactersException) {
-            System.err.println(endpoint + " | Exception in getMyCharacters: " + getMyCharactersException.getMessage());
+            System.err.println(endpoint + " | Exception: " + getMyCharactersException.getMessage());
         }
         return null;
     }

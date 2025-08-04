@@ -50,7 +50,7 @@ public class GetCharacter {
                 globalErrorHandler(response, endpoint);
             }
         } catch (Exception getCharacterException) {
-            System.err.println(endpoint + " | Exception in getCharacter: " + getCharacterException.getMessage());
+            System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
         }
         return null;
     }
