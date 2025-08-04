@@ -37,20 +37,20 @@ public class GlobalErrorHandler {
 
 
 
-    public static void globalErrorHandler(HttpResponse<String> response) {
+    public static void globalErrorHandler(HttpResponse<String> response, String endpoint) {
         var object = new JSONObject(response.body());
         var responseErrorMessage = extractErrorMessage(object);
 
         try {
             if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(CODE_SUCCESS + " OK");
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
 
             } else if (response.statusCode() == CODE_INVALID_PAYLOAD) {
                 System.err.println(CODE_INVALID_PAYLOAD + responseErrorMessage);
             } else if (response.statusCode() == CODE_TOO_MANY_REQUESTS) {
                 System.err.println(CODE_TOO_MANY_REQUESTS + responseErrorMessage);
             } else if (response.statusCode() == CODE_NOT_FOUND) {
-                System.err.println(CODE_NOT_FOUND + responseErrorMessage);
+                System.err.println(endpoint + " | " + CODE_NOT_FOUND + " " + responseErrorMessage);
             } else if (response.statusCode() == CODE_FATAL_ERROR) {
                 System.err.println(CODE_FATAL_ERROR + responseErrorMessage);
             } else if (response.statusCode() == CODE_INVALID_EMAIL_RESET_TOKEN) {
@@ -114,7 +114,7 @@ public class GlobalErrorHandler {
             } else if (response.statusCode() == CODE_CHARACTER_INVENTORY_FULL) {
                 System.err.println(CODE_CHARACTER_INVENTORY_FULL + responseErrorMessage);
             } else if (response.statusCode() == CODE_CHARACTER_NOT_FOUND) {
-                System.err.println(CODE_CHARACTER_NOT_FOUND + responseErrorMessage);
+                System.err.println(endpoint + " | " + CODE_CHARACTER_NOT_FOUND + " " + responseErrorMessage);
             } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
                 System.err.println(CODE_CHARACTER_IN_COOLDOWN + responseErrorMessage);
                 var cooldownSeconds = extractCooldownSecondsFromErrorMessage(responseErrorMessage);

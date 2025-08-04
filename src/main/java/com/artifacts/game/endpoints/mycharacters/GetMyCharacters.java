@@ -21,7 +21,7 @@ public class GetMyCharacters {
 
         try {
             HttpResponse<String> response = Send.get(endpoint, true);
-            globalErrorHandler(response);
+            globalErrorHandler(response, endpoint);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 var object = new JSONObject(response.body());

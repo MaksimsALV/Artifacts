@@ -45,7 +45,7 @@ public class GetCharacter {
                     return null;
                 }
             } else {
-                globalErrorHandler(response);
+                globalErrorHandler(response, endpoint);
             }
         } catch (Exception getCharacterException) {
             System.err.println("getCharacter() exception occurred: " + getCharacterException.getMessage());

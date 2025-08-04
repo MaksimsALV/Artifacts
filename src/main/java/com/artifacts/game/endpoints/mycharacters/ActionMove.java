@@ -49,7 +49,7 @@ public class ActionMove {
                 }
                 MOVE.add(cooldownData);
             } else {
-                globalErrorHandler(response);
+                globalErrorHandler(response, endpoint);
                 actionMove(x, y);
             }
         } catch (Exception actionMoveException) {
