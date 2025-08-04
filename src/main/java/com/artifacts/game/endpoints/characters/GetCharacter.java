@@ -27,6 +27,7 @@ public class GetCharacter {
             HttpResponse<String> response = Send.get(endpoint, false);
 
             if (response.statusCode() == CODE_SUCCESS) {
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
                 CHARACTER.clear();
@@ -40,7 +41,7 @@ public class GetCharacter {
                 var cooldown = cooldownExpirationMillis - System.currentTimeMillis();
                 var seconds = cooldown / 1000;
                 if (cooldown > 0) {
-                    System.out.println(endpoint + " | " + CODE_SUCCESS + " - Character is now on a cooldown for: " + seconds + "s");
+                    System.out.println(endpoint + " | " + name + " is now on a cooldown for: " + seconds + "s");
                     Thread.sleep(cooldown);
                 } else {
                     return null;
