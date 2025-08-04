@@ -20,7 +20,8 @@ public class ActionMove {
     public static List<HashMap<String, String>> MOVE = new ArrayList<>();
 
     public static HttpResponse<String> actionMove(int x, int y) {
-        var name = GetCharacter.CHARACTER.get(0).get("name");
+        //var name = GetCharacter.CHARACTER.get(0).get("name");
+        var name = "abc";
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/move";
         var body = actionMoveBody(x, y);
@@ -29,6 +30,7 @@ public class ActionMove {
             HttpResponse<String> response = Send.post(endpoint, body, true);
 
             if (response.statusCode() == CODE_SUCCESS) {
+                //todo need to add Thread.sleep() after success from the response.
                 var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
                     var responseCharacterDataObject = responseDataObject.getJSONObject("character");
@@ -50,10 +52,9 @@ public class ActionMove {
                 MOVE.add(cooldownData);
             } else {
                 globalErrorHandler(response, endpoint);
-                actionMove(x, y);
             }
         } catch (Exception actionMoveException) {
-            System.err.println("actionMove() exception occurred: " + actionMoveException.getMessage());
+            System.err.println(endpoint + " | Exception in getCharacter: " + actionMoveException.getMessage());
         }
         return null;
     }
