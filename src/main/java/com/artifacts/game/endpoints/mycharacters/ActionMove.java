@@ -60,8 +60,6 @@ public class ActionMove {
                 } else {
                     globalErrorHandler(response, endpoint);
                 }
-            } else {
-                globalErrorHandler(response, endpoint);
             }
         } catch (Exception actionMoveException) {
             System.err.println(endpoint + " | Exception: " + actionMoveException.getMessage());
