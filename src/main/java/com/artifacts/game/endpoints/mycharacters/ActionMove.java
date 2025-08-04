@@ -57,6 +57,8 @@ public class ActionMove {
                     //todo need to add reason from response
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s");
                     Thread.sleep(millis);
+                } else {
+                    globalErrorHandler(response, endpoint);
                 }
             } else {
                 globalErrorHandler(response, endpoint);
