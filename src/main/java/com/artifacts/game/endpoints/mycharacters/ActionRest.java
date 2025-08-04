@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
-//todo redo using global logic
 public class ActionRest {
     public static List<HashMap<String, String>> REST = new ArrayList<>();
 
@@ -28,6 +28,7 @@ public class ActionRest {
             var responseBody = response.body();
 
             if (response.statusCode() == CODE_SUCCESS) {
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(responseBody);
                 var responseDataObject = object.getJSONObject("data");
                     var responseCharacterDataObject = responseDataObject.getJSONObject("character");
@@ -47,8 +48,18 @@ public class ActionRest {
                     cooldownData.put(key, value);
                 }
                 REST.add(cooldownData);
+                var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
+                var millis = cooldown * 1000;
+                if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
+                    //todo need to add reason from response
+                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s");
+                    Thread.sleep(millis);
+                } else {
+                    globalErrorHandler(response, endpoint);
+                }
 
-                //todo this should be moved out of it and handled via GlobalErrorHandler with Regex
+                /*
+                //todo i am handling cooldown via response 200 result data, so should remove this if all tests pass good.
             } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
                 var object = new JSONObject(responseBody);
                 var responseErrorObject = object.getJSONObject("error");
@@ -61,9 +72,10 @@ public class ActionRest {
                 System.err.println("499: actionRest The character is in cooldown: Sleeping for " + seconds + "s and repeating the step again.");
                 Thread.sleep(Converter.SecondsToMillisConverter(seconds));
                 actionRest();
+                 */
             }
-        } catch (Exception actionRestError) {
-            System.err.println("Exception actionRestError: " + actionRestError.getMessage());
+        } catch (Exception actionRestException) {
+            System.err.println(endpoint + " | Exception: " + actionRestException.getMessage());
         }
         return null;
     }

@@ -52,6 +52,7 @@ public class ActionMove {
                 var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
                 var millis = cooldown * 1000;
                 if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
+                    //todo need to add reason from response
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s");
                     Thread.sleep(millis);
                 }

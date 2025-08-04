@@ -41,6 +41,7 @@ public class GetCharacter {
                 var cooldown = cooldownExpirationMillis - System.currentTimeMillis();
                 var seconds = cooldown / 1000;
                 if (cooldown > 0) {
+                    //todo need to add reason from response
                     System.out.println(name + " is now on a cooldown for: " + seconds + "s");
                     Thread.sleep(cooldown);
                 } else {
