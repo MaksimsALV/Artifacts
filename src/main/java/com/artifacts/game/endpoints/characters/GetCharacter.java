@@ -24,7 +24,6 @@ public class GetCharacter {
 
         try {
             HttpResponse<String> response = Send.get(endpoint, false);
-            globalErrorHandler(response);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 var object = new JSONObject(response.body());
@@ -36,6 +35,8 @@ public class GetCharacter {
                     characterData.put(key, value);
                 }
                 CHARACTER.add(characterData);
+            } else {
+                globalErrorHandler(response);
             }
         } catch (Exception getCharacterException) {
             System.err.println("getCharacter() exception occurred: " + getCharacterException.getMessage());
