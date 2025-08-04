@@ -16,6 +16,7 @@ import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
 public class ActionRest {
+    //todo need to think if I even need lists for each endpoint like this. Because i work with data directly from response 200 body data
     public static List<HashMap<String, String>> REST = new ArrayList<>();
 
     public static HttpResponse<String> actionRest() {
@@ -33,6 +34,7 @@ public class ActionRest {
                 var responseDataObject = object.getJSONObject("data");
                     var responseCharacterDataObject = responseDataObject.getJSONObject("character");
                     var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                //todo if i will not use lists of actions then maybe i can remove whole bottom logic of putting data into the lists. Because i work with data directly from response 200 body data
                 REST.clear();
 
                 HashMap<String, String> characterData = new HashMap<>();

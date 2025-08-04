@@ -17,6 +17,7 @@ import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHand
 import static com.artifacts.game.endpoints.characters.GetCharacter.*;
 
 public class ActionMove {
+    //todo need to think if I even need lists for each endpoint like this. Because i work with data directly from response 200 body data
     public static List<HashMap<String, String>> MOVE = new ArrayList<>();
 
     public static HttpResponse<String> actionMove(int x, int y) {
@@ -34,6 +35,7 @@ public class ActionMove {
                 var responseDataObject = object.getJSONObject("data");
                     var responseCharacterDataObject = responseDataObject.getJSONObject("character");
                     var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                //todo if i will not use lists of actions then maybe i can remove whole bottom logic of putting data into the lists. Because i work with data directly from response 200 body data
                 MOVE.clear();
 
                 HashMap<String, String> characterData = new HashMap<>();

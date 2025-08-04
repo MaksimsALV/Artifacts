@@ -14,18 +14,15 @@ import java.util.regex.Pattern;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_IN_COOLDOWN;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
 
 //todo redo using global logic
 public class ActionFight {
-    //public static int cooldownTotalSeconds;
-    //public static int cooldownRemainingSeconds;
-    //public static int hp;
+    //todo need to think if I even need lists for each endpoint like this. Because i work with data directly from response 200 body data
     public static List<HashMap<String, String>> FIGHT = new ArrayList<>();
 
-
     public static HttpResponse<String> actionFight() {
-        //var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
         var name = GetCharacter.CHARACTER.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/fight";
@@ -35,10 +32,12 @@ public class ActionFight {
             var responseBody = response.body();
 
             if (response.statusCode() == CODE_SUCCESS) {
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(responseBody);
                 var responseDataObject = object.getJSONObject("data");
                     var responseCharacterDataObject = responseDataObject.getJSONObject("character");
                     var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                //todo if i will not use lists of actions then maybe i can remove whole bottom logic of putting data into the lists. Because i work with data directly from response 200 body data
                 FIGHT.clear();
 
                 HashMap<String, String> characterData = new HashMap<>();
@@ -54,27 +53,22 @@ public class ActionFight {
                     cooldownData.put(key, value);
                 }
                 FIGHT.add(cooldownData);
+                var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
+                var millis = cooldown * 1000;
+                if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
+                    //todo need to add reason from response
+                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s");
+                    Thread.sleep(millis);
+                } else {
+                    globalErrorHandler(response, endpoint);
+                }
 
-                //cooldownTotalSeconds = responseCooldownDataObject.getInt("total_seconds");
-                //cooldownRemainingSeconds = responseCooldownDataObject.getInt("remaining_seconds");
-                //hp = responseCharacterDataObject.getInt("hp");
-                //return response;
                 /*
-            } else if (response.statusCode() == 486) {
-                System.err.println("actionFight An action is already in progress for this character.");
-            } else if (response.statusCode() == 487) {
-                System.err.println("actionFight The character's inventory is full.");
-            } else if (response.statusCode() == 498) {
-                System.err.println("actionFight Character not found.");
-            }
-                 */
-
+                //todo i am handling cooldown via response 200 result data, so should remove this if all tests pass good.
             } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
                 var object = new JSONObject(responseBody);
                 var responseErrorObject = object.getJSONObject("error");
                 var responseErrorMessage = responseErrorObject.getString("message");
-
-                //todo should move whole regex logic somewhere else.
                 var errorMessageFinder = Pattern.compile("\\d+(\\.\\d+)?").matcher(responseErrorMessage);
                 var seconds = 1.0;
                 if (errorMessageFinder.find()) {
@@ -93,8 +87,8 @@ public class ActionFight {
             }
                  */
             }
-        } catch (Exception actionFightError) {
-            System.err.println("Exception actionFightError: " + actionFightError.getMessage());
+        } catch (Exception actionFightException) {
+            System.err.println(endpoint + " | Exception: " + actionFightException.getMessage());
         }
         return null;
     }
