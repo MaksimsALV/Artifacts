@@ -23,30 +23,12 @@ public class GlobalErrorHandler {
         return null;
     }
 
-    //todo I dont think i need it anymore, because i am no longer relying on error code specific handling
-    public static Double extractCooldownSecondsFromErrorMessage(String errorMessage) {
-        if (errorMessage != null) {
-            var matcher = Pattern.compile("(\\d+(?:\\.\\d+)?)\\s+seconds?\\s+remaining")
-                    .matcher(errorMessage);
-            if (matcher.find()) {
-                return Double.parseDouble(matcher.group(1));
-            }
-        }
-        return null;
-    }
-
-
-
     public static void globalErrorHandler(HttpResponse<String> response, String endpoint) {
         var object = new JSONObject(response.body());
         var responseErrorMessage = extractErrorMessage(object);
 
         try {
-            //todo I dont think i need code 200 here, because 200 is not an error, and im handling each 200 separatelly in each own endpoint class
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-
-            } else if (response.statusCode() == CODE_INVALID_PAYLOAD) {
+            if (response.statusCode() == CODE_INVALID_PAYLOAD) {
                 System.err.println(endpoint + " | " + CODE_INVALID_PAYLOAD + " " + responseErrorMessage);
             } else if (response.statusCode() == CODE_TOO_MANY_REQUESTS) {
                 System.err.println(endpoint + " | " + CODE_TOO_MANY_REQUESTS + " " + responseErrorMessage);
@@ -117,17 +99,7 @@ public class GlobalErrorHandler {
             } else if (response.statusCode() == CODE_CHARACTER_NOT_FOUND) {
                 System.err.println(endpoint + " | " + CODE_CHARACTER_NOT_FOUND + " " + responseErrorMessage);
             } else if (response.statusCode() == CODE_CHARACTER_IN_COOLDOWN) {
-                //todo I think i need to totally remove this part from here, because i am not relying on bad error handling anymore. I take cooldown data from 200 response body
-                System.err.println(CODE_CHARACTER_IN_COOLDOWN + responseErrorMessage);
-                var cooldownSeconds = extractCooldownSecondsFromErrorMessage(responseErrorMessage);
-                try {
-                    if (cooldownSeconds != null && cooldownSeconds > 0) {
-                        Thread.sleep(Converter.SecondsToMillisConverter(cooldownSeconds));
-                    }
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    System.err.println("CODE_CHARACTER_IN_COOLDOWN Sleep interrupted: " + e.getMessage());
-                }
+                System.err.println(endpoint + " | " + CODE_CHARACTER_IN_COOLDOWN + " " + responseErrorMessage);
             } else if (response.statusCode() == CODE_ITEM_INSUFFICIENT_QUANTITY) {
                 System.err.println(endpoint + " | " + CODE_ITEM_INSUFFICIENT_QUANTITY + " " + responseErrorMessage);
             } else if (response.statusCode() == CODE_ITEM_INVALID_EQUIPMENT) {

@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
-import static com.artifacts.api.errorhandling.GlobalErrorHandler.extractCooldownSecondsFromErrorMessage;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.game.endpoints.characters.GetCharacter.*;
 
