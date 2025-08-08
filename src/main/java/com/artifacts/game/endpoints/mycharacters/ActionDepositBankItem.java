@@ -27,7 +27,7 @@ public class ActionDepositBankItem {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
-                    var responseCharacterDataObject = responseDataObject.getJSONObject("character");
+                    //var responseCharacterDataObject = responseDataObject.getJSONObject("character"); //not really need character data here I think, because I just do thing and move away
                     var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
                 var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
                 var reason = responseCooldownDataObject.getString("reason");
