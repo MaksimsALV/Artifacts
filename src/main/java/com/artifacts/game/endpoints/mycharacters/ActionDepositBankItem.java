@@ -1,5 +1,6 @@
 package com.artifacts.game.endpoints.mycharacters;
 
+import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import org.json.JSONArray;
@@ -8,6 +9,9 @@ import org.json.JSONObject;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+
 public class ActionDepositBankItem {
     public static HashMap<String, Integer> ITEMS_FOR_DEPOSIT = new HashMap<>();
     public static HttpResponse<String> actionDepositBankItem() {
@@ -15,8 +19,30 @@ public class ActionDepositBankItem {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/bank/deposit/item";
         getItemsForBankDeposit();
-        actionDepositBankItemBody();
-        return null; //need to remove later
+        var requestBody = actionDepositBankItemBody();
+        try {
+            HttpResponse<String> response = Send.post(endpoint, requestBody, true);
+
+            if (response.statusCode() == CODE_SUCCESS) {
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
+                var object = new JSONObject(response.body());
+                var responseDataObject = object.getJSONObject("data");
+                    var responseCharacterDataObject = responseDataObject.getJSONObject("character");
+                    var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
+                var reason = responseCooldownDataObject.getString("reason");
+                var millis = cooldown * 1000;
+                if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
+                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
+                    Thread.sleep(millis);
+                } else {
+                    globalErrorHandler(response, endpoint);
+                }
+            }
+        } catch (Exception actionDepositBankItemException) {
+            System.err.println(endpoint + " | Exception: " + actionDepositBankItemException.getMessage());
+        }
+        return null;
     }
 
     public static String actionDepositBankItemBody() { //creating an array of bodies to deposit request
