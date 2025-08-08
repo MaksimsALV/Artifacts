@@ -5,6 +5,7 @@ import com.artifacts.game.endpoints.mycharacters.ActionFight;
 
 import java.util.HashMap;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.game.endpoints.characters.GetCharacter.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionFight.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.*;
@@ -34,6 +35,11 @@ public static void runLoop() throws InterruptedException {
             if (hp <= 60) {
                 actionRest();
             }
+
+            //todo if inventory is full > move to bank > deposit > return to loop
+            //if (actionFight().statusCode() == CODE_CHARACTER_INVENTORY_FULL) {
+
+            //}
         }
     }
 

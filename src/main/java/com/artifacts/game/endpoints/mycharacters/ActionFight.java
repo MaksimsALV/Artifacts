@@ -69,3 +69,19 @@ public class ActionFight {
         return null;
     }
 }
+
+
+//removed functionality
+
+/*
+//inventory quantity counter
+var responseCharacterInventoryDataObject = responseCharacterDataObject.getJSONArray("inventory");
+var numberOfItemsInInventory = 0; //starting point
+for (var i = 0; i < responseCharacterInventoryDataObject.length(); i++) {
+    var slotObject = responseCharacterInventoryDataObject.getJSONObject(i);
+    numberOfItemsInInventory += slotObject.getInt("quantity");
+}
+HashMap<String, String> inventoryCountMap = new HashMap<>();
+inventoryCountMap.put("inventory_count", String.valueOf(numberOfItemsInInventory));
+FIGHT.add(inventoryCountMap);
+*/
