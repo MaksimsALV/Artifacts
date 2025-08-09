@@ -26,7 +26,6 @@ public class MiningCopper {
             var gatheringResponse = ActionGathering.actionGathering();
             if (gatheringResponse.statusCode() == CODE_CHARACTER_INVENTORY_FULL) {
                 actionMove(4,1);
-                getCharacter();
                 var depositResponse = ActionDepositBankItem.actionDepositBankItem();
                 if (depositResponse.statusCode() == CODE_SUCCESS) { //if NPE happens, add fightResponse.statusCode() != null &&...
                     miningCopperLoop();

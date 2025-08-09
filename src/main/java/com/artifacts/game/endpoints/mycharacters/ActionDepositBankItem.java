@@ -59,6 +59,7 @@ public class ActionDepositBankItem {
     }
 
     public static void getItemsForBankDeposit() {
+        GetCharacter.getCharacter(); //getting latest character data
         var inventory = GetCharacter.CHARACTER.get(0).get("inventory"); //1). might need to store inventory object in CHARACTER list as im not doing it rn, not sure
         var inventoryJSONArray = new JSONArray(inventory); //parsing inventory String into JSONArray
         for (var i = 0; i < inventoryJSONArray.length(); i++) {

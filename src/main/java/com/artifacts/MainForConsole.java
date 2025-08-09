@@ -1,6 +1,7 @@
 package com.artifacts;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
+import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
@@ -20,6 +21,7 @@ public class MainForConsole {
         System.out.println("\ninitial Character data is received successfully");
         //delay(5);
 
+        //ActionDepositBankItem.actionDepositBankItem();
         MiningCopper.miningCopperLoop();
         //L5.runLoop();
     }
