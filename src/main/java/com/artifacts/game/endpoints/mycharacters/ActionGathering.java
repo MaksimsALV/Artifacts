@@ -29,8 +29,8 @@ public class ActionGathering {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(responseBody);
                 var responseDataObject = object.getJSONObject("data");
-                    var responseCharacterDataObject = responseDataObject.getJSONObject("character");
-                    var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                var responseCharacterDataObject = responseDataObject.getJSONObject("character");
+                var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
                 GATHERING.clear();
 
                 HashMap<String, String> characterData = new HashMap<>();
@@ -52,13 +52,12 @@ public class ActionGathering {
                 if (cooldown > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                     Thread.sleep(millis);
-                    return response;
-                } else {
-                    globalErrorHandler(response, endpoint);
-                    return response;
                 }
+                return response;
             }
+            globalErrorHandler(response, endpoint);
             return response;
+
         } catch (Exception actionGatheringException) {
             System.err.println(endpoint + " | Exception: " + actionGatheringException.getMessage());
         }

@@ -53,6 +53,7 @@ public static void runLoop() throws InterruptedException {
     }
 
     public static boolean statusOk() {
+        getCharacter();
         int x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
         int y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
         int hp = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("hp"));
@@ -60,12 +61,14 @@ public static void runLoop() throws InterruptedException {
     }
 
     public static boolean badPosition() {
+        getCharacter();
         int x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
         int y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
         return x != 0 || y != 1;
     }
 
     public static boolean badHealth() {
+        getCharacter();
         int hp = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("hp"));
         return hp <= 60;
     }

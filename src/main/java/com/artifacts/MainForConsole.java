@@ -4,6 +4,7 @@ import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
+import com.artifacts.game.logic.activity.MiningCopper;
 import com.artifacts.game.logic.leveling.L5;
 
 import static com.artifacts.tools.Delay.delay;
@@ -19,6 +20,7 @@ public class MainForConsole {
         System.out.println("\ninitial Character data is received successfully");
         //delay(5);
 
-        L5.runLoop();
+        MiningCopper.miningCopperLoop();
+        //L5.runLoop();
     }
 }
