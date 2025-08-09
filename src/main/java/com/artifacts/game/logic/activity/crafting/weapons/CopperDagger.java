@@ -4,6 +4,10 @@ import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionCrafting;
 import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
+import org.json.JSONArray;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
@@ -40,7 +44,20 @@ public class CopperDagger {
         getCharacter();
         var x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
         var y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
-        return x == 2 && y == 1;
+        var inventory = GetCharacter.CHARACTER.get(0).get("inventory");
+        var resourcesOK = false; //default state for not having resources for crafting
+        var inventoryJSONArray = new JSONArray(inventory);
+        for (var i = 0; i < inventoryJSONArray.length(); i++) {
+            var item = inventoryJSONArray.getJSONObject(i);
+            var itemName = item.getString("code");
+            var itemQuantity = item.getInt("quantity");
+            if ("copper_bar".equals(itemName) && itemQuantity > 6) {
+                resourcesOK = true;
+                break;
+            }
+        }
+        var positionOK = (x == 2 && y == 1);
+        return positionOK && resourcesOK;
     }
 
     public static boolean badPosition() {
