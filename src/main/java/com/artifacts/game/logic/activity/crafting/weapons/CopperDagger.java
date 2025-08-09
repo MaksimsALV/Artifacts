@@ -66,4 +66,23 @@ public class CopperDagger {
         var y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
         return x != 2 || y != 1;
     }
+
+    public static boolean badResources() {
+        getCharacter(); //todo need to stop relying on getCharacter requests so much and should use previous response data instead
+        var inventory = GetCharacter.CHARACTER.get(0).get("inventory");
+        var inventoryJSONArray = new JSONArray(inventory);
+        var copperBarExists = false;
+        var copperBarQuantity = 0;
+        for (var i = 0; i < inventoryJSONArray.length(); i++) {
+            var item = inventoryJSONArray.getJSONObject(i);
+            var itemName = item.getString("code");
+            var itemQuantity = item.getInt("quantity");
+            if ("copper_bar".equals(itemName)) {
+                copperBarExists = true;
+                copperBarQuantity = itemQuantity;
+                break;
+            }
+        }
+        return !copperBarExists || copperBarQuantity < 6;
+    }
 }
