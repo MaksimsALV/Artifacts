@@ -59,10 +59,13 @@ public class ActionFight {
                 if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                     Thread.sleep(millis);
+                    return response;
                 } else {
                     globalErrorHandler(response, endpoint);
+                    return response;
                 }
             }
+            return response;
         } catch (Exception actionFightException) {
             System.err.println(endpoint + " | Exception: " + actionFightException.getMessage());
         }

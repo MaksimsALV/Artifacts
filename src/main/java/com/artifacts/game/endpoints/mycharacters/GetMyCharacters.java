@@ -39,6 +39,7 @@ public class GetMyCharacters {
                 }
             } else {
                 globalErrorHandler(response, endpoint);
+                return response;
             }
         } catch (Exception getMyCharactersException) {
             System.err.println(endpoint + " | Exception: " + getMyCharactersException.getMessage());

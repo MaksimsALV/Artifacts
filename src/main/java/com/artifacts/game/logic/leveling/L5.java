@@ -38,10 +38,10 @@ public static void runLoop() throws InterruptedException {
             }
 
             //todo if inventory is full > move to bank > deposit > return to loop
-            if (fightResponse != null && fightResponse.statusCode() == CODE_CHARACTER_INVENTORY_FULL) {
+            if (fightResponse.statusCode() == CODE_CHARACTER_INVENTORY_FULL) { //if NPE happens, add fightResponse.statusCode() != null &&...
                 actionMove(4,1);
                 var depositResponse = ActionDepositBankItem.actionDepositBankItem();
-                if (depositResponse != null && depositResponse.statusCode() == CODE_SUCCESS) {
+                if (depositResponse.statusCode() == CODE_SUCCESS) { //if NPE happens, add fightResponse.statusCode() != null &&...
                     runLoop();
                     return; //quitting the current loop
                 } else {

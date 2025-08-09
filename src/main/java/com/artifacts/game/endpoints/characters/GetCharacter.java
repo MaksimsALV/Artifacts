@@ -44,11 +44,13 @@ public class GetCharacter {
                     //todo need to add reason from response
                     System.out.println(name + " is now on a cooldown for: " + seconds + "s");
                     Thread.sleep(cooldown);
+                    return response;
                 } else {
                     return null;
                 }
             } else {
                 globalErrorHandler(response, endpoint);
+                return response;
             }
         } catch (Exception getCharacterException) {
             System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
