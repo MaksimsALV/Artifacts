@@ -45,13 +45,12 @@ public class GetCharacter {
                     System.out.println(name + " is now on a cooldown for: " + seconds + "s");
                     Thread.sleep(cooldown);
                     return response;
-                } else {
-                    return null;
                 }
-            } else {
-                globalErrorHandler(response, endpoint);
                 return response;
             }
+            globalErrorHandler(response, endpoint);
+            return response;
+
         } catch (Exception getCharacterException) {
             System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
         }

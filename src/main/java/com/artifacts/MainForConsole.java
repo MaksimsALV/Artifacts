@@ -20,7 +20,7 @@ public class MainForConsole {
         System.out.println("\ninitial Character data is received successfully");
         //delay(5);
 
-        MiningCopper.miningCopperLoop();
-        //L5.runLoop();
+        //MiningCopper.miningCopperLoop();
+        L5.runLoop();
     }
 }

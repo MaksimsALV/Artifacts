@@ -56,13 +56,12 @@ public class ActionRest {
                 if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                     Thread.sleep(millis);
-                    return response;
-                } else {
-                    globalErrorHandler(response, endpoint);
-                    return response;
                 }
+                return response;
             }
+            globalErrorHandler(response, endpoint);
             return response;
+
         } catch (Exception actionRestException) {
             System.err.println(endpoint + " | Exception: " + actionRestException.getMessage());
         }

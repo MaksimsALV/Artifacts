@@ -37,10 +37,11 @@ public class GetMyCharacters {
                     }
                     MY_CHARACTERS.add(characterData);
                 }
-            } else {
-                globalErrorHandler(response, endpoint);
                 return response;
             }
+            globalErrorHandler(response, endpoint);
+            return response;
+
         } catch (Exception getMyCharactersException) {
             System.err.println(endpoint + " | Exception: " + getMyCharactersException.getMessage());
         }
