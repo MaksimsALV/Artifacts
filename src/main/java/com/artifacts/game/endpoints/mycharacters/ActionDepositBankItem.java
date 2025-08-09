@@ -27,21 +27,20 @@ public class ActionDepositBankItem {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
-                    //var responseCharacterDataObject = responseDataObject.getJSONObject("character"); //not really need character data here I think, because I just do thing and move away
-                    var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                //var responseCharacterDataObject = responseDataObject.getJSONObject("character"); //not really need character data here I think, because I just do thing and move away
+                var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
                 var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
                 var reason = responseCooldownDataObject.getString("reason");
                 var millis = cooldown * 1000;
                 if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                     Thread.sleep(millis);
-                    return response;
-                } else {
-                    globalErrorHandler(response, endpoint);
-                    return response;
                 }
+                return response;
             }
+            globalErrorHandler(response, endpoint);
             return response;
+
         } catch (Exception actionDepositBankItemException) {
             System.err.println(endpoint + " | Exception: " + actionDepositBankItemException.getMessage());
         }
