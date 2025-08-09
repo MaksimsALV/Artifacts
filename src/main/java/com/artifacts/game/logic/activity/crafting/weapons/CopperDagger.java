@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.activity;
+package com.artifacts.game.logic.activity.crafting.weapons;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionCrafting;
@@ -11,7 +11,7 @@ import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.tools.Delay.delay;
 
-public class CraftingWeapon {
+public class CopperDagger {
     public static void craftingCopperDagger() throws InterruptedException {
         if (!statusOk()) { //todo need to add if enough mats for crafting logic also
             System.out.println("\nStatus is not okay, fixing....");
