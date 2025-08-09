@@ -29,8 +29,24 @@ public class ActionCrafting {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
                 var object = new JSONObject(response.body());
                 var responseDataObject = object.getJSONObject("data");
-                //var responseCharacterDataObject = responseDataObject.getJSONObject("character"); //not really need character data here I think, because I just do thing and move away
+                var responseCharacterDataObject = responseDataObject.getJSONObject("character"); //not really need character data here I think, because I just do thing and move away
                 var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
+                CRAFTING.clear();
+
+                HashMap<String, String> characterData = new HashMap<>();
+                for (var key : responseCharacterDataObject.keySet()) {
+                    var value = responseCharacterDataObject.get(key).toString();
+                    characterData.put(key, value);
+                }
+                CRAFTING.add(characterData);
+
+                HashMap<String, String> cooldownData = new HashMap<>();
+                for (var key : responseCooldownDataObject.keySet()) {
+                    var value = responseCooldownDataObject.get(key).toString();
+                    cooldownData.put(key, value);
+                }
+                CRAFTING.add(cooldownData);
+
                 var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
                 var reason = responseCooldownDataObject.getString("reason");
                 var millis = cooldown * 1000;
