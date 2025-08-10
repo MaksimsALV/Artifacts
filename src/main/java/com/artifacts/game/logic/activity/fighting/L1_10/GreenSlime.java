@@ -29,13 +29,15 @@ public static void runLoop() throws InterruptedException {
         }
 
     System.out.println("\nAll issues are fixed. Starting infinite loop");
-    delay(10);
+    //delay(10);
         while (true) {
             var fightResponse = actionFight(); //initially executes this method during loop start, then storing response in variable
             HashMap<String, String> characterData = ActionFight.FIGHT.get(0);
             var hp = Integer.parseInt(characterData.get("hp"));
             if (hp <= 60) {
                 actionRest();
+            } if (badPosition()) {
+                    actionMove(0,-1);
             }
 
             //todo if inventory is full > move to bank > deposit > return to loop
