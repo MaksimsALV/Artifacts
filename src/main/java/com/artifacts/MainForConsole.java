@@ -5,6 +5,8 @@ import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.crafting.gear.copper.CopperLegs;
 import com.artifacts.game.logic.activity.crafting.shields.WoodenShield;
+import com.artifacts.game.logic.activity.fighting.L1_10.GreenSlime;
+import com.artifacts.game.logic.activity.fighting.L1_10.Sheep;
 
 public class MainForConsole {
     public static void main(String[] args) throws Exception {
@@ -22,7 +24,7 @@ public class MainForConsole {
         //CopperDagger.craftingCopperDagger();
         //CopperBoots.craftingCopperBoots();
         //CopperHelmet.craftingCopperHelmet();
-        CopperLegs.craftingCopperLegs();
+        //CopperLegs.craftingCopperLegs();
         //CopperRing.craftingCopperRing();
         //WoodenShield.craftingWoodenShield();
 
@@ -35,6 +37,6 @@ public class MainForConsole {
         //WoodcuttingAshTree.woodcuttingAshTreeLoop();
 
         //fighting
-        //L5.runLoop();
+        GreenSlime.runLoop();
     }
 }

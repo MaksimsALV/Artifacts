@@ -14,7 +14,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 import static com.artifacts.tools.Delay.delay;
 
-public class Sheep {
+public class GreenSlime {
 public static void runLoop() throws InterruptedException {
     System.out.println("\nStarting initial check");
     //delay(5);
@@ -22,7 +22,7 @@ public static void runLoop() throws InterruptedException {
             System.out.println("\nStatus is not okay, fixing....");
             getCharacter();
             if (badPosition()) {
-                actionMove(5,12);
+                actionMove(0,-1);
             } else if (badHealth()) {
                 actionRest();
             }
@@ -34,7 +34,7 @@ public static void runLoop() throws InterruptedException {
             var fightResponse = actionFight(); //initially executes this method during loop start, then storing response in variable
             HashMap<String, String> characterData = ActionFight.FIGHT.get(0);
             var hp = Integer.parseInt(characterData.get("hp"));
-            if (hp <= 170) {
+            if (hp <= 60) {
                 actionRest();
             }
 
@@ -58,20 +58,20 @@ public static void runLoop() throws InterruptedException {
         int x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
         int y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
         int hp = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("hp"));
-        return (x == 5 && y == 12) && (hp >= 170);
+        return (x == 0 && y == -1) && (hp >= 61);
     }
 
     public static boolean badPosition() {
         getCharacter(); //todo need to stop relying on getCharacter requests so much and should use previous response data instead
         int x = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("x"));
         int y = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("y"));
-        return x != 5 || y != 12;
+        return x != 0 || y != -1;
     }
 
     public static boolean badHealth() {
         getCharacter(); //todo need to stop relying on getCharacter requests so much and should use previous response data instead
         int hp = Integer.parseInt(GetCharacter.CHARACTER.get(0).get("hp"));
-        return hp <= 170;
+        return hp <= 60;
     }
 }
 
