@@ -2,8 +2,8 @@ package com.artifacts.game.config;
 
 public final class Characters {
     private Characters() {}
-        public static final String WARRIOR = "MaxiTheGuy";
-        public static final String GATHERER = "MaxGatherer";
+        private static final String WARRIOR = "MaxiTheGuy";
+        private static final String GATHERER = "MaxGatherer";
 
         public static String getWarrior() {
             return WARRIOR;

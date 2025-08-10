@@ -1,6 +1,7 @@
 package com.artifacts.game.logic.activity.gathering.mining;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
+import com.artifacts.game.endpoints.characters.GetCharacterWIP;
 import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
 import com.artifacts.game.endpoints.mycharacters.ActionGathering;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
@@ -10,8 +11,8 @@ import java.util.Map;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
-import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
-import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
+import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
+import static com.artifacts.game.endpoints.characters.GetCharacterWIP.Role.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.tools.Delay.delay;
@@ -23,7 +24,7 @@ public class Mining {
     );
 
     public static void miningCopper() throws InterruptedException {
-        getCharacter(); //todo need to get GATHERER char only here, need to parameterize it inside the method, like getCharacter(getGatherer)
+        getCharacter(GATHERER);
         var characterPositionX = Integer.parseInt(CHARACTER.get(0).get("x"));
         var characterPositionY = Integer.parseInt(CHARACTER.get(0).get("y"));
 
