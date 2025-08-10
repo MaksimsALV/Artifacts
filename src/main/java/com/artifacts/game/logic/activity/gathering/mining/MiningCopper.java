@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.activity;
+package com.artifacts.game.logic.activity.gathering.mining;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;

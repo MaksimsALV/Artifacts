@@ -1,19 +1,10 @@
 package com.artifacts;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
-import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
-import com.artifacts.game.endpoints.mycharacters.ActionMove;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
-import com.artifacts.game.logic.activity.MiningCopper;
-import com.artifacts.game.logic.activity.crafting.gear.copper.CopperBoots;
-import com.artifacts.game.logic.activity.crafting.gear.copper.CopperHelmet;
-import com.artifacts.game.logic.activity.crafting.gear.copper.CopperRing;
-import com.artifacts.game.logic.activity.crafting.resources.CopperBar;
-import com.artifacts.game.logic.activity.crafting.weapons.CopperDagger;
-import com.artifacts.game.logic.leveling.L5;
-
-import static com.artifacts.tools.Delay.delay;
+import com.artifacts.game.logic.activity.crafting.gear.copper.CopperLegs;
+import com.artifacts.game.logic.activity.crafting.shields.WoodenShield;
 
 public class MainForConsole {
     public static void main(String[] args) throws Exception {
@@ -28,14 +19,20 @@ public class MainForConsole {
         //ActionDepositBankItem.actionDepositBankItem();
 
         //crafting
-        //CopperBar.craftCopperBar();
         //CopperDagger.craftingCopperDagger();
         //CopperBoots.craftingCopperBoots();
         //CopperHelmet.craftingCopperHelmet();
-        CopperRing.craftingCopperRing();
+        CopperLegs.craftingCopperLegs();
+        //CopperRing.craftingCopperRing();
+        //WoodenShield.craftingWoodenShield();
+
+        //resources
+        //CopperBar.craftCopperBar();
+        //AshWood.craftAshPlank();
 
         //gathering
         //MiningCopper.miningCopperLoop();
+        //WoodcuttingAshTree.woodcuttingAshTreeLoop();
 
         //fighting
         //L5.runLoop();

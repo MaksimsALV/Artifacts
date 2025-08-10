@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.leveling;
+package com.artifacts.game.logic.activity.fighting.L1_10;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
@@ -13,9 +13,9 @@ import static com.artifacts.game.endpoints.mycharacters.ActionMove.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionRest.*;
 import static com.artifacts.tools.Delay.delay;
 
-public class L5 {
+public class Chicken {
 public static void runLoop() throws InterruptedException {
-    System.out.println("\nStarting L5 initial check");
+    System.out.println("\nStarting initial check");
     //delay(5);
         while (!statusOk()) {
             System.out.println("\nStatus is not okay, fixing....");

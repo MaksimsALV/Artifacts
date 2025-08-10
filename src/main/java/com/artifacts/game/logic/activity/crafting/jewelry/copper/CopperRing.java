@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.activity.crafting.gear.copper;
+package com.artifacts.game.logic.activity.crafting.jewelry.copper;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionCrafting;
