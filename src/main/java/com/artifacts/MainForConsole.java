@@ -6,6 +6,8 @@ import com.artifacts.game.endpoints.mycharacters.ActionMove;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.MiningCopper;
+import com.artifacts.game.logic.activity.crafting.resources.CopperBar;
+import com.artifacts.game.logic.activity.crafting.weapons.CopperDagger;
 import com.artifacts.game.logic.leveling.L5;
 
 import static com.artifacts.tools.Delay.delay;
@@ -22,6 +24,8 @@ public class MainForConsole {
         //delay(5);
 
         //ActionDepositBankItem.actionDepositBankItem();
+        //CopperBar.craftCopperBar();
+        //CopperDagger.craftingCopperDagger();
         MiningCopper.miningCopperLoop();
         //L5.runLoop();
     }

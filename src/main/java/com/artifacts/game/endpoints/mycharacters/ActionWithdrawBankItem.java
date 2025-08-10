@@ -3,6 +3,7 @@ package com.artifacts.game.endpoints.mycharacters;
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
 import com.artifacts.game.endpoints.characters.GetCharacter;
+import com.artifacts.game.endpoints.myaccount.GetBankItems;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -62,13 +63,11 @@ public class ActionWithdrawBankItem {
 
     public static void getItemsForBankWithdraw() {
         ITEMS_TO_WITHDRAW.clear();
-        GetCharacter.getCharacter(); //getting latest character data
-
-        //todo inventory has to be changed, because im getting items to withdraw from getBank items
-        var inventory = GetCharacter.CHARACTER.get(0).get("inventory"); //1). might need to store inventory object in CHARACTER list as im not doing it rn, not sure
-        var inventoryJSONArray = new JSONArray(inventory); //parsing inventory String into JSONArray
-        for (var i = 0; i < inventoryJSONArray.length(); i++) {
-            var item = inventoryJSONArray.getJSONObject(i);
+        GetBankItems.getBankItems(""); //getting latest bank data for certain item (optional parameter), else gets all items
+        var bankInventory = GetBankItems.BANK_ITEMS.get(0).get("data");
+        var bankInventoryJSONArray = new JSONArray(bankInventory);
+        for (var i = 0; i < bankInventoryJSONArray.length(); i++) {
+            var item = bankInventoryJSONArray.getJSONObject(i);
             var itemName = item.getString("code");
             var itemQuantity = item.getInt("quantity");
             if (!itemName.isEmpty() && itemQuantity > 0) {
