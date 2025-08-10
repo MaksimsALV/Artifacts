@@ -6,6 +6,9 @@ import com.artifacts.game.endpoints.mycharacters.ActionMove;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.MiningCopper;
+import com.artifacts.game.logic.activity.crafting.gear.copper.CopperBoots;
+import com.artifacts.game.logic.activity.crafting.gear.copper.CopperHelmet;
+import com.artifacts.game.logic.activity.crafting.gear.copper.CopperRing;
 import com.artifacts.game.logic.activity.crafting.resources.CopperBar;
 import com.artifacts.game.logic.activity.crafting.weapons.CopperDagger;
 import com.artifacts.game.logic.leveling.L5;
@@ -22,11 +25,19 @@ public class MainForConsole {
         GetCharacter.getCharacter();
         System.out.println("\ninitial Character data is received successfully");
         //delay(5);
-
         //ActionDepositBankItem.actionDepositBankItem();
-        CopperBar.craftCopperBar();
+
+        //crafting
+        //CopperBar.craftCopperBar();
         //CopperDagger.craftingCopperDagger();
+        //CopperBoots.craftingCopperBoots();
+        //CopperHelmet.craftingCopperHelmet();
+        CopperRing.craftingCopperRing();
+
+        //gathering
         //MiningCopper.miningCopperLoop();
+
+        //fighting
         //L5.runLoop();
     }
 }
