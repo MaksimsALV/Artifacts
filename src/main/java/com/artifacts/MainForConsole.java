@@ -24,9 +24,9 @@ public class MainForConsole {
         //delay(5);
 
         //ActionDepositBankItem.actionDepositBankItem();
-        //CopperBar.craftCopperBar();
+        CopperBar.craftCopperBar();
         //CopperDagger.craftingCopperDagger();
-        MiningCopper.miningCopperLoop();
+        //MiningCopper.miningCopperLoop();
         //L5.runLoop();
     }
 }

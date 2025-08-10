@@ -16,14 +16,16 @@ import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHand
 
 public class ActionWithdrawBankItem {
     public static HashMap<String, Integer> ITEMS_TO_WITHDRAW = new HashMap<>();
-    public static HttpResponse<String> actionWithdrawBankItem() {
+    public static HttpResponse<String> actionWithdrawBankItem(String itemCode, Integer quantity) {
         var name = GetCharacter.CHARACTER.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/bank/withdraw/item";
-        getItemsForBankWithdraw();
+        //getItemsForBankWithdraw();
+        ITEMS_TO_WITHDRAW.clear();
+        ITEMS_TO_WITHDRAW.put(itemCode, quantity);
         var requestBody = actionWithdrawBankItemBody();
 
-        try{
+        try {
             HttpResponse<String> response = Send.post(endpoint, requestBody, true);
 
             if (response.statusCode() == CODE_SUCCESS) {
@@ -60,7 +62,7 @@ public class ActionWithdrawBankItem {
         }
         return jsonArray.toString(); //returning whole array with all objects as a string for the request
     }
-
+/*
     public static void getItemsForBankWithdraw() {
         ITEMS_TO_WITHDRAW.clear();
         GetBankItems.getBankItems(""); //getting latest bank data for certain item (optional parameter), else gets all items
@@ -75,4 +77,6 @@ public class ActionWithdrawBankItem {
             }
         }
     }
+
+ */
 }

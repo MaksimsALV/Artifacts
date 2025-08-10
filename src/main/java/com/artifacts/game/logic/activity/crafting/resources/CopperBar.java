@@ -2,7 +2,9 @@ package com.artifacts.game.logic.activity.crafting.resources;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.ActionCrafting;
+import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
+import com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem;
 import org.json.JSONArray;
 
 import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
@@ -15,19 +17,42 @@ public class CopperBar {
         if (!statusOk()) {
             System.out.println("\nStatus is not okay, fixing....");
             getCharacter();
-            if (badResources()) { //todo need to add loop to go into the bank to get items and repeat again. I can withdraw just inventory cap items (100) so need to repeat walking 24/7
-                System.err.println("No resources in inventory to craft, get resources first, then try again.");
-                System.exit(999);
-            } else if (badPosition()) {
+            if (badResources()) {
+                ActionWithdrawBankItem.actionWithdrawBankItem("copper_ore", 100);
+            }
+            if (badPosition()) {
                 ActionMove.actionMove(1, 5);
-                }
+            } else {
+            System.err.println("No resources left to craft, get resources first, then try again.");
+            System.exit(999);
+        }
         }
         System.out.println("\nAll issues are fixed. Starting crafting");
-        delay(10);
+        //delay(10);
         while (true) {
             var craftingCopperBar = ActionCrafting.actionCrafting("copper_bar", 1);
+            if (craftingCopperBar.statusCode() == CODE_SUCCESS) {
+                continue;
+            }
+
             if (craftingCopperBar.statusCode() == CODE_MISSING_ITEM) {
-                System.err.println("No resources in inventory to craft, get resources first, then try again.");
+                ActionMove.actionMove(4, 1);
+                var withdrawingItem = ActionWithdrawBankItem.actionWithdrawBankItem("copper_ore", 100);
+                if (withdrawingItem.statusCode() == CODE_CHARACTER_INVENTORY_FULL) {
+                    var depositResponse = ActionDepositBankItem.actionDepositBankItem();
+                    if (depositResponse.statusCode() == CODE_SUCCESS) { //if NPE happens, add fightResponse.statusCode() != null &&...
+                        //ActionWithdrawBankItem.actionWithdrawBankItem("copper_ore", 100);
+                        craftCopperBar();
+                        return; //quitting the current loop to start status checking again
+                    } else {
+                        System.err.println("Fatal error occurred. Exiting..."); //total system killer if I cannot dump inventory and repeat on the loop
+                        System.exit(999);
+                    }
+                }
+                craftCopperBar();
+                return;
+            } else {
+                System.err.println("Fatal error occurred. Exiting..."); //total system killer if I cannot dump inventory and repeat on the loop
                 System.exit(999);
             }
         }
