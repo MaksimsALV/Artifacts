@@ -15,66 +15,55 @@ import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHand
 import static com.artifacts.tools.Converter.convertCooldownExpirationTimeToMillis;
 
 public class GetCharacterWIP {
-    public enum Role {
-        WARRIOR(Characters.getWarrior()),
-        GATHERER(Characters.getGatherer());
+    public static final List<HashMap<String, Object>> CHARACTER_WARRIOR = new ArrayList<>();
+    public static final List<HashMap<String, Object>> CHARACTER_GATHERER = new ArrayList<>();
 
-        public final String name;
+    public static HttpResponse<String> getCharacter(String name) {
+        //var name = role.name;
+        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
+        var endpoint = baseUrl + "/characters/" + name;
+        try {
+            HttpResponse<String> response = Send.get(endpoint, false);
 
-        Role(String name) {
-            this.name = name;
-        }
+            if (response.statusCode() == CODE_SUCCESS) {
+                System.out.println(endpoint + " | " + CODE_SUCCESS);
 
-        public static final List<HashMap<String, Object>> CHARACTER_WARRIOR = new ArrayList<>();
-        public static final List<HashMap<String, Object>> CHARACTER_GATHERER = new ArrayList<>();
+                var object = new JSONObject(response.body());
+                var responseDataObject = object.getJSONObject("data");
 
-        public static HttpResponse<String> getCharacter(Role role) {
-            var name = role.name;
-            var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-            var endpoint = baseUrl + "/characters/" + name;
-            try {
-                HttpResponse<String> response = Send.get(endpoint, false);
+                HashMap<String, Object> characterData = new HashMap<>();
+                responseDataObject.keySet().forEach(key -> {
+                    var value = responseDataObject.get(key);
+                    characterData.put(key, value);
+                });
 
-                if (response.statusCode() == CODE_SUCCESS) {
-                    System.out.println(endpoint + " | " + CODE_SUCCESS);
+                if (name.equals(Characters.getWarrior())) {
+                    CHARACTER_WARRIOR.clear();
+                    CHARACTER_WARRIOR.add(characterData);
+                } else if (name.equals(Characters.getGatherer())) {
+                    CHARACTER_GATHERER.clear();
+                    CHARACTER_GATHERER.add(characterData);
+                }
 
-                    var object = new JSONObject(response.body());
-                    var responseDataObject = object.getJSONObject("data");
-
-                    HashMap<String, Object> characterData = new HashMap<>();
-                    responseDataObject.keySet().forEach(key -> {
-                        var value = responseDataObject.get(key);
-                        characterData.put(key, value);
-                    });
-
-                    if (role == WARRIOR) {
-                        CHARACTER_WARRIOR.clear();
-                        CHARACTER_WARRIOR.add(characterData);
-                    } else if (role == GATHERER) {
-                        CHARACTER_GATHERER.clear();
-                        CHARACTER_GATHERER.add(characterData);
-                    }
-
-                    var cooldownExpirationMillis = convertCooldownExpirationTimeToMillis();
-                    var cooldown = cooldownExpirationMillis - System.currentTimeMillis();
-                    var seconds = cooldown / 1000;
-                    if (cooldown > 0) {
-                        // TODO: Add reason from response
-                        System.out.println(name + " is now on a cooldown for: " + seconds + "s");
-                        Thread.sleep(cooldown);
-                        return response;
-                    }
-
+                var cooldownExpirationMillis = convertCooldownExpirationTimeToMillis();
+                var cooldown = cooldownExpirationMillis - System.currentTimeMillis();
+                var seconds = cooldown / 1000;
+                if (cooldown > 0) {
+                    // TODO: Add reason from response
+                    System.out.println(name + " is now on a cooldown for: " + seconds + "s");
+                    Thread.sleep(cooldown);
                     return response;
                 }
 
-                globalErrorHandler(response, endpoint);
                 return response;
-
-            } catch (Exception getCharacterException) {
-                System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
             }
-            return null;
+
+            globalErrorHandler(response, endpoint);
+            return response;
+
+        } catch (Exception getCharacterException) {
+            System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
         }
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.artifacts.game.logic.activity.gathering.mining;
 
+import com.artifacts.game.config.Characters;
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.characters.GetCharacterWIP;
 import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
@@ -13,7 +14,6 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTOR
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
 import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
-import static com.artifacts.game.endpoints.characters.GetCharacterWIP.Role.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.tools.Delay.delay;
@@ -25,9 +25,9 @@ public class Mining {
     );
 
     public static void miningCopper() throws InterruptedException {
-        getCharacter(GATHERER);
-        var characterPositionX = Integer.parseInt(CHARACTER.get(0).get("x"));
-        var characterPositionY = Integer.parseInt(CHARACTER.get(0).get("y"));
+        getCharacter(Characters.getGatherer());
+        var characterPositionX = Integer.parseInt(CHARACTER_GATHERER.get(0).get("x").toString());
+        var characterPositionY = Integer.parseInt(CHARACTER_GATHERER.get(0).get("y").toString());
 
         int[] miningCoordinates = ORE.get("COPPER");
         var x = miningCoordinates[0];
