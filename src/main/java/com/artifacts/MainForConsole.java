@@ -3,10 +3,7 @@ package com.artifacts;
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
-import com.artifacts.game.logic.activity.crafting.gear.copper.CopperLegs;
-import com.artifacts.game.logic.activity.crafting.shields.WoodenShield;
 import com.artifacts.game.logic.activity.fighting.L1_10.GreenSlime;
-import com.artifacts.game.logic.activity.fighting.L1_10.Sheep;
 
 public class MainForConsole {
     public static void main(String[] args) throws Exception {

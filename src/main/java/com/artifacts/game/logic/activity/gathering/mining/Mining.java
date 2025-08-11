@@ -11,6 +11,7 @@ import java.util.Map;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
 import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
 import static com.artifacts.game.endpoints.characters.GetCharacterWIP.Role.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
