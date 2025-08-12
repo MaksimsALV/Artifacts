@@ -18,8 +18,10 @@ import static com.artifacts.api.errorhandling.ErrorCodes.*;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.getCharacter;
 //import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
+import static com.artifacts.game.config.Characters.getWarrior;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
+//import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
+import static com.artifacts.game.endpoints.mycharacters.ActionMoveWIP.actionMove;
 import static com.artifacts.tools.Delay.delay;
 import static com.artifacts.tools.Scheduler.scheduler;
 
@@ -29,31 +31,26 @@ public class Mining {
             //add more
     );
 
-    public static void miningCopper() throws InterruptedException {
-
-        //testing getting object directly from response and not using lists.
-        //var responseDataObject = GetCharacter.getCharacterResponseDataObject(); //todo need to change to getCharacterWIP with getGatherer in the parameter, but it is still wrong
-        //var responseDataObject = GetCharacter.getCharacter(); //todo need to change to getCharacterWIP with getGatherer in the parameter, but it is still wrong
-        //var characterPositionX = responseDataObject.getInt("x");
-        //var characterPositionY = responseDataObject.getInt("y");
-        //var characterPositionX = Integer.parseInt(CHARACTER.get(0).get("x").toString()); //todo i think i need to get this info from getCharacter(getGatherer) response itself
-        //var characterPositionY = Integer.parseInt(CHARACTER.get(0).get("y").toString()); //todo i think i need to get this info from getCharacter(getGatherer) response itself
-
+    public static void miningCopper(String name) throws InterruptedException {
         int[] miningCoordinates = ORE.get("COPPER");
         var x = miningCoordinates[0];
         var y = miningCoordinates[1];
+        var responseDataObject = actionMove(name, x, y);
 
-        var moveToMine = actionMove(x, y);
-        if (moveToMine != null && moveToMine.statusCode() != CODE_CHARACTER_ALREADY_MAP) { //todo this seems to work, but need to add it to below loop too then
-            var cooldown = Integer.parseInt(ActionMove.MOVE.get(1).get("remaining_seconds")); //todo i think i need to get this info from actionMove response itself
-            scheduler.schedule(() -> {
-                try {
-                    miningCopper();
-                } catch (InterruptedException schedulerException) {
-                    Thread.currentThread().interrupt();
-                }
-            }, cooldown, TimeUnit.SECONDS);
-            return;
+        if (responseDataObject != null) {
+            var cooldown = responseDataObject.getJSONObject("cooldown").getInt("remaining_seconds");
+            var reason = responseDataObject.getJSONObject("cooldown").getString("reason");
+            if (cooldown > 0) {
+                System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
+                scheduler.schedule(() -> {
+                    try {
+                        miningCopper(name);
+                    } catch (InterruptedException schedulerException) {
+                        Thread.currentThread().interrupt();
+                    }
+                }, cooldown, TimeUnit.SECONDS);
+                return;
+            }
         }
 
         while (true) {
@@ -62,16 +59,14 @@ public class Mining {
                 continue; //replace with return
             }
             if (gatheringResult != null && gatheringResult.statusCode() == CODE_CHARACTER_INVENTORY_FULL) {
-                var moveToBank = actionMove(4, 1);
-                if (moveToBank != null && moveToBank.statusCode() != CODE_SUCCESS) break;
+                var moveToBank = actionMove(name,4, 1);
+                if (moveToBank != null) break;
 
                 var depositAllItems = actionDepositBankItem();
-                if (depositAllItems != null && depositAllItems.statusCode() != CODE_SUCCESS) break;
+                if (depositAllItems != null) break;
 
-                moveToMine = actionMove(x, y);
-                if (moveToMine != null && moveToMine.statusCode() != CODE_SUCCESS) break;
-
-                continue; //replace with return
+                miningCopper(name);
+                return;
             }
             break;
         }

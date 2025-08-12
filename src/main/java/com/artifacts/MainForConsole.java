@@ -8,6 +8,8 @@ import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.fighting.L1_10.GreenSlime;
 import com.artifacts.game.logic.activity.gathering.mining.Mining;
 
+import static com.artifacts.game.config.Characters.*;
+
 public class MainForConsole {
     public static void main(String[] args) throws Exception {
         Login.login();
@@ -34,7 +36,7 @@ public class MainForConsole {
         //AshWood.craftAshPlank();
 
         //gathering
-        Mining.miningCopper();
+        Mining.miningCopper(getWarrior());
         //MiningCopper.miningCopperLoop();
         //WoodcuttingAshTree.woodcuttingAshTreeLoop();
 
