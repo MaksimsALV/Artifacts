@@ -1,28 +1,20 @@
 package com.artifacts.game.logic.activity.gathering.mining;
 
-import com.artifacts.game.config.Characters;
 //import com.artifacts.game.endpoints.characters.GetCharacter;
 //import com.artifacts.game.endpoints.characters.GetCharacterWIP;
-import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
-import com.artifacts.game.endpoints.mycharacters.ActionGathering;
-import com.artifacts.game.endpoints.mycharacters.ActionMove;
-import org.json.JSONObject;
+//import com.artifacts.game.endpoints.mycharacters.ActionGathering;
 
-import java.net.http.HttpResponse;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static com.artifacts.api.errorhandling.ErrorCodes.*;
 //import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.getCharacter;
 //import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
-import static com.artifacts.game.config.Characters.getWarrior;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 //import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
+import static com.artifacts.game.endpoints.mycharacters.ActionGatheringWIP.actionGathering;
 import static com.artifacts.game.endpoints.mycharacters.ActionMoveWIP.actionMove;
-import static com.artifacts.tools.Delay.delay;
 import static com.artifacts.tools.Scheduler.scheduler;
 
 public class Mining {
@@ -35,11 +27,11 @@ public class Mining {
         int[] miningCoordinates = ORE.get("COPPER");
         var x = miningCoordinates[0];
         var y = miningCoordinates[1];
-        var responseDataObject = actionMove(name, x, y);
+        var actionMoveResponseObject = actionMove(name, x, y);
 
-        if (responseDataObject != null) {
-            var cooldown = responseDataObject.getJSONObject("cooldown").getInt("remaining_seconds");
-            var reason = responseDataObject.getJSONObject("cooldown").getString("reason");
+        if (actionMoveResponseObject != null) {
+            var cooldown = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
+            var reason = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
             if (cooldown > 0) {
                 System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                 scheduler.schedule(() -> {
@@ -54,21 +46,50 @@ public class Mining {
         }
 
         while (true) {
-            var gatheringResult = ActionGathering.actionGathering();
-            if (gatheringResult != null && gatheringResult.statusCode() == CODE_SUCCESS) {
-                continue; //replace with return
+            var actionGatheringResponseObject = actionGathering(name);
+            if (actionGatheringResponseObject != null) {
+                //todo i might be needing global cooldown handler, to clean that thing up
+                var cooldown = actionGatheringResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
+                var reason = actionGatheringResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
+                if (cooldown > 0) {
+                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
+                    scheduler.schedule(() -> {
+                        try {
+                            miningCopper(name); //should i have actionGathering(name) here instead?
+                        } catch (InterruptedException schedulerException) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }, cooldown, TimeUnit.SECONDS);
+                    return;
+                }
+                continue;
             }
-            if (gatheringResult != null && gatheringResult.statusCode() == CODE_CHARACTER_INVENTORY_FULL) {
-                var moveToBank = actionMove(name,4, 1);
-                if (moveToBank != null) break;
+
+            var actionMoveToBankResponseObject = actionMove(name, 4, 1); //move to bank
+            if (actionMoveToBankResponseObject != null) {
+                var cooldown = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
+                var reason = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
+                if (cooldown > 0) {
+                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
+                    scheduler.schedule(() -> {
+                        try {
+                            miningCopper(name);
+                        } catch (InterruptedException schedulerException) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }, cooldown, TimeUnit.SECONDS);
+                    return;
+                }
 
                 var depositAllItems = actionDepositBankItem();
-                if (depositAllItems != null) break;
+                if (depositAllItems != null) return;
 
                 miningCopper(name);
                 return;
+
+                //break;
             }
-            break;
+            return;
         }
     }
 }
