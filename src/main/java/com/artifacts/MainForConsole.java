@@ -31,11 +31,11 @@ public class MainForConsole {
         //AshWood.craftAshPlank();
 
         //gathering
-        //Mining.miningCopper();
+        Mining.miningCopper();
         //MiningCopper.miningCopperLoop();
         //WoodcuttingAshTree.woodcuttingAshTreeLoop();
 
         //fighting
-        GreenSlime.runLoop();
+        //GreenSlime.runLoop();
     }
 }

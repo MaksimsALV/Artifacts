@@ -55,7 +55,7 @@ public class ActionMove {
                 var millis = cooldown * 1000;
                 if (responseCooldownDataObject.getInt("remaining_seconds") > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(millis);
+                    Thread.sleep(millis); //todo need to remove this entirelly when scheduelr is added to other places
                 }
                 return response;
             }
