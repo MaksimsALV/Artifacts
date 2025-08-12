@@ -12,6 +12,11 @@ import static com.artifacts.game.config.Characters.*;
 
 public class MainForConsole {
     public static void main(String[] args) throws Exception {
+
+        /// !!!
+        /// IMPORTANT start the game only when no Chars are on cooldown, else it will break. This is intended and part of the design model
+        /// !!!
+
         Login.login();
         System.out.println("\nLogin successful");
         //delay(5);
