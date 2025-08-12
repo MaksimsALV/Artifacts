@@ -1,8 +1,9 @@
 package com.artifacts.game.endpoints.characters;
 
+
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
-import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
+//import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import org.json.JSONObject;
 
 import java.net.http.HttpClient;
@@ -62,6 +63,7 @@ public class GetCharacter {
         }
         return null;
     }
+}
 /*
     //helper that I can use to get response body object directly accessible after calling the endpoint. One for all
     //todo actually should add this to all endpoints
@@ -74,4 +76,3 @@ public class GetCharacter {
     }
 
  */
-}

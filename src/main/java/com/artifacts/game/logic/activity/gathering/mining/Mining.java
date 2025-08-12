@@ -1,8 +1,8 @@
 package com.artifacts.game.logic.activity.gathering.mining;
 
 import com.artifacts.game.config.Characters;
-import com.artifacts.game.endpoints.characters.GetCharacter;
-import com.artifacts.game.endpoints.characters.GetCharacterWIP;
+//import com.artifacts.game.endpoints.characters.GetCharacter;
+//import com.artifacts.game.endpoints.characters.GetCharacterWIP;
 import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
 import com.artifacts.game.endpoints.mycharacters.ActionGathering;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
@@ -14,10 +14,10 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
-import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
+//import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.getCharacter;
-import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
+//import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.tools.Delay.delay;

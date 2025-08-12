@@ -1,4 +1,7 @@
+
+/*
 package com.artifacts.game.endpoints.characters;
+
 
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
@@ -57,7 +60,7 @@ public class GetCharacterWIP {
                     //return responseDataObject;
                 }
                 /*
- */
+
                 return responseDataObject;
             }
             globalErrorHandler(response, endpoint);
@@ -69,3 +72,5 @@ public class GetCharacterWIP {
         }
     }
 }
+
+ */
