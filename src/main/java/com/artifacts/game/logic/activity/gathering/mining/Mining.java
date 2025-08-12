@@ -6,7 +6,9 @@ import com.artifacts.game.endpoints.characters.GetCharacterWIP;
 import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem;
 import com.artifacts.game.endpoints.mycharacters.ActionGathering;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
+import org.json.JSONObject;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -29,9 +31,13 @@ public class Mining {
     );
 
     public static void miningCopper() throws InterruptedException {
-        getCharacter(); //todo need to change to getCharacterWIP with getGatherer in the parameter, but it is still wrong
-        var characterPositionX = Integer.parseInt(CHARACTER.get(0).get("x").toString());
-        var characterPositionY = Integer.parseInt(CHARACTER.get(0).get("y").toString());
+
+        //testing getting object directly from response and not using lists.
+        var responseDataObject = GetCharacter.getCharacterResponseDataObject(); //todo need to change to getCharacterWIP with getGatherer in the parameter, but it is still wrong
+        var characterPositionX = responseDataObject.getInt("x");
+        var characterPositionY = responseDataObject.getInt("y");
+        //var characterPositionX = Integer.parseInt(CHARACTER.get(0).get("x").toString()); //todo i think i need to get this info from getCharacter(getGatherer) response itself
+        //var characterPositionY = Integer.parseInt(CHARACTER.get(0).get("y").toString()); //todo i think i need to get this info from getCharacter(getGatherer) response itself
 
         int[] miningCoordinates = ORE.get("COPPER");
         var x = miningCoordinates[0];

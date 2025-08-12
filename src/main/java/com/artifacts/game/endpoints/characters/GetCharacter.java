@@ -45,7 +45,7 @@ public class GetCharacter {
                 if (cooldown > 0) {
                     //todo need to add reason from response
                     System.out.println(name + " is now on a cooldown for: " + seconds + "s");
-                    Thread.sleep(cooldown);
+                    //Thread.sleep(cooldown);
                     return response;
                 }
                 return response;
@@ -57,5 +57,15 @@ public class GetCharacter {
             System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
         }
         return null;
+    }
+
+    //helper that I can use to get response body object directly accessible after calling the endpoint. One for all
+    //todo actually should add this to all endpoints
+    public static JSONObject getCharacterResponseDataObject() {
+        HttpResponse<String> response = getCharacter();
+        if (response == null || response.statusCode() != CODE_SUCCESS) {
+            return null;
+        }
+        return new JSONObject(response.body()).getJSONObject("data");
     }
 }
