@@ -19,7 +19,8 @@ import static com.artifacts.tools.Converter.convertCooldownExpirationTimeToMilli
 public class GetCharacter {
     public static List<HashMap<String, String>> CHARACTER = new ArrayList<>();
 
-    public static HttpResponse<String> getCharacter() {
+    //public static HttpResponse<String> getCharacter() {
+    public static JSONObject getCharacter() {
         var name = getWarrior();
         //var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
@@ -46,19 +47,22 @@ public class GetCharacter {
                     //todo need to add reason from response
                     System.out.println(name + " is now on a cooldown for: " + seconds + "s");
                     //Thread.sleep(cooldown);
-                    return response;
+                    //return response;
+                    return responseDataObject;
                 }
-                return response;
+                //return response;
+                return responseDataObject;
             }
             globalErrorHandler(response, endpoint);
-            return response;
+            //return response;
+            return null;
 
         } catch (Exception getCharacterException) {
             System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
         }
         return null;
     }
-
+/*
     //helper that I can use to get response body object directly accessible after calling the endpoint. One for all
     //todo actually should add this to all endpoints
     public static JSONObject getCharacterResponseDataObject() {
@@ -68,4 +72,6 @@ public class GetCharacter {
         }
         return new JSONObject(response.body()).getJSONObject("data");
     }
+
+ */
 }

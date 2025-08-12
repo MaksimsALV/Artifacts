@@ -12,12 +12,14 @@ import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.game.config.Characters.getWarrior;
 
 public class ActionGathering {
     public static List<HashMap<String, String>> GATHERING = new ArrayList<>();
 
     public static HttpResponse<String> actionGathering() {
-        var name = GetCharacter.CHARACTER.get(0).get("name");
+        //var name = GetCharacter.CHARACTER.get(0).get("name");
+        var name = getWarrior();
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/gathering";
 

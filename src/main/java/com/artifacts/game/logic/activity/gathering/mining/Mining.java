@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
-import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
 //import static com.artifacts.game.endpoints.characters.GetCharacterWIP.getCharacter;
@@ -33,9 +32,10 @@ public class Mining {
     public static void miningCopper() throws InterruptedException {
 
         //testing getting object directly from response and not using lists.
-        var responseDataObject = GetCharacter.getCharacterResponseDataObject(); //todo need to change to getCharacterWIP with getGatherer in the parameter, but it is still wrong
-        var characterPositionX = responseDataObject.getInt("x");
-        var characterPositionY = responseDataObject.getInt("y");
+        //var responseDataObject = GetCharacter.getCharacterResponseDataObject(); //todo need to change to getCharacterWIP with getGatherer in the parameter, but it is still wrong
+        //var responseDataObject = GetCharacter.getCharacter(); //todo need to change to getCharacterWIP with getGatherer in the parameter, but it is still wrong
+        //var characterPositionX = responseDataObject.getInt("x");
+        //var characterPositionY = responseDataObject.getInt("y");
         //var characterPositionX = Integer.parseInt(CHARACTER.get(0).get("x").toString()); //todo i think i need to get this info from getCharacter(getGatherer) response itself
         //var characterPositionY = Integer.parseInt(CHARACTER.get(0).get("y").toString()); //todo i think i need to get this info from getCharacter(getGatherer) response itself
 
@@ -43,24 +43,17 @@ public class Mining {
         var x = miningCoordinates[0];
         var y = miningCoordinates[1];
 
-        if (characterPositionX != x || characterPositionY != y) {
-            var moveToMine = actionMove(x, y);
-
-            if (moveToMine != null) { //todo this seems to work, but need to add it to below loop too then
-                var cooldown = Integer.parseInt(ActionMove.MOVE.get(1).get("remaining_seconds")); //todo i think i need to get this info from actionMove response itself
-                scheduler.schedule(() -> {
-                    try {
-                        miningCopper();
-                    } catch (InterruptedException schedulerException) {
-                        Thread.currentThread().interrupt();
-                    }
-                }, cooldown, TimeUnit.SECONDS);
-                return;
-            }
-
-
-
-
+        var moveToMine = actionMove(x, y);
+        if (moveToMine != null && moveToMine.statusCode() != CODE_CHARACTER_ALREADY_MAP) { //todo this seems to work, but need to add it to below loop too then
+            var cooldown = Integer.parseInt(ActionMove.MOVE.get(1).get("remaining_seconds")); //todo i think i need to get this info from actionMove response itself
+            scheduler.schedule(() -> {
+                try {
+                    miningCopper();
+                } catch (InterruptedException schedulerException) {
+                    Thread.currentThread().interrupt();
+                }
+            }, cooldown, TimeUnit.SECONDS);
+            return;
         }
 
         while (true) {
@@ -75,7 +68,7 @@ public class Mining {
                 var depositAllItems = actionDepositBankItem();
                 if (depositAllItems != null && depositAllItems.statusCode() != CODE_SUCCESS) break;
 
-                var moveToMine = actionMove(x, y);
+                moveToMine = actionMove(x, y);
                 if (moveToMine != null && moveToMine.statusCode() != CODE_SUCCESS) break;
 
                 continue; //replace with return

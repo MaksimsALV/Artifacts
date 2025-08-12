@@ -1,6 +1,8 @@
 package com.artifacts;
 
+import com.artifacts.game.config.Characters;
 import com.artifacts.game.endpoints.characters.GetCharacter;
+import com.artifacts.game.endpoints.characters.GetCharacterWIP;
 import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.fighting.L1_10.GreenSlime;
@@ -13,7 +15,8 @@ public class MainForConsole {
         //delay(5);
 
         //GetMyCharacters.getMyCharacters();
-        GetCharacter.getCharacter();
+        //GetCharacter.getCharacter();
+        //GetCharacterWIP.getCharacter(Characters.getWarrior());
         System.out.println("\ninitial Character data is received successfully");
         //delay(5);
         //ActionDepositBankItem.actionDepositBankItem();

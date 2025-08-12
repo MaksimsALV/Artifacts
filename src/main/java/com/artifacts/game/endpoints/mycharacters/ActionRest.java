@@ -14,13 +14,15 @@ import java.util.regex.Pattern;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.game.config.Characters.getWarrior;
 
 public class ActionRest {
     //todo need to think if I even need lists for each endpoint like this. Because i work with data directly from response 200 body data
     public static List<HashMap<String, String>> REST = new ArrayList<>();
 
     public static HttpResponse<String> actionRest() {
-        var name = GetCharacter.CHARACTER.get(0).get("name");
+        //var name = GetCharacter.CHARACTER.get(0).get("name");
+        var name = getWarrior();
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/rest";
 
