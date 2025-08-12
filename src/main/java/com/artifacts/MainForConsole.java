@@ -12,7 +12,7 @@ public class MainForConsole {
         System.out.println("\nLogin successful");
         //delay(5);
 
-        GetMyCharacters.getMyCharacters();
+        //GetMyCharacters.getMyCharacters();
         GetCharacter.getCharacter();
         System.out.println("\ninitial Character data is received successfully");
         //delay(5);
@@ -31,11 +31,11 @@ public class MainForConsole {
         //AshWood.craftAshPlank();
 
         //gathering
-        Mining.miningCopper();
+        //Mining.miningCopper();
         //MiningCopper.miningCopperLoop();
         //WoodcuttingAshTree.woodcuttingAshTreeLoop();
 
         //fighting
-        //GreenSlime.runLoop();
+        GreenSlime.runLoop();
     }
 }

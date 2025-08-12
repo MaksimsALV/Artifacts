@@ -13,13 +13,15 @@ import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.game.config.Characters.getWarrior;
 import static com.artifacts.tools.Converter.convertCooldownExpirationTimeToMillis;
 
 public class GetCharacter {
     public static List<HashMap<String, String>> CHARACTER = new ArrayList<>();
 
     public static HttpResponse<String> getCharacter() {
-        var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
+        var name = getWarrior();
+        //var name = GetMyCharacters.MY_CHARACTERS.get(0).get("name");
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/characters/" + name;
 

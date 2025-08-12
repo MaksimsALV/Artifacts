@@ -41,7 +41,7 @@ public class Mining {
             var moveToMine = actionMove(x, y);
 
             if (moveToMine != null) { //todo this seems to work, but need to add it to below loop too then
-                var cooldown = Integer.parseInt(ActionMove.MOVE.get(1).get("remaining_seconds"));
+                var cooldown = Integer.parseInt(ActionMove.MOVE.get(1).get("remaining_seconds")); //todo i think i need to get this info from actionMove response itself
                 scheduler.schedule(() -> {
                     try {
                         miningCopper();
