@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.logic.activity.gathering.mining;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
@@ -53,3 +54,5 @@ public class MiningCopper {
         return x != 2 || y != 0;
     }
 }
+
+ */
