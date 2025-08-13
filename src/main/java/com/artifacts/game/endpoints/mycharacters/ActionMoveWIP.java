@@ -19,18 +19,6 @@ public class ActionMoveWIP {
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
                 return new JSONObject(response.body());
-                //var object = new JSONObject(response.body());
-                //var responseDataObject = object.getJSONObject("data");
-
-                //todo every activity now handles cooldown on their own. This block is not used anymore and we just return response dataobjects and thats it.
-                //var responseCharacterDataObject = responseDataObject.getJSONObject("character");
-                //var responseCooldownDataObject = responseDataObject.getJSONObject("cooldown");
-                //var cooldown = responseCooldownDataObject.getInt("remaining_seconds");
-                //var reason = responseCooldownDataObject.getString("reason");;
-                //if (cooldown > 0) {
-                //    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                //}
-                //return object;
             }
             globalErrorHandler(response, endpoint);
             return null;

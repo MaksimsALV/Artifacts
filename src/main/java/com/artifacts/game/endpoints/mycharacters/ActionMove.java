@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.endpoints.mycharacters;
 
 import com.artifacts.api.errorhandling.GlobalErrorHandler;
@@ -77,3 +78,5 @@ public class ActionMove {
         return json.toString();
     }
 }
+
+ */

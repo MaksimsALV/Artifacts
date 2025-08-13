@@ -1,3 +1,4 @@
+
 package com.artifacts.game.endpoints.characters;
 
 

@@ -1,9 +1,10 @@
 package com.artifacts;
 
 import com.artifacts.game.config.Characters;
-import com.artifacts.game.endpoints.characters.GetCharacter;
+//import com.artifacts.game.endpoints.characters.GetCharacter;
 //import com.artifacts.game.endpoints.characters.GetCharacterWIP;
 //import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
+import com.artifacts.game.endpoints.mycharacters.ActionDepositBankItemWIP;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.fighting.L1_10.GreenSlime;
 import com.artifacts.game.logic.activity.gathering.mining.Mining;
@@ -41,11 +42,32 @@ public class MainForConsole {
         //AshWood.craftAshPlank();
 
         //gathering
-        Mining.miningCopper(getWarrior());
+        Mining.miningCopper(getGatherer());
         //MiningCopper.miningCopperLoop();
         //WoodcuttingAshTree.woodcuttingAshTreeLoop();
 
+        //depositing
+        //ActionDepositBankItemWIP.actionDepositBankItem(getWarrior());
+
         //fighting
         //GreenSlime.runLoop();
+
+        //todo
+        Thread thread1 = new Thread(() -> {
+            try {
+                Mining.miningCopper(getWarrior());
+            } catch (InterruptedException threadException) {
+                throw new RuntimeException(threadException);
+            }
+        });
+        Thread thread2 = new Thread(() -> {
+            try {
+                Mining.miningCopper(getWarrior());
+            } catch (InterruptedException threadException) {
+                throw new RuntimeException(threadException);
+            }
+        });
+        //thread1.start();
+        //thread2.start();
     }
 }

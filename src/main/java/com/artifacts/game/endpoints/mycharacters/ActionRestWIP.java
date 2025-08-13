@@ -1,4 +1,4 @@
-package com.artifacts.game.endpoints.characters;
+package com.artifacts.game.endpoints.mycharacters;
 
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
@@ -7,13 +7,13 @@ import java.net.http.HttpResponse;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
-public class GetCharacterWIP {
-    public static JSONObject getCharacter(String name) {
+public class ActionRestWIP {
+    public static JSONObject actionRest(String name) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/characters/" + name;
+        var endpoint = baseUrl + "/my/" + name + "/action/rest";
 
         try {
-            HttpResponse<String> response = Send.get(endpoint, false);
+            HttpResponse<String> response = Send.post(endpoint, "", true);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -22,8 +22,8 @@ public class GetCharacterWIP {
             globalErrorHandler(response, endpoint);
             return null;
 
-        } catch (Exception getCharacterException) {
-            System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
+        } catch (Exception actionRestException) {
+            System.err.println(endpoint + " | Exception: " + actionRestException.getMessage());
             return null;
         }
     }

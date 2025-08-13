@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.endpoints.mycharacters;
 
 import com.artifacts.api.http.Send;
@@ -66,3 +67,5 @@ public class ActionGathering {
         return null;
     }
 }
+
+ */

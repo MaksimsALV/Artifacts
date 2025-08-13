@@ -1,32 +1,20 @@
-package com.artifacts.game.logic.activity.gathering.mining;
+package com.artifacts.game.logic.activity.fighting.L1_10;
 
-//import com.artifacts.game.endpoints.characters.GetCharacter;
-//import com.artifacts.game.endpoints.characters.GetCharacterWIP;
-//import com.artifacts.game.endpoints.mycharacters.ActionGathering;
-
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-//import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
-//import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
-//import static com.artifacts.game.endpoints.characters.GetCharacterWIP.getCharacter;
-//import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
-//import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItemWIP.actionDepositBankItem;
-//import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
-import static com.artifacts.game.endpoints.mycharacters.ActionGatheringWIP.actionGathering;
+import static com.artifacts.game.endpoints.mycharacters.ActionFightWIP.actionFight;
 import static com.artifacts.game.endpoints.mycharacters.ActionMoveWIP.actionMove;
-import static com.artifacts.game.library.recources.Resources.ORE;
-import static com.artifacts.tools.Scheduler.scheduler;
+import static com.artifacts.game.endpoints.mycharacters.ActionRestWIP.actionRest;
+import static com.artifacts.game.library.monsters.Monsters.MONSTERS;
 
-public class Mining {
-    public static void miningCopper(String name) throws InterruptedException {
-        int[] miningCoordinates = ORE.get("COPPER");
-        var x = miningCoordinates[0];
-        var y = miningCoordinates[1];
+public class ChickenWIP {
+    public static void fightChicken(String name) throws InterruptedException {
+        int[] chickenCoordinates = MONSTERS.get("CHICKEN");
+        var x = chickenCoordinates[0];
+        var y = chickenCoordinates[1];
 
         int cooldown = 0;
         String reason = "";
+        var hp = 0;
 
         var actionMoveResponseObject = actionMove(name, x, y);
         if (actionMoveResponseObject != null) {
@@ -35,20 +23,38 @@ public class Mining {
             if (cooldown > 0) {
                 System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                 Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
-                //return; //think i need to remove it
+            }
+        }
+
+        var actionRestResponseObject = actionRest(name);
+        if (actionRestResponseObject != null) {
+            cooldown = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
+            reason = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
+            if (cooldown > 0) {
+                System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
+                Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
             }
         }
 
         while (true) {
-            var actionGatheringResponseObject = actionGathering(name);
-            //todo right now im moving only when status is non-200. But later i need to change that, to move ONLY when inventory is full.
-            //todo so for this i need to return also the status it self within actionGathering method, i need to do that at some point
-            if (actionGatheringResponseObject != null) {
-                cooldown = actionGatheringResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                reason = actionGatheringResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
+            var actionFightResponseObject = actionFight(name);
+            if (actionFightResponseObject != null) {
+                cooldown = actionFightResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
+                reason = actionFightResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
+                hp = actionFightResponseObject.getJSONObject("data").getJSONObject("character").getInt("hp");
                 if (cooldown > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                     Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
+                } else if (hp <= 60) {
+                    actionRestResponseObject = actionRest(name);
+                    if (actionRestResponseObject != null) {
+                        cooldown = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
+                        reason = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
+                        if (cooldown > 0) {
+                            System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
+                            Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
+                        }
+                    }
                 }
                 continue;
             }
@@ -69,22 +75,14 @@ public class Mining {
                     if (cooldown > 0) {
                         System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                         Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
-                        miningCopper(name);
+                        fightChicken(name);
                         return;
                     }
                 }
-                /*
-                var depositAllItems = actionDepositBankItem();
-                if (depositAllItems != null) {
-                    miningCopper(name);
-                    return;
-                }
-
-                 */
-
                 return;
             }
             return;
         }
     }
 }
+
