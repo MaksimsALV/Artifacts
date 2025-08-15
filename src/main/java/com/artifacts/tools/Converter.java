@@ -1,3 +1,4 @@
+/*
 package com.artifacts.tools;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
@@ -17,3 +18,5 @@ public class Converter {
         return cooldownExpirationDateTimeInMillis;
     }
 }
+
+ */

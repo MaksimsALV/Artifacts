@@ -2,9 +2,15 @@ package com.artifacts.game.library.recources;
 
 import java.util.Map;
 
-public class Resources {
-    public static final Map<String, int[]> ORE = Map.of(
-            "COPPER", new int[]{2, 0}
+public final class Resources {
+    public static final Map<String, int[]> RESOURCES = Map.of(
+            "COPPER", new int[]{2, 0},
+            "ASH_TREE", new int[]{-1,0}
             //add more
+    );
+
+    public static final Map<String, String> CRAFTING_RESOURCES = Map.of(
+            "COPPER_BAR", "copper_bar",
+            "ASH_WOOD", "ash_wood"
     );
 }

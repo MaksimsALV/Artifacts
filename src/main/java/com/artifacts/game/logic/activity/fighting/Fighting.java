@@ -1,16 +1,16 @@
-package com.artifacts.game.logic.activity.fighting.L1_10;
+package com.artifacts.game.logic.activity.fighting;
 
-import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItemWIP.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionFightWIP.actionFight;
-import static com.artifacts.game.endpoints.mycharacters.ActionMoveWIP.actionMove;
-import static com.artifacts.game.endpoints.mycharacters.ActionRestWIP.actionRest;
+import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.game.endpoints.mycharacters.ActionFight.actionFight;
+import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
+import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 import static com.artifacts.game.library.monsters.Monsters.MONSTERS;
 
-public class ChickenWIP {
-    public static void fightChicken(String name) throws InterruptedException {
-        int[] chickenCoordinates = MONSTERS.get("CHICKEN");
-        var x = chickenCoordinates[0];
-        var y = chickenCoordinates[1];
+public class Fighting {
+    public static void fight(String name, String monster) throws InterruptedException {
+        int[] monsterCoordinates = MONSTERS.get(monster.toUpperCase());
+        var x = monsterCoordinates[0];
+        var y = monsterCoordinates[1];
 
         int cooldown = 0;
         String reason = "";
@@ -75,7 +75,7 @@ public class ChickenWIP {
                     if (cooldown > 0) {
                         System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                         Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
-                        fightChicken(name);
+                        fight(name, monster);
                         return;
                     }
                 }

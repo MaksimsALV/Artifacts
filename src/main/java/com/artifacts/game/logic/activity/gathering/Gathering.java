@@ -1,29 +1,15 @@
-package com.artifacts.game.logic.activity.gathering.mining;
+package com.artifacts.game.logic.activity.gathering;
 
-//import com.artifacts.game.endpoints.characters.GetCharacter;
-//import com.artifacts.game.endpoints.characters.GetCharacterWIP;
-//import com.artifacts.game.endpoints.mycharacters.ActionGathering;
+import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.game.endpoints.mycharacters.ActionGathering.actionGathering;
+import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
+import static com.artifacts.game.library.recources.Resources.RESOURCES;
 
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-//import static com.artifacts.game.endpoints.characters.GetCharacter.CHARACTER;
-//import static com.artifacts.game.endpoints.characters.GetCharacterWIP.*;
-//import static com.artifacts.game.endpoints.characters.GetCharacterWIP.getCharacter;
-//import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
-//import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItemWIP.actionDepositBankItem;
-//import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
-import static com.artifacts.game.endpoints.mycharacters.ActionGatheringWIP.actionGathering;
-import static com.artifacts.game.endpoints.mycharacters.ActionMoveWIP.actionMove;
-import static com.artifacts.game.library.recources.Resources.ORE;
-import static com.artifacts.tools.Scheduler.scheduler;
-
-public class Mining {
-    public static void miningCopper(String name) throws InterruptedException {
-        int[] miningCoordinates = ORE.get("COPPER");
-        var x = miningCoordinates[0];
-        var y = miningCoordinates[1];
+public class Gathering {
+    public static void gather(String name, String resource) throws InterruptedException {
+        int[] resourceCoordinates = RESOURCES.get(resource.toUpperCase());
+        var x = resourceCoordinates[0];
+        var y = resourceCoordinates[1];
 
         int cooldown = 0;
         String reason = "";
@@ -69,7 +55,7 @@ public class Mining {
                     if (cooldown > 0) {
                         System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                         Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
-                        miningCopper(name);
+                        gather(name, resource);
                         return;
                     }
                 }
