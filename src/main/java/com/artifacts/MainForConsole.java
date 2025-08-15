@@ -33,6 +33,7 @@ public class MainForConsole {
         //Fighting.fight(getWarrior(), "GREEN_SLIME");
 
         //todo
+
         Thread thread1 = new Thread(() -> {
             try {
                 Gathering.gather(getGatherer(), "COPPER");
@@ -42,7 +43,7 @@ public class MainForConsole {
         });
         Thread thread2 = new Thread(() -> {
             try {
-                Fighting.fight(getWarrior(), "CHICKEN");
+                Fighting.fight(getWarrior(), "GREEN_SLIME");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }

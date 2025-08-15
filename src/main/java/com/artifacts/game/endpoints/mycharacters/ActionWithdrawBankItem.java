@@ -20,10 +20,12 @@ public class ActionWithdrawBankItem {
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
-                return new JSONObject(response.body());
+                var jsonObject = new JSONObject(response.body());
+                jsonObject.put("statusCode", response.statusCode());
+                return jsonObject;
             }
             globalErrorHandler(response, endpoint);
-            return null;
+            return new JSONObject().put("statusCode", response.statusCode());
 
         } catch (Exception actionWithdrawBankItemException) {
             System.err.println(endpoint + " | Exception: " + actionWithdrawBankItemException.getMessage());

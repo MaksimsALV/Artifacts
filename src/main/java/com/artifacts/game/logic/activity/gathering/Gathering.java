@@ -1,5 +1,7 @@
 package com.artifacts.game.logic.activity.gathering;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionGathering.actionGathering;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
@@ -13,61 +15,55 @@ public class Gathering {
 
         int cooldown = 0;
         String reason = "";
+        var statusCode = 0;
 
         var actionMoveResponseObject = actionMove(name, x, y);
-        if (actionMoveResponseObject != null) {
+        statusCode = actionMoveResponseObject.getInt("statusCode");
+        if (statusCode == CODE_SUCCESS) {
             cooldown = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
             reason = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
             if (cooldown > 0) {
                 System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
-                //return; //think i need to remove it
+                Thread.sleep(cooldown * 1000L);
             }
         }
 
         while (true) {
             var actionGatheringResponseObject = actionGathering(name);
-            //todo right now im moving only when status is non-200. But later i need to change that, to move ONLY when inventory is full.
-            //todo so for this i need to return also the status it self within actionGathering method, i need to do that at some point
-            if (actionGatheringResponseObject != null) {
+            statusCode = actionGatheringResponseObject.getInt("statusCode");
+            if (statusCode == CODE_SUCCESS) {
                 cooldown = actionGatheringResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
                 reason = actionGatheringResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
                 if (cooldown > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
+                    Thread.sleep(cooldown * 1000L);
                 }
                 continue;
-            }
-
-            var actionMoveToBankResponseObject = actionMove(name, 4, 1); //move to bank
-            if (actionMoveToBankResponseObject != null) {
-                cooldown = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                reason = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                if (cooldown > 0) {
-                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
+            } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {
+                var actionMoveToBankResponseObject = actionMove(name, 4, 1); //move to bank
+                statusCode = actionMoveToBankResponseObject.getInt("statusCode");
+                if (statusCode == CODE_SUCCESS) {
+                    cooldown = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
+                    reason = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
+                    if (cooldown > 0) {
+                        System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
+                        Thread.sleep(cooldown * 1000L);
+                    }
                 }
 
                 var actionDepositAllItemsResponseObject = actionDepositBankItem(name);
-                if (actionDepositAllItemsResponseObject != null) {
+                statusCode = actionDepositAllItemsResponseObject.getInt("statusCode");
+                if (statusCode == CODE_SUCCESS) {
                     cooldown = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
                     reason = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
                     if (cooldown > 0) {
                         System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                        Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
+                        Thread.sleep(cooldown * 1000L);
                         gather(name, resource);
                         return;
                     }
                 }
-                /*
-                var depositAllItems = actionDepositBankItem();
-                if (depositAllItems != null) {
-                    miningCopper(name);
-                    return;
-                }
-
-                 */
-
+                gather(name, resource);
                 return;
             }
             return;
