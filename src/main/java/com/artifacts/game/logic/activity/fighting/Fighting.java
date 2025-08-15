@@ -45,7 +45,7 @@ public class Fighting {
                 if (cooldown > 0) {
                     System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
                     Thread.sleep(cooldown * 1000L); //todo do i need to define thread or it understand it self?
-                } else if (hp <= 60) {
+                } else if (hp <= 150) {
                     actionRestResponseObject = actionRest(name);
                     if (actionRestResponseObject != null) {
                         cooldown = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");

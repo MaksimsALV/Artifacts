@@ -27,7 +27,7 @@ public class MainForConsole {
         //Crafting.craft();
 
         //gathering
-        Gathering.gather(getGatherer(), "COPPER");
+        //Gathering.gather(getGatherer(), "COPPER");
 
         //fighting
         //Fighting.fight(getWarrior(), "GREEN_SLIME");
@@ -42,12 +42,12 @@ public class MainForConsole {
         });
         Thread thread2 = new Thread(() -> {
             try {
-                Gathering.gather(getGatherer(), "COPPER");
+                Fighting.fight(getWarrior(), "CHICKEN");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
         });
-        //thread1.start();
-        //thread2.start();
+        thread1.start();
+        thread2.start();
     }
 }
