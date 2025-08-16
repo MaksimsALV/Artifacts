@@ -6,6 +6,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionFight.actionFight;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 import static com.artifacts.game.library.monsters.Monsters.MONSTERS;
+import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class Fighting {
     public static void fight(String name, String monster) throws InterruptedException {
@@ -13,79 +14,47 @@ public class Fighting {
         var x = monsterCoordinates[0];
         var y = monsterCoordinates[1];
 
-        var cooldown = 0;
-        var reason = "";
-        var hp = 0;
-        var statusCode = 0;
-
-        var actionMoveResponseObject = actionMove(name, x, y);
-        statusCode = actionMoveResponseObject.getInt("statusCode");
+        var response = actionMove(name, x, y);
+        var statusCode = response.getInt("statusCode");
         if (statusCode == CODE_SUCCESS) {
-            cooldown = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-            reason = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-            if (cooldown > 0) {
-                System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                Thread.sleep(cooldown * 1000L);
-            }
+            globalCooldownManager(name, response);
         }
 
-        var actionRestResponseObject = actionRest(name);
-        statusCode = actionRestResponseObject.getInt("statusCode");
+        response = actionRest(name);
+        statusCode = response.getInt("statusCode");
         if (statusCode == CODE_SUCCESS) {
-            cooldown = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-            reason = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-            if (cooldown > 0) {
-                System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                Thread.sleep(cooldown * 1000L);
-            }
+            globalCooldownManager(name, response);
         }
 
         while (true) {
-            var actionFightResponseObject = actionFight(name);
-            statusCode = actionFightResponseObject.getInt("statusCode");
+            response = actionFight(name);
+            statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
-                cooldown = actionFightResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                reason = actionFightResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                hp = actionFightResponseObject.getJSONObject("data").getJSONObject("character").getInt("hp");
-                if (cooldown > 0) {
-                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(cooldown * 1000L);
-                } else if (hp <= 150) {
-                    actionRestResponseObject = actionRest(name);
-                    if (actionRestResponseObject != null) {
-                        cooldown = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                        reason = actionRestResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                        if (cooldown > 0) {
-                            System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                            Thread.sleep(cooldown * 1000L);
-                        }
+                var hp = response.getJSONObject("data").getJSONObject("character").getInt("hp");
+                globalCooldownManager(name, response);
+                if (hp <= 150) {
+                response = actionRest(name);
+                statusCode = response.getInt("statusCode");
+                if (statusCode == CODE_SUCCESS) {
+                        globalCooldownManager(name, response);
                     }
                 }
                 continue;
 
             } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {
-                var actionMoveToBankResponseObject = actionMove(name, 4, 1); //move to bank
-                statusCode = actionMoveToBankResponseObject.getInt("statusCode");
+                response = actionMove(name, 4, 1); //move to bank
+                statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
-                    cooldown = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                    reason = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                    if (cooldown > 0) {
-                        System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                        Thread.sleep(cooldown * 1000L);
-                    }
+                    globalCooldownManager(name, response);
                 }
 
-                var actionDepositAllItemsResponseObject = actionDepositBankItem(name);
-                statusCode = actionDepositAllItemsResponseObject.getInt("statusCode");
+                response = actionDepositBankItem(name);
+                statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
-                    cooldown = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                    reason = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                    if (cooldown > 0) {
-                        System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                        Thread.sleep(cooldown * 1000L);
-                        fight(name, monster);
-                        return;
-                    }
+                    globalCooldownManager(name, response);
+                    fight(name, monster);
+                    return;
+
                 }
                 fight(name, monster);
                 return;
