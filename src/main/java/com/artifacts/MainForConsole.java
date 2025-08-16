@@ -37,7 +37,7 @@ public class MainForConsole {
 
         Thread thread1 = new Thread(() -> {
             try {
-                Gathering.gather(getGatherer(), "COPPER");
+                Gathering.gather(getGatherer(), "IRON");
 
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
@@ -45,8 +45,8 @@ public class MainForConsole {
         });
         Thread thread2 = new Thread(() -> {
             try {
-                Fighting.fight(getWarrior(), "GREEN_SLIME");
-                //Gathering.gather(getWarrior(), "COPPER");
+                //Fighting.fight(getWarrior(), "GREEN_SLIME");
+                Gathering.gather(getWarrior(), "IRON");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
@@ -54,13 +54,13 @@ public class MainForConsole {
         Thread thread3 = new Thread(() -> {
             try {
                 //craftResources(getForgemaster(), "FORGE", "COPPER_BAR", "COPPER_ORE");
-                Gathering.gather(getForgemaster(), "COPPER");
+                Gathering.gather(getForgemaster(), "IRON");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
         });
-        //thread1.start();
+        thread1.start();
         thread2.start();
-        //thread3.start();
+        thread3.start();
     }
 }

@@ -11,6 +11,7 @@ import static com.artifacts.game.library.recources.Resources.CRAFTING_RESOURCE_I
 import static com.artifacts.game.library.workshops.Workshops.WORKSHOPS;
 import static com.artifacts.game.library.gear.Gear.*;
 import static com.artifacts.game.library.gear.Weapons.*;
+import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class CraftingGear {
     public static void craftGear(String name, String workshop, String item) throws InterruptedException {
@@ -34,65 +35,36 @@ public class CraftingGear {
         var x = workshopCoordinates[0];
         var y = workshopCoordinates[1];
 
-        var cooldown = 0;
-        var reason = "";
-        var statusCode = 0;
-
-        var actionMoveResponseObject = ActionMove.actionMove(name, x, y);
-        statusCode = actionMoveResponseObject.getInt("statusCode");
+        var response = ActionMove.actionMove(name, x, y);
+        var statusCode = response.getInt("statusCode");
         if (statusCode == CODE_SUCCESS || statusCode == CODE_CHARACTER_ALREADY_MAP) {
             if (statusCode == CODE_SUCCESS) {
-                cooldown = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                reason = actionMoveResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                if (cooldown > 0) {
-                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(cooldown * 1000L);
-                }
+                globalCooldownManager(name, response);
             }
             while (true) {
-                var actionCraftingResponseObject = actionCrafting(name, item, 1);
-                statusCode = actionCraftingResponseObject.getInt("statusCode");
+                response = actionCrafting(name, item, 1);
+                statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
-                    cooldown = actionCraftingResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                    reason = actionCraftingResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                    if (cooldown > 0) {
-                        System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                        Thread.sleep(cooldown * 1000L);
-                    }
+                    globalCooldownManager(name, response);
                     continue;
 
                 } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL || statusCode == CODE_MISSING_ITEM || statusCode == CODE_NOT_FOUND) {
-                    var actionMoveToBankResponseObject = ActionMove.actionMove(name, 4, 1); //move to bank
-                    statusCode = actionMoveToBankResponseObject.getInt("statusCode");
+                    response = ActionMove.actionMove(name, 4, 1);
+                    statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
-                        cooldown = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                        reason = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                        if (cooldown > 0) {
-                            System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                            Thread.sleep(cooldown * 1000L);
-                        }
+                        globalCooldownManager(name, response);
                     }
 
-                    var actionDepositAllItemsResponseObject = actionDepositBankItem(name);
-                    statusCode = actionDepositAllItemsResponseObject.getInt("statusCode");
+                    response = actionDepositBankItem(name);
+                    statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
-                        cooldown = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                        reason = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                        if (cooldown > 0) {
-                            System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                            Thread.sleep(cooldown * 1000L);
-                        }
+                        globalCooldownManager(name, response);
                     }
 
-                    var actionWithdrawItemsResponseObject = actionWithdrawBankItem(name, craftingResourceIngredient, 100);
-                    statusCode = actionWithdrawItemsResponseObject.getInt("statusCode");
+                    response = actionWithdrawBankItem(name, craftingResourceIngredient, 20);
+                    statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
-                        cooldown = actionWithdrawItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                        reason = actionWithdrawItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                        if (cooldown > 0) {
-                            System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                            Thread.sleep(cooldown * 1000L);
-                        }
+                        globalCooldownManager(name, response);
                     }
                     craftGear(name, workshop, item);
                     return;
@@ -101,37 +73,22 @@ public class CraftingGear {
             }
 
         } else if (statusCode == CODE_MISSING_ITEM || statusCode == CODE_NOT_FOUND) {
-            var actionMoveToBankResponseObject = ActionMove.actionMove(name, 4, 1); //move to bank
-            statusCode = actionMoveToBankResponseObject.getInt("statusCode");
+            response = ActionMove.actionMove(name, 4, 1);
+            statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
-                cooldown = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                reason = actionMoveToBankResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                if (cooldown > 0) {
-                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(cooldown * 1000L);
-                }
+                globalCooldownManager(name, response);
             }
 
-            var actionDepositAllItemsResponseObject = actionDepositBankItem(name);
-            statusCode = actionDepositAllItemsResponseObject.getInt("statusCode");
+            response = actionDepositBankItem(name);
+            statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
-                cooldown = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                reason = actionDepositAllItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                if (cooldown > 0) {
-                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(cooldown * 1000L);
-                }
+                globalCooldownManager(name, response);
             }
 
-            var actionWithdrawItemsResponseObject = actionWithdrawBankItem(name, craftingResourceIngredient, 100);
-            statusCode = actionWithdrawItemsResponseObject.getInt("statusCode");
+            response = actionWithdrawBankItem(name, craftingResourceIngredient, 20);
+            statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
-                cooldown = actionWithdrawItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getInt("remaining_seconds");
-                reason = actionWithdrawItemsResponseObject.getJSONObject("data").getJSONObject("cooldown").getString("reason");
-                if (cooldown > 0) {
-                    System.out.println(name + " is now on a cooldown for: " + cooldown + "s due to " + reason);
-                    Thread.sleep(cooldown * 1000L);
-                }
+                globalCooldownManager(name, response);
             }
         }
     }

@@ -5,6 +5,7 @@ import java.util.Map;
 public final class Resources {
     public static final Map<String, int[]> RESOURCES = Map.of(
             "COPPER", new int[]{2, 0},
+            "IRON", new int[]{1, 7},
             "ASH_TREE", new int[]{-1,0}
             //add more
     );
