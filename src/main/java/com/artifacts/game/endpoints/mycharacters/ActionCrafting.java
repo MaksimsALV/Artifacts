@@ -33,7 +33,7 @@ public class ActionCrafting {
 
     public static String actionCraftingBody(String item, int quantity) {
         var jsonObject = new JSONObject();
-        jsonObject.put("code", item);
+        jsonObject.put("code", item.toLowerCase());
         jsonObject.put("quantity", quantity);
         return jsonObject.toString();
     }

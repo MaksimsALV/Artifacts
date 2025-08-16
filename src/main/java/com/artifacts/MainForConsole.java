@@ -1,13 +1,14 @@
 package com.artifacts;
 
-//import com.artifacts.game.endpoints.characters.GetCharacter;
-//import com.artifacts.game.endpoints.characters.GetCharacterWIP;
-//import com.artifacts.game.endpoints.mycharacters.GetMyCharacters;
 import com.artifacts.game.engine.launcher.Login;
+import com.artifacts.game.logic.activity.crafting.CraftingGear;
 import com.artifacts.game.logic.activity.fighting.Fighting;
 import com.artifacts.game.logic.activity.gathering.Gathering;
 
+import static com.artifacts.game.endpoints.mycharacters.ActionCrafting.actionCrafting;
+import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.game.library.characters.Characters.*;
+import static com.artifacts.game.logic.activity.crafting.CraftingResources.craftResources;
 
 public class MainForConsole {
     public static void main(String[] args) throws Exception {
@@ -31,7 +32,7 @@ public class MainForConsole {
 
         //fighting
         //Fighting.fight(getWarrior(), "GREEN_SLIME");
-
+        //actionWithdrawBankItem(getForgemaster(), "copper_ore", 100);
         //todo
 
         Thread thread1 = new Thread(() -> {
@@ -48,7 +49,15 @@ public class MainForConsole {
                 throw new RuntimeException(threadException);
             }
         });
+        Thread thread3 = new Thread(() -> {
+            try {
+                craftResources(getForgemaster(), "FORGE", "COPPER_BAR", "COPPER_ORE");
+            } catch (InterruptedException threadException) {
+                throw new RuntimeException(threadException);
+            }
+        });
         thread1.start();
         thread2.start();
+        thread3.start();
     }
 }

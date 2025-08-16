@@ -13,8 +13,8 @@ public class Gathering {
         var x = resourceCoordinates[0];
         var y = resourceCoordinates[1];
 
-        int cooldown = 0;
-        String reason = "";
+        var cooldown = 0;
+        var reason = "";
         var statusCode = 0;
 
         var actionMoveResponseObject = actionMove(name, x, y);

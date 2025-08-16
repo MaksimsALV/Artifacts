@@ -13,8 +13,8 @@ public class Fighting {
         var x = monsterCoordinates[0];
         var y = monsterCoordinates[1];
 
-        int cooldown = 0;
-        String reason = "";
+        var cooldown = 0;
+        var reason = "";
         var hp = 0;
         var statusCode = 0;
 

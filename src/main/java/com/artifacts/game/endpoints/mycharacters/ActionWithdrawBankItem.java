@@ -13,7 +13,11 @@ public class ActionWithdrawBankItem {
     public static JSONObject actionWithdrawBankItem(String name, String itemCode, Integer quantity) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/bank/withdraw/item";
-        var requestBody = getItemsForBankWithdraw(name).toString();
+        var requestBody = new JSONArray()
+                .put(new JSONObject()
+                        .put("code", itemCode)
+                        .put("quantity", quantity))
+                .toString();
 
         try {
             HttpResponse<String> response = Send.post(endpoint, requestBody, true);
@@ -32,7 +36,7 @@ public class ActionWithdrawBankItem {
             return null;
         }
     }
-
+/*
     public static JSONArray getItemsForBankWithdraw(String name) { //creating an array of bodies to withdraw request
         var getBankItemsResponseObject = getBankItems(name);
         var bankInventory = getBankItemsResponseObject.getJSONArray("data");
@@ -49,4 +53,6 @@ public class ActionWithdrawBankItem {
         }
         return bankInventory;
     }
+
+ */
 }

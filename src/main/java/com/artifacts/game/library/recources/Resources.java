@@ -13,4 +13,9 @@ public final class Resources {
             "COPPER_BAR", "copper_bar",
             "ASH_WOOD", "ash_wood"
     );
+
+    public static final Map<String, String> CRAFTING_RESOURCE_INGREDIENTS = Map.of(
+            "COPPER_ORE", "copper_ore"
+            //"ASH_WOOD", "ash_tree_log" //wrong key, look at copper ore
+    );
 }
