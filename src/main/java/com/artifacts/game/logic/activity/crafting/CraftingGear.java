@@ -61,7 +61,7 @@ public class CraftingGear {
                         globalCooldownManager(name, response);
                     }
 
-                    response = actionWithdrawBankItem(name, craftingResourceIngredient, 20);
+                    response = actionWithdrawBankItem(name, craftingResourceIngredient, 100);
                     statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
@@ -85,7 +85,7 @@ public class CraftingGear {
                 globalCooldownManager(name, response);
             }
 
-            response = actionWithdrawBankItem(name, craftingResourceIngredient, 20);
+            response = actionWithdrawBankItem(name, craftingResourceIngredient, 100);
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);

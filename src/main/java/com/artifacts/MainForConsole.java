@@ -53,7 +53,7 @@ public class MainForConsole {
         });
         Thread thread3 = new Thread(() -> {
             try {
-                //craftResources(getForgemaster(), "FORGE", "COPPER_BAR", "COPPER_ORE");
+                //craftResources(getForgemaster(), "FORGE", "IRON_BAR", "IRON_ORE");
                 Gathering.gather(getForgemaster(), "IRON");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);

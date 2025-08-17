@@ -3,8 +3,8 @@ package com.artifacts.game.library.characters;
 public final class Characters {
     private Characters() {}
         private static final String WARRIOR = "MaxiTheGuy";
-        private static final String GATHERER = "Bjorn";
-        private static final String FORGEMASTER = "Hjorn";
+        private static final String GATHERER = "Hjorn";
+        private static final String FORGEMASTER = "Bjorn";
 
         public static String getWarrior() {
             return WARRIOR;
