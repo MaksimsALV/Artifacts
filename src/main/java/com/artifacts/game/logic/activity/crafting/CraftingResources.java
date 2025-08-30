@@ -1,30 +1,26 @@
 package com.artifacts.game.logic.activity.crafting;
 
-import com.artifacts.game.endpoints.maps.GetAllMaps;
-
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
+import static com.artifacts.game.endpoints.items.GetItem.getItem;
+import static com.artifacts.game.endpoints.maps.GetAllMaps.getAllMaps;
 import static com.artifacts.game.endpoints.mycharacters.ActionCrafting.actionCrafting;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
-import static com.artifacts.game.library.recources.Resources.CRAFTING_RESOURCES;
-import static com.artifacts.game.library.recources.Resources.CRAFTING_RESOURCE_INGREDIENTS;
-//import static com.artifacts.game.library.locations.Workshops.WORKSHOPS;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class CraftingResources {
-    public static void craftResources(String name, String activityLocation, String item, String ingredient) throws InterruptedException {
-        String craftingIngredient = CRAFTING_RESOURCE_INGREDIENTS.get(ingredient);
-        String craftingItem = CRAFTING_RESOURCES.get(item);
+    public static void craftResources(String name, String activityLocation, String item) throws InterruptedException {
+        var response = getAllMaps(activityLocation);
+        var x = response.getJSONArray("data").getJSONObject(0).getInt("x");
+        var y = response.getJSONArray("data").getJSONObject(0).getInt("y");
 
-//        int[] workshopCoordinates = WORKSHOPS.get(workshop.toUpperCase());
-//        var x = workshopCoordinates[0];
-//        var y = workshopCoordinates[1];
-        var coordinates = GetAllMaps.getAllMaps(activityLocation);
-        var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
-        var y = coordinates.getJSONArray("data").getJSONObject(0).getInt("y");
+        response = getItem(item);
+        var dataObject = response.getJSONObject("data");
+        var craftingItem = dataObject.getString("code");
+        var craftingIngredients = dataObject.getJSONObject("craft").getJSONArray("items");
 
-        var response = actionMove(name, x, y);
+        response = actionMove(name, x, y);
         var statusCode = response.getInt("statusCode");
         if (statusCode == CODE_SUCCESS || statusCode == CODE_CHARACTER_ALREADY_MAP) {
             if (statusCode == CODE_SUCCESS) {
@@ -45,7 +41,8 @@ public class CraftingResources {
                 globalCooldownManager(name, response);
             }
 
-            response = actionWithdrawBankItem(name, craftingIngredient, 100);
+            var ingredientCodeOne = craftingIngredients.getJSONObject(0).getString("code");
+            response = actionWithdrawBankItem(name, ingredientCodeOne, 100);
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);
@@ -80,12 +77,13 @@ public class CraftingResources {
                     globalCooldownManager(name, response);
                 }
 
-                response = actionWithdrawBankItem(name, craftingIngredient, 100);
+                var ingredientCodeOne = craftingIngredients.getJSONObject(0).getString("code");
+                response = actionWithdrawBankItem(name, ingredientCodeOne, 100);
                 statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
                     globalCooldownManager(name, response);
                 }
-                craftResources(name, activityLocation, item, ingredient);
+                craftResources(name, activityLocation, item);
                 return;
             }
             return;

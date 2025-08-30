@@ -7,7 +7,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.ac
 import static com.artifacts.game.endpoints.mycharacters.ActionGathering.actionGathering;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 //import static com.artifacts.game.library.locations.GatheringZones.RESOURCE_FIELDS;
-import static com.artifacts.game.library.recources.Resources.RESOURCE_LOCATION;
+//import static com.artifacts.game.library.recources.Resources.RESOURCE_LOCATION;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class Gathering {
