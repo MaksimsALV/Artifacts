@@ -1,5 +1,6 @@
 package com.artifacts.game.logic.activity.crafting;
 
+import com.artifacts.game.endpoints.maps.GetAllMaps;
 import com.artifacts.game.endpoints.mycharacters.ActionMove;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
@@ -7,14 +8,13 @@ import static com.artifacts.game.endpoints.mycharacters.ActionCrafting.actionCra
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.*;
 import static com.artifacts.game.library.recources.Resources.CRAFTING_RESOURCES;
-import static com.artifacts.game.library.recources.Resources.CRAFTING_RESOURCE_INGREDIENTS;
-import static com.artifacts.game.library.workshops.Workshops.WORKSHOPS;
+//import static com.artifacts.game.library.locations.Workshops.WORKSHOPS;
 import static com.artifacts.game.library.gear.Gear.*;
 import static com.artifacts.game.library.gear.Weapons.*;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class CraftingGear {
-    public static void craftGear(String name, String workshop, String item, String ingredient) throws InterruptedException {
+    public static void craftGear(String name, String activityLocation, String item, String ingredient) throws InterruptedException {
         //resources
         //String craftingIngredient = CRAFTING_RESOURCE_INGREDIENTS.get(ingredient);
         String craftingIngredient = CRAFTING_RESOURCES.get(ingredient);
@@ -31,9 +31,12 @@ public class CraftingGear {
         String dagger = DAGGERS.get(item.toUpperCase());
         String axe = AXES.get(item.toUpperCase());
 
-        int[] workshopCoordinates = WORKSHOPS.get(workshop.toUpperCase());
-        var x = workshopCoordinates[0];
-        var y = workshopCoordinates[1];
+        //int[] workshopCoordinates = WORKSHOPS.get(workshop.toUpperCase());
+        //var x = workshopCoordinates[0];
+        //var y = workshopCoordinates[1];
+        var coordinates = GetAllMaps.getAllMaps(activityLocation);
+        var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
+        var y = coordinates.getJSONArray("data").getJSONObject(0).getInt("y");
 
         var response = ActionMove.actionMove(name, x, y);
         var statusCode = response.getInt("statusCode");
@@ -66,7 +69,7 @@ public class CraftingGear {
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
                     }
-                    craftGear(name, workshop, item, ingredient);
+                    craftGear(name, activityLocation, item, ingredient);
                     return;
                 }
                 return;

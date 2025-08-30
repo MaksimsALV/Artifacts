@@ -1,4 +1,5 @@
-package com.artifacts.game.library.workshops;
+/*
+package com.artifacts.game.library.locations;
 
 import java.util.Map;
 
@@ -13,3 +14,5 @@ public final class Workshops {
             //add more
     );
 }
+
+ */

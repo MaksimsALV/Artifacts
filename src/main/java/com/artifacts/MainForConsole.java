@@ -1,5 +1,6 @@
 package com.artifacts;
 
+import com.artifacts.game.endpoints.maps.GetAllMaps;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.crafting.CraftingGear;
 import com.artifacts.game.logic.activity.fighting.Fighting;
@@ -24,7 +25,8 @@ public class MainForConsole {
 
         Thread thread1 = new Thread(() -> { //Warrior
             try {
-                Fighting.fight(getWarrior(), "COW");
+                //Fighting.fight(getWarrior(), "COW");
+                Fighting.fight(getWarrior(), "cow");
                 //craftGear(getWarrior(), "WEAPONCRAFTING", "COPPER_DAGGER", "COPPER_BAR");
 
             } catch (InterruptedException threadException) {
@@ -33,7 +35,7 @@ public class MainForConsole {
         });
         Thread thread2 = new Thread(() -> { //Miner
             try {
-                Gathering.gather(getMiner(), "COPPER");
+                Gathering.gather(getMiner(), "copper_rocks");
                 //craftResources(getMiner(), "FORGE", "COPPER_BAR", "COPPER_ORE");
                 //craftGear(getMiner(), "JEWELRYCRAFTING", "COPPER_RING", "COPPER_BAR");
             } catch (InterruptedException threadException) {
@@ -42,21 +44,21 @@ public class MainForConsole {
         });
         Thread thread3 = new Thread(() -> { //Alchemist
             try {
-                Gathering.gather(getAlchemist(), "SUNFLOWER_FIELD");
+                Gathering.gather(getAlchemist(), "sunflower_field");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
         });
         Thread thread4 = new Thread(() -> { //Lumberjack
             try {
-                Gathering.gather(getLumberjack(), "ASH_TREE");
+                Gathering.gather(getLumberjack(), "ash_tree");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
         });
         Thread thread5 = new Thread(() -> { //Chef
             try {
-                Gathering.gather(getChef(), "GUDGEON_LAKE");
+                Gathering.gather(getChef(), "gudgeon_fishing_spot");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
