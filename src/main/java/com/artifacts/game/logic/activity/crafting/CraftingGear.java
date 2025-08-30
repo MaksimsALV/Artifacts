@@ -10,7 +10,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.*
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class CraftingGear {
-    public static void craftGear(String name, String activityLocation, String item) throws InterruptedException {
+    public static void craftGear(String name, String activityLocation, String item, int quantity) throws InterruptedException {
 
         var response = getAllMaps(activityLocation);
         var dataArray = response.getJSONArray("data");
@@ -29,7 +29,7 @@ public class CraftingGear {
                 globalCooldownManager(name, response);
             }
             while (true) {
-                response = actionCrafting(name, craftingItem, 1);
+                response = actionCrafting(name, craftingItem, quantity);
                 statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
                     globalCooldownManager(name, response);
@@ -54,7 +54,7 @@ public class CraftingGear {
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
                     }
-                    craftGear(name, activityLocation, item);
+                    craftGear(name, activityLocation, item, quantity);
                     return;
                 }
                 return;

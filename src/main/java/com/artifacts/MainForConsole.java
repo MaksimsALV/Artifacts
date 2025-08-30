@@ -25,9 +25,8 @@ public class MainForConsole {
 
         Thread thread1 = new Thread(() -> { //Warrior
             try {
-                //Fighting.fight(getWarrior(), "COW");
-                //Fighting.fight(getWarrior(), "cow");
-                craftGear(getWarrior(), "weaponcrafting", "copper_dagger");
+                Fighting.fight(getWarrior(), "cow");
+                //craftGear(getWarrior(), "weaponcrafting", "copper_dagger", 10);
 
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
@@ -35,8 +34,8 @@ public class MainForConsole {
         });
         Thread thread2 = new Thread(() -> { //Miner
             try {
-                //Gathering.gather(getMiner(), "copper_rocks");
-                craftResources(getMiner(), "mining", "copper_bar");
+                Gathering.gather(getMiner(), "copper_rocks");
+                //craftResources(getMiner(), "mining", "copper_bar", 10);
                 //craftGear(getMiner(), "JEWELRYCRAFTING", "COPPER_RING", "COPPER_BAR");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
@@ -64,9 +63,9 @@ public class MainForConsole {
             }
         });
         thread1.start();
-        //thread2.start();
-        //thread3.start();
-        //thread4.start();
-        //thread5.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+        thread5.start();
     }
 }
