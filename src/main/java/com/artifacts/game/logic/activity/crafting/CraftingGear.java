@@ -14,13 +14,13 @@ import static com.artifacts.game.library.gear.Weapons.*;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class CraftingGear {
-    public static void craftGear(String name, String workshop, String item) throws InterruptedException {
+    public static void craftGear(String name, String workshop, String item, String ingredient) throws InterruptedException {
         //resources
-        String craftingResource = CRAFTING_RESOURCES.get(item.toUpperCase());
-        String craftingResourceIngredient = CRAFTING_RESOURCE_INGREDIENTS.get(item.toUpperCase());
+        //String craftingIngredient = CRAFTING_RESOURCE_INGREDIENTS.get(ingredient);
+        String craftingIngredient = CRAFTING_RESOURCES.get(ingredient);
 
         //gear
-        String helm = HELMS.get(item.toUpperCase());
+        String helm = HELMS.get(item);
         String armor = ARMORS.get(item.toUpperCase());
         String legs = LEGS.get(item.toUpperCase());
         String boots = BOOTS.get(item.toUpperCase());
@@ -61,12 +61,12 @@ public class CraftingGear {
                         globalCooldownManager(name, response);
                     }
 
-                    response = actionWithdrawBankItem(name, craftingResourceIngredient, 100);
+                    response = actionWithdrawBankItem(name, craftingIngredient, 100);
                     statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
                     }
-                    craftGear(name, workshop, item);
+                    craftGear(name, workshop, item, ingredient);
                     return;
                 }
                 return;
@@ -85,7 +85,7 @@ public class CraftingGear {
                 globalCooldownManager(name, response);
             }
 
-            response = actionWithdrawBankItem(name, craftingResourceIngredient, 100);
+            response = actionWithdrawBankItem(name, craftingIngredient, 100);
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);

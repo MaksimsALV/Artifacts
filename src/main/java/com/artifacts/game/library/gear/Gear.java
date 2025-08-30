@@ -3,6 +3,7 @@ package com.artifacts.game.library.gear;
 import java.util.Map;
 
 public final class Gear {
+    //todo should merge gear and weapon into one library because its damn same thing
     public static final Map<String, String> HELMS = Map.of(
             "COPPER_HELMET", "copper_helmet"
     );

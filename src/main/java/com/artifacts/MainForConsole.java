@@ -8,6 +8,7 @@ import com.artifacts.game.logic.activity.gathering.Gathering;
 import static com.artifacts.game.endpoints.mycharacters.ActionCrafting.actionCrafting;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.game.library.characters.Characters.*;
+import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
 import static com.artifacts.game.logic.activity.crafting.CraftingResources.craftResources;
 
 public class MainForConsole {
@@ -19,42 +20,43 @@ public class MainForConsole {
 
         Login.login();
         System.out.println("\nLogin successful");
-        //delay(5);
-
         System.out.println("\ninitial Character data is received successfully");
-        //delay(5);
 
-        //crafting
-        //Crafting.craft();
-
-        //gathering
-        //Gathering.gather(getGatherer(), "COPPER");
-
-        //fighting
-        //Fighting.fight(getWarrior(), "GREEN_SLIME");
-        //actionWithdrawBankItem(getForgemaster(), "copper_ore", 100);
-        //todo
-
-        Thread thread1 = new Thread(() -> {
+        Thread thread1 = new Thread(() -> { //Warrior
             try {
-                Gathering.gather(getGatherer(), "IRON");
+                Fighting.fight(getWarrior(), "COW");
+                //craftGear(getWarrior(), "WEAPONCRAFTING", "COPPER_DAGGER", "COPPER_BAR");
 
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
         });
-        Thread thread2 = new Thread(() -> {
+        Thread thread2 = new Thread(() -> { //Miner
             try {
-                //Fighting.fight(getWarrior(), "GREEN_SLIME");
-                Gathering.gather(getWarrior(), "IRON");
+                Gathering.gather(getMiner(), "COPPER");
+                //craftResources(getMiner(), "FORGE", "COPPER_BAR", "COPPER_ORE");
+                //craftGear(getMiner(), "JEWELRYCRAFTING", "COPPER_RING", "COPPER_BAR");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
         });
-        Thread thread3 = new Thread(() -> {
+        Thread thread3 = new Thread(() -> { //Alchemist
             try {
-                //craftResources(getForgemaster(), "FORGE", "IRON_BAR", "IRON_ORE");
-                Gathering.gather(getForgemaster(), "IRON");
+                Gathering.gather(getAlchemist(), "SUNFLOWER_FIELD");
+            } catch (InterruptedException threadException) {
+                throw new RuntimeException(threadException);
+            }
+        });
+        Thread thread4 = new Thread(() -> { //Lumberjack
+            try {
+                Gathering.gather(getLumberjack(), "ASH_TREE");
+            } catch (InterruptedException threadException) {
+                throw new RuntimeException(threadException);
+            }
+        });
+        Thread thread5 = new Thread(() -> { //Chef
+            try {
+                Gathering.gather(getChef(), "GUDGEON_LAKE");
             } catch (InterruptedException threadException) {
                 throw new RuntimeException(threadException);
             }
@@ -62,5 +64,7 @@ public class MainForConsole {
         thread1.start();
         thread2.start();
         thread3.start();
+        thread4.start();
+        thread5.start();
     }
 }

@@ -4,12 +4,12 @@ import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionGathering.actionGathering;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
-import static com.artifacts.game.library.recources.Resources.RESOURCES;
+import static com.artifacts.game.library.recources.Resources.RESOURCE_LOCATION;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class Gathering {
     public static void gather(String name, String resource) throws InterruptedException {
-        int[] resourceCoordinates = RESOURCES.get(resource.toUpperCase());
+        int[] resourceCoordinates = RESOURCE_LOCATION.get(resource.toUpperCase());
         var x = resourceCoordinates[0];
         var y = resourceCoordinates[1];
 
