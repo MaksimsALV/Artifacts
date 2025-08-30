@@ -12,8 +12,9 @@ import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 public class CraftingResources {
     public static void craftResources(String name, String activityLocation, String item) throws InterruptedException {
         var response = getAllMaps(activityLocation);
-        var x = response.getJSONArray("data").getJSONObject(0).getInt("x");
-        var y = response.getJSONArray("data").getJSONObject(0).getInt("y");
+        var dataArray = response.getJSONArray("data");
+        var x = dataArray.getJSONObject(0).getInt("x");
+        var y = dataArray.getJSONObject(0).getInt("y");
 
         response = getItem(item);
         var dataObject = response.getJSONObject("data");

@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.library.gear;
 
 import java.util.Map;
@@ -15,3 +16,5 @@ public final class Weapons {
             "COPPER_AXE", "copper_axe"
     );
 }
+
+ */

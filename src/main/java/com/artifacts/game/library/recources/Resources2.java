@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.library.recources;
 
 import java.util.ArrayList;
@@ -16,3 +17,5 @@ public final class Resources2 {
             "cowhide"
     );
 }
+
+ */

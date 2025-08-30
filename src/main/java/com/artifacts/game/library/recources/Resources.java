@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.library.recources;
 
 import java.util.Map;
@@ -28,3 +29,5 @@ public final class Resources {
             //"ASH_WOOD", "ash_tree_log" //wrong key, look at copper ore
     );
 }
+
+ */

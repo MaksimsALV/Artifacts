@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.library.gear;
 
 import java.util.Map;
@@ -24,3 +25,5 @@ public final class Gear {
             "COPPER_RING", "copper_ring"
     );
 }
+
+ */
