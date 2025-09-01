@@ -25,7 +25,7 @@ public class MainForConsole {
 
         Thread thread1 = new Thread(() -> { //Warrior
             try {
-                Fighting.fight(getWarrior(), "cow");
+                Fighting.fight(getWarrior(), "wolf");
                 //craftGear(getWarrior(), "weaponcrafting", "copper_dagger", 10);
 
             } catch (InterruptedException threadException) {
