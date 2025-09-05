@@ -1,4 +1,4 @@
-package com.artifacts.webcontroller;
+package com.artifacts.controller.webcontroller;
 import com.artifacts.game.endpoints.serverdetails.GetServerDetails;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;

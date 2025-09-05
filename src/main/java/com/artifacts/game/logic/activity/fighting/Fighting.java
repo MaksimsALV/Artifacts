@@ -9,6 +9,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 //import static com.artifacts.game.library.locations.Monsters.MONSTERS;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.tools.GlobalHealthManager.unhealthy;
 
 public class Fighting {
     public static void fight(String name, String activityLocation) throws InterruptedException {
@@ -35,9 +36,12 @@ public class Fighting {
             response = actionFight(name);
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
-                var hp = response.getJSONObject("data").getJSONObject("character").getInt("hp");
+//                var hp = response.getJSONObject("data").getJSONObject("character").getInt("hp");
+//                var maxHP = response.getJSONObject("data").getJSONObject("character").getInt("max_hp");
+//                globalCooldownManager(name, response);
+//                if (hp * 100 <= 50 * maxHP) {
                 globalCooldownManager(name, response);
-                if (hp <= 150) {
+                if (unhealthy(response)) {
                 response = actionRest(name);
                 statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {

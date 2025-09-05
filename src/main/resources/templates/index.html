@@ -8,5 +8,8 @@
     <H1>Hello Artifacts SB Edition (:</H1>
 
     <H2>Server Status: <span th:text="${statusCode}"></span></H2>
+<form th:action="@{/actuator/health}" method="get">
+    <button type="submit">App health check</button>
+</form>
 </body>
 </html>
