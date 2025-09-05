@@ -1,15 +1,217 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Artifacts</title>
-</head>
-<body>
-    <H1>Hello Artifacts SB Edition (:</H1>
+    <script th:src="@{/js/submitOrKillAll.js}" defer></script>
 
-    <H2>Server Status: <span th:text="${statusCode}"></span></H2>
-<form th:action="@{/actuator/health}" method="get">
-    <button type="submit">App health check</button>
-</form>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body class="bg-light">
+<div class="container py-3">
+    <h1 class="mb-1">Hello Artifacts SB & Bootstrap4 Edition (:</h1>
+    <h2 class="h6 text-muted mb-3">
+        Server Status:
+        <span th:text="${statusCode}" class="badge bg-light text-dark border"></span>
+    </h2>
+
+    <form th:action="@{/actuator/health}" method="get" class="mb-3">
+        <button type="submit" class="btn btn-outline-secondary btn-sm">App health check</button>
+    </form>
+
+    <!-- Five columns in one row -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 g-3 justify-content-center">
+
+        <!-- Thread 1 -->
+        <div class="col">
+            <form th:action="@{/}" method="post" class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <input type="hidden" name="slot" value="1" />
+
+                    <div class="mb-2">
+                        <label for="characterName1" class="form-label mb-1">Thread 1</label>
+                        <select id="characterName1" name="characterName" class="form-select form-select-sm">
+                            <option th:each="n,stat : ${characterNames}"
+                                    th:value="${n}" th:text="${n}"
+                                    th:selected="${stat.index == 0}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="monsterCode1" class="form-label mb-1">Fight</label>
+                        <select id="monsterCode1" name="monsterCode" class="form-select form-select-sm">
+                            <option value="">Monster Codes</option>
+                            <option th:each="code : ${monsterCode}"
+                                    th:value="${code}" th:text="${code}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="resourceCode1" class="form-label mb-1">Resource</label>
+                        <select id="resourceCode1" name="resourceCode" class="form-select form-select-sm">
+                            <option value="">Resource Codes</option>
+                            <option th:each="code : ${resourceCode}"
+                                    th:value="${code}" th:text="${code}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-auto">
+                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
+                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Thread 2 -->
+        <div class="col">
+            <form th:action="@{/}" method="post" class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <input type="hidden" name="slot" value="2" />
+
+                    <div class="mb-2">
+                        <label for="characterName2" class="form-label mb-1">Thread 2</label>
+                        <select id="characterName2" name="characterName" required class="form-select form-select-sm">
+                            <option th:each="n,stat : ${characterNames}"
+                                    th:value="${n}" th:text="${n}"
+                                    th:selected="${stat.index == 1}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="resourceCode2" class="form-label mb-1">Resource</label>
+                        <select id="resourceCode2" name="resourceCode" required class="form-select form-select-sm">
+                            <option value="">Resource Codes</option>
+                            <option th:each="code : ${resourceCode}"
+                                    th:value="${code}" th:text="${code}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-auto">
+                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
+                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Thread 3 -->
+        <div class="col">
+            <form th:action="@{/}" method="post" class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <input type="hidden" name="slot" value="3" />
+
+                    <div class="mb-2">
+                        <label for="characterName3" class="form-label mb-1">Thread 3</label>
+                        <select id="characterName3" name="characterName" required class="form-select form-select-sm">
+                            <option th:each="n,stat : ${characterNames}"
+                                    th:value="${n}" th:text="${n}"
+                                    th:selected="${stat.index == 2}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="resourceCode3" class="form-label mb-1">Resource</label>
+                        <select id="resourceCode3" name="resourceCode" required class="form-select form-select-sm">
+                            <option value="">Resource Codes</option>
+                            <option th:each="code : ${resourceCode}"
+                                    th:value="${code}" th:text="${code}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-auto">
+                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
+                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Thread 4 -->
+        <div class="col">
+            <form th:action="@{/}" method="post" class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <input type="hidden" name="slot" value="4" />
+
+                    <div class="mb-2">
+                        <label for="characterName4" class="form-label mb-1">Thread 4</label>
+                        <select id="characterName4" name="characterName" required class="form-select form-select-sm">
+                            <option th:each="n,stat : ${characterNames}"
+                                    th:value="${n}" th:text="${n}"
+                                    th:selected="${stat.index == 3}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="resourceCode4" class="form-label mb-1">Resource</label>
+                        <select id="resourceCode4" name="resourceCode" required class="form-select form-select-sm">
+                            <option value="">Resource Codes</option>
+                            <option th:each="code : ${resourceCode}"
+                                    th:value="${code}" th:text="${code}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-auto">
+                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
+                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Thread 5 -->
+        <div class="col">
+            <form th:action="@{/}" method="post" class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <input type="hidden" name="slot" value="5" />
+
+                    <div class="mb-2">
+                        <label for="characterName5" class="form-label mb-1">Thread 5</label>
+                        <select id="characterName5" name="characterName" required class="form-select form-select-sm">
+                            <option th:each="n,stat : ${characterNames}"
+                                    th:value="${n}" th:text="${n}"
+                                    th:selected="${stat.index == 4}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="resourceCode5" class="form-label mb-1">Resource</label>
+                        <select id="resourceCode5" name="resourceCode" required class="form-select form-select-sm">
+                            <option value="">Resource Codes</option>
+                            <option th:each="code : ${resourceCode}"
+                                    th:value="${code}" th:text="${code}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-auto">
+                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
+                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Global actions -->
+    <div class="text-center mt-3">
+        <button type="button" id="startAll" class="btn btn-success">Start ALL</button>
+        <button type="button" id="killAll"  class="btn btn-danger ms-2">Kill ALL</button>
+    </div>
+</div>
 </body>
 </html>
