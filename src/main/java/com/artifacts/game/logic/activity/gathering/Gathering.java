@@ -13,10 +13,6 @@ import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 public class Gathering {
     public static void gather(String name, String activityLocation) throws InterruptedException {
         if (Thread.currentThread().isInterrupted()) throw new InterruptedException("cancelled");
-        //int[] resourceCoordinates = RESOURCE_LOCATION.get(resource.toUpperCase());
-        //int[] resourceCoordinates = RESOURCE_FIELDS.get(resource.toUpperCase());
-        //var x = resourceCoordinates[0];
-        //var y = resourceCoordinates[1];
         var coordinates = GetAllMaps.getAllMaps(activityLocation);
         var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
         var y = coordinates.getJSONArray("data").getJSONObject(0).getInt("y");

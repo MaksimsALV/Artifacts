@@ -22,11 +22,11 @@ import static com.artifacts.game.library.characters.Characters.*;
 
 @Controller
 public class WebController {
-    private Thread thread1;
-    private Thread thread2;
-    private Thread thread3;
-    private Thread thread4;
-    private Thread thread5;
+    private volatile Thread thread1;
+    private volatile Thread thread2;
+    private volatile Thread thread3;
+    private volatile Thread thread4;
+    private volatile Thread thread5;
 
     @GetMapping("/")
     public String indexGET(Model model) {

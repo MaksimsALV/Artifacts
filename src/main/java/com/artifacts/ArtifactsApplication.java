@@ -1,10 +1,10 @@
 package com.artifacts;
 
-import com.artifacts.controller.dbcontroller.DBController;
 import com.artifacts.game.endpoints.characters.GetCharacter;
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.fighting.Fighting;
 import com.artifacts.game.logic.activity.gathering.Gathering;
+import com.artifacts.service.ThreadRegistry;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,48 +29,57 @@ public class ArtifactsApplication {
         System.out.println("\ninitial Character data is received successfully");
 
 
+        //Thread thread1 = new Thread(() -> { //Warrior
+            Runnable warrior = () -> {
+                try {
+                Fighting.fight(getWarrior(), "red_slime");
+                //craftGear(getWarrior(), "gearcrafting", "copper_helmet", 16);
+                //Gathering.gather(getWarrior(), "copper_rocks");
 
-//        Thread thread1 = new Thread(() -> { //Warrior
-//            try {
-//                Fighting.fight(getWarrior(), "flying_snake");
-//                //craftGear(getWarrior(), "gearcrafting", "copper_helmet", 16);
-//                //Gathering.gather(getWarrior(), "copper_rocks");
-//
-//            } catch (InterruptedException threadException) {
-//                throw new RuntimeException(threadException);
-//            }
-//        });
-//        Thread thread2 = new Thread(() -> { //Miner
-//            try {
-//                Gathering.gather(getMiner(), "copper_rocks");
-//                //Gathering.gather(getMiner(), "iron_rocks");
-//                //craftResources(getMiner(), "mining", "copper_bar", 10);
-//                //craftGear(getMiner(), "jewelrycrafting", "copper_ring", 16);
-//            } catch (InterruptedException threadException) {
-//                throw new RuntimeException(threadException);
-//            }
-//        });
-//        Thread thread3 = new Thread(() -> { //Alchemist
-//            try {
-//                Gathering.gather(getAlchemist(), "sunflower_field");
-//            } catch (InterruptedException threadException) {
-//                throw new RuntimeException(threadException);
-//            }
-//        });
-//        Thread thread4 = new Thread(() -> { //Lumberjack
-//            try {
-//                Gathering.gather(getLumberjack(), "spruce_tree");
-//            } catch (InterruptedException threadException) {
-//                throw new RuntimeException(threadException);
-//            }
-//        });
-//        Thread thread5 = new Thread(() -> { //Chef
-//            try {
-//                Gathering.gather(getChef(), "shrimp_fishing_spot");
-//            } catch (InterruptedException threadException) {
-//                throw new RuntimeException(threadException);
-//            }
-//        });
+            } catch (InterruptedException threadException) {
+                //throw new RuntimeException(threadException);
+                Thread.currentThread().interrupt();
+            }
+        };
+        Runnable miner = () -> {
+            //Thread thread2 = new Thread(() -> { //Miner
+            try {
+                Gathering.gather(getMiner(), "iron_rocks");
+                //Gathering.gather(getMiner(), "iron_rocks");
+                //craftResources(getMiner(), "mining", "copper_bar", 10);
+                //craftGear(getMiner(), "jewelrycrafting", "copper_ring", 16);
+            } catch (InterruptedException threadException) {
+                //throw new RuntimeException(threadException);
+                Thread.currentThread().interrupt();
+            }
+        };
+        Runnable alchemist = () -> {
+        //Thread thread3 = new Thread(() -> { //Alchemist
+            try {
+                Gathering.gather(getAlchemist(), "sunflower_field");
+            } catch (InterruptedException threadException) {
+                //throw new RuntimeException(threadException);
+                Thread.currentThread().interrupt();
+            }
+        };
+        Runnable lumberjack = () -> {
+            //Thread thread4 = new Thread(() -> { //Lumberjack
+            try {
+                Gathering.gather(getLumberjack(), "spruce_tree");
+            } catch (InterruptedException threadException) {
+                //throw new RuntimeException(threadException);
+                Thread.currentThread().interrupt();
+            }
+        };
+        Runnable chef = () -> {
+            //Thread thread5 = new Thread(() -> { //Chef
+            try {
+                Gathering.gather(getChef(), "shrimp_fishing_spot");
+            } catch (InterruptedException threadException) {
+                //throw new RuntimeException(threadException);
+                Thread.currentThread().interrupt();
+            }
+        };
 
 //        Thread thread6 = new Thread(() -> {
 //            while (true) {
@@ -83,7 +92,20 @@ public class ArtifactsApplication {
 //                    }
 //                });
 //
-//        thread1.start();
+
+        ThreadRegistry.ThreadTasks.register("warrior", warrior);
+        ThreadRegistry.ThreadTasks.register("miner", miner);
+        ThreadRegistry.ThreadTasks.register("alchemist", alchemist);
+        ThreadRegistry.ThreadTasks.register("lumberjack", lumberjack);
+        ThreadRegistry.ThreadTasks.register("chef", chef);
+
+        new Thread(warrior, "warrior").start();
+        new Thread(miner, "miner").start();
+        new Thread(alchemist, "alchemist").start();
+        new Thread(lumberjack, "lumberjack").start();
+        new Thread(chef, "chef").start();
+
+        //thread1.start();
 //        thread2.start();
 //        thread3.start();
 //        thread4.start();

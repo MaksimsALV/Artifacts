@@ -14,9 +14,6 @@ import static com.artifacts.tools.GlobalHealthManager.unhealthy;
 public class Fighting {
     public static void fight(String name, String activityLocation) throws InterruptedException {
         if (Thread.currentThread().isInterrupted()) throw new InterruptedException("cancelled");
-        //int[] monsterCoordinates = MONSTERS.get(monster.toUpperCase());
-        //var x = monsterCoordinates[0];
-        //var y = monsterCoordinates[1];
         var coordinates = GetAllMaps.getAllMaps(activityLocation);
         var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
         var y = coordinates.getJSONArray("data").getJSONObject(0).getInt("y");
@@ -37,10 +34,6 @@ public class Fighting {
             response = actionFight(name);
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
-//                var hp = response.getJSONObject("data").getJSONObject("character").getInt("hp");
-//                var maxHP = response.getJSONObject("data").getJSONObject("character").getInt("max_hp");
-//                globalCooldownManager(name, response);
-//                if (hp * 100 <= 50 * maxHP) {
                 globalCooldownManager(name, response);
                 if (unhealthy(response)) {
                 response = actionRest(name);

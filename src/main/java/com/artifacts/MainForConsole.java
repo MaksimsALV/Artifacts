@@ -1,3 +1,4 @@
+/*
 package com.artifacts;
 
 import com.artifacts.game.endpoints.maps.GetAllMaps;
@@ -84,3 +85,5 @@ public class MainForConsole {
 //        thread6.start();
     }
 }
+
+ */
