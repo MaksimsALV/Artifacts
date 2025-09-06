@@ -7,7 +7,7 @@ public class GlobalHealthManager {
         var characterData = response.getJSONObject("data").getJSONObject("character");
         var maxHP = characterData.getInt("max_hp");
         var currentHP = characterData.getInt("hp") * 100;
-        var unhealthy = (currentHP <= maxHP * 50); //unhealthy threshold, integer represents %
+        var unhealthy = (currentHP <= maxHP * 75); //unhealthy threshold, integer represents %
         if (unhealthy) {
             return true;
         }
