@@ -1,3 +1,4 @@
+/*
 package com.artifacts;
 
 import com.artifacts.game.endpoints.characters.GetCharacter;
@@ -29,10 +30,10 @@ public class ArtifactsApplication {
         System.out.println("\ninitial Character data is received successfully");
 
 
-        //Thread thread1 = new Thread(() -> { //Warrior
-            Runnable warrior = () -> {
+        Thread thread1 = new Thread(() -> { //Warrior
+            //Runnable warrior = () -> {
                 try {
-                Fighting.fight(getWarrior(), "red_slime");
+                Fighting.fight(getWarrior(), "highwayman");
                 //craftGear(getWarrior(), "gearcrafting", "copper_helmet", 16);
                 //Gathering.gather(getWarrior(), "copper_rocks");
 
@@ -40,9 +41,9 @@ public class ArtifactsApplication {
                 //throw new RuntimeException(threadException);
                 Thread.currentThread().interrupt();
             }
-        };
-        Runnable miner = () -> {
-            //Thread thread2 = new Thread(() -> { //Miner
+        });
+        //Runnable miner = () -> {
+            Thread thread2 = new Thread(() -> { //Miner
             try {
                 Gathering.gather(getMiner(), "iron_rocks");
                 //Gathering.gather(getMiner(), "iron_rocks");
@@ -52,34 +53,34 @@ public class ArtifactsApplication {
                 //throw new RuntimeException(threadException);
                 Thread.currentThread().interrupt();
             }
-        };
-        Runnable alchemist = () -> {
-        //Thread thread3 = new Thread(() -> { //Alchemist
+        });
+        //Runnable alchemist = () -> {
+        Thread thread3 = new Thread(() -> { //Alchemist
             try {
                 Gathering.gather(getAlchemist(), "sunflower_field");
             } catch (InterruptedException threadException) {
                 //throw new RuntimeException(threadException);
                 Thread.currentThread().interrupt();
             }
-        };
-        Runnable lumberjack = () -> {
-            //Thread thread4 = new Thread(() -> { //Lumberjack
+        });
+        //Runnable lumberjack = () -> {
+            Thread thread4 = new Thread(() -> { //Lumberjack
             try {
                 Gathering.gather(getLumberjack(), "spruce_tree");
             } catch (InterruptedException threadException) {
                 //throw new RuntimeException(threadException);
                 Thread.currentThread().interrupt();
             }
-        };
-        Runnable chef = () -> {
-            //Thread thread5 = new Thread(() -> { //Chef
+        });
+        //Runnable chef = () -> {
+            Thread thread5 = new Thread(() -> { //Chef
             try {
                 Gathering.gather(getChef(), "shrimp_fishing_spot");
             } catch (InterruptedException threadException) {
                 //throw new RuntimeException(threadException);
                 Thread.currentThread().interrupt();
             }
-        };
+        });
 
 //        Thread thread6 = new Thread(() -> {
 //            while (true) {
@@ -92,24 +93,26 @@ public class ArtifactsApplication {
 //                    }
 //                });
 //
+//
+//        ThreadRegistry.ThreadTasks.register("warrior", warrior);
+//        ThreadRegistry.ThreadTasks.register("miner", miner);
+//        ThreadRegistry.ThreadTasks.register("alchemist", alchemist);
+//        ThreadRegistry.ThreadTasks.register("lumberjack", lumberjack);
+//        ThreadRegistry.ThreadTasks.register("chef", chef);
+//
+//        new Thread(warrior, "warrior").start();
+//        new Thread(miner, "miner").start();
+//        new Thread(alchemist, "alchemist").start();
+//        new Thread(lumberjack, "lumberjack").start();
+//        new Thread(chef, "chef").start();
 
-        ThreadRegistry.ThreadTasks.register("warrior", warrior);
-        ThreadRegistry.ThreadTasks.register("miner", miner);
-        ThreadRegistry.ThreadTasks.register("alchemist", alchemist);
-        ThreadRegistry.ThreadTasks.register("lumberjack", lumberjack);
-        ThreadRegistry.ThreadTasks.register("chef", chef);
-
-        new Thread(warrior, "warrior").start();
-        new Thread(miner, "miner").start();
-        new Thread(alchemist, "alchemist").start();
-        new Thread(lumberjack, "lumberjack").start();
-        new Thread(chef, "chef").start();
-
-        //thread1.start();
-//        thread2.start();
-//        thread3.start();
-//        thread4.start();
-//        thread5.start();
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+        thread5.start();
 //        thread6.start();
     }
 }
+
+ */

@@ -70,93 +70,131 @@ public class WebController {
         var hasMonsterSelected = monster != null && !monster.isBlank();
         var hasResourceSelected = resource != null && !resource.isBlank();
 
+        String threadName = nameForSlot(slot);
 
         if ("start".equals(action)) {
             if (hasMonsterSelected == hasResourceSelected) {
                 return "redirect:/";
             }
 
-            if (slot == 1) {
-                thread1 = new Thread(() -> {
-                    try {
-                        if (hasMonsterSelected) {
-                            Fighting.fight(character, monster);
-                        } else {
-                            Gathering.gather(character, resource);
-                        }
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                });
-                thread1.setDaemon(true);
-                thread1.start();
-
-            } else if (slot == 2) {
-                thread2 = new Thread(() -> {
-                    try {
+            Runnable r = () -> {
+                try {
+                    if (hasMonsterSelected) {
+                        Fighting.fight(character, monster);
+                    } else {
                         Gathering.gather(character, resource);
-                    } catch (InterruptedException threadException) {
-                        Thread.currentThread().interrupt();
                     }
-                });
-                thread2.setDaemon(true);
-                thread2.start();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            };
 
-            } else if (slot == 3) {
-                thread3 = new Thread(() -> {
-                    try {
-                        Gathering.gather(character, resource);
-                    } catch (InterruptedException threadException) {
-                        Thread.currentThread().interrupt();
-                    }
-                });
-                thread3.setDaemon(true);
-                thread3.start();
+            Thread t = new Thread(r, threadName);
+            t.setDaemon(true);
+            t.start();
 
-            } else if (slot == 4) {
-                thread4 = new Thread(() -> {
-                    try {
-                        Gathering.gather(character, resource);
-                    } catch (InterruptedException threadException) {
-                        Thread.currentThread().interrupt();
-                    }
-                });
-                thread4.setDaemon(true);
-                thread4.start();
+//            if (slot == 1) {
+//                thread1 = new Thread(() -> {
+//                    try {
+//                        if (hasMonsterSelected) {
+//                            Fighting.fight(character, monster);
+//                        } else {
+//                            Gathering.gather(character, resource);
+//                        }
+//                    } catch (InterruptedException e) {
+//                        Thread.currentThread().interrupt();
+//                    }
+//                });
+//                thread1.setDaemon(true);
+//                thread1.start();
+//
+//            } else if (slot == 2) {
+//                thread2 = new Thread(() -> {
+//                    try {
+//                        Gathering.gather(character, resource);
+//                    } catch (InterruptedException threadException) {
+//                        Thread.currentThread().interrupt();
+//                    }
+//                });
+//                thread2.setDaemon(true);
+//                thread2.start();
+//
+//            } else if (slot == 3) {
+//                thread3 = new Thread(() -> {
+//                    try {
+//                        Gathering.gather(character, resource);
+//                    } catch (InterruptedException threadException) {
+//                        Thread.currentThread().interrupt();
+//                    }
+//                });
+//                thread3.setDaemon(true);
+//                thread3.start();
+//
+//            } else if (slot == 4) {
+//                thread4 = new Thread(() -> {
+//                    try {
+//                        Gathering.gather(character, resource);
+//                    } catch (InterruptedException threadException) {
+//                        Thread.currentThread().interrupt();
+//                    }
+//                });
+//                thread4.setDaemon(true);
+//                thread4.start();
+//
+//            } else if (slot == 5) {
+//                thread5 = new Thread(() -> {
+//                    try {
+//                        Gathering.gather(character, resource);
+//                    } catch (InterruptedException threadException) {
+//                        Thread.currentThread().interrupt();
+//                    }
+//                });
+//                thread5.setDaemon(true);
+//                thread5.start();
+//            }
 
-            } else if (slot == 5) {
-                thread5 = new Thread(() -> {
-                    try {
-                        Gathering.gather(character, resource);
-                    } catch (InterruptedException threadException) {
-                        Thread.currentThread().interrupt();
-                    }
-                });
-                thread5.setDaemon(true);
-                thread5.start();
-            }
         } else if ("kill".equals(action)) {
-            if (slot == 1 && thread1 != null) {
-                System.out.println("Thread killed");
-                thread1.interrupt();
-            }
-            if (slot == 2 && thread2 != null) {
-                System.out.println("Thread killed");
-                thread2.interrupt();
-            }
-            if (slot == 3 && thread3 != null) {
-                System.out.println("Thread killed");
-                thread3.interrupt();
-            }
-            if (slot == 4 && thread4 != null) {
-                System.out.println("Thread killed");
-                thread4.interrupt();
-            }
-            if (slot == 5 && thread5 != null) {
-                System.out.println("Thread killed");
-                thread5.interrupt();
+            // interrupt first matching thread by name
+            for (Thread t : Thread.getAllStackTraces().keySet()) {
+                if (threadName.equals(t.getName())) {
+                    t.interrupt();
+                    break;
+                }
             }
         }
+
+//        } else if ("kill".equals(action)) {
+//            if (slot == 1 && thread1 != null) {
+//                System.out.println("Thread killed");
+//                thread1.interrupt();
+//            }
+//            if (slot == 2 && thread2 != null) {
+//                System.out.println("Thread killed");
+//                thread2.interrupt();
+//            }
+//            if (slot == 3 && thread3 != null) {
+//                System.out.println("Thread killed");
+//                thread3.interrupt();
+//            }
+//            if (slot == 4 && thread4 != null) {
+//                System.out.println("Thread killed");
+//                thread4.interrupt();
+//            }
+//            if (slot == 5 && thread5 != null) {
+//                System.out.println("Thread killed");
+//                thread5.interrupt();
+//            }
+//        }
         return "redirect:/";
+    }
+    private String nameForSlot(int slot) {
+        switch (slot) {
+            case 1:  return "warrior";
+            case 2:  return "miner";
+            case 3:  return "alchemist";
+            case 4:  return "lumberjack";
+            case 5:  return "chef";
+            default: throw new IllegalArgumentException("Invalid slot: " + slot);
+        }
     }
 }

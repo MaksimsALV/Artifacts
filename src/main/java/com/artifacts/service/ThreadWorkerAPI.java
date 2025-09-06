@@ -1,3 +1,4 @@
+/*
 package com.artifacts.service;
 
 import org.springframework.http.ResponseEntity;
@@ -42,3 +43,6 @@ public class ThreadWorkerAPI {
         return ResponseEntity.notFound().build();
     }
 }
+
+
+ */

@@ -13,7 +13,7 @@ import static com.artifacts.tools.GlobalHealthManager.unhealthy;
 
 public class Fighting {
     public static void fight(String name, String activityLocation) throws InterruptedException {
-        if (Thread.currentThread().isInterrupted()) throw new InterruptedException("cancelled");
+        //if (Thread.currentThread().isInterrupted()) throw new InterruptedException("cancelled");
         var coordinates = GetAllMaps.getAllMaps(activityLocation);
         var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
         var y = coordinates.getJSONArray("data").getJSONObject(0).getInt("y");

@@ -62,8 +62,14 @@
                     </div>
 
                     <div class="d-flex gap-2 mt-auto">
-                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
-                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                        <button type="submit" class="btn btn-success btn-sm flex-fill"
+                                formmethod="post" th:formaction="@{/threads/warrior/start}">
+                            Start thread
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm flex-fill"
+                                formnovalidate formmethod="post" th:formaction="@{/threads/warrior/interrupt}">
+                            Kill thread
+                        </button>
                     </div>
                 </div>
             </form>
@@ -96,8 +102,14 @@
                     </div>
 
                     <div class="d-flex gap-2 mt-auto">
-                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
-                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                        <button type="submit" class="btn btn-success btn-sm flex-fill"
+                                formmethod="post" th:formaction="@{/threads/miner/start}">
+                            Start thread
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm flex-fill"
+                                formnovalidate formmethod="post" th:formaction="@{/threads/miner/interrupt}">
+                            Kill thread
+                        </button>
                     </div>
                 </div>
             </form>
@@ -130,8 +142,14 @@
                     </div>
 
                     <div class="d-flex gap-2 mt-auto">
-                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
-                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                        <button type="submit" class="btn btn-success btn-sm flex-fill"
+                                formmethod="post" th:formaction="@{/threads/lumberjack/start}">
+                            Start thread
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm flex-fill"
+                                formnovalidate formmethod="post" th:formaction="@{/threads/lumberjack/interrupt}">
+                            Kill thread
+                        </button>
                     </div>
                 </div>
             </form>
@@ -164,8 +182,14 @@
                     </div>
 
                     <div class="d-flex gap-2 mt-auto">
-                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
-                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                        <button type="submit" class="btn btn-success btn-sm flex-fill"
+                                formmethod="post" th:formaction="@{/threads/chef/start}">
+                            Start thread
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm flex-fill"
+                                formnovalidate formmethod="post" th:formaction="@{/threads/chef/interrupt}">
+                            Kill thread
+                        </button>
                     </div>
                 </div>
             </form>
@@ -198,13 +222,18 @@
                     </div>
 
                     <div class="d-flex gap-2 mt-auto">
-                        <button type="submit" name="action" value="start" class="btn btn-success btn-sm flex-fill">Start thread</button>
-                        <button type="submit" name="action" value="kill" class="btn btn-danger btn-sm flex-fill" formnovalidate>kill thread</button>
+                        <button type="submit" class="btn btn-success btn-sm flex-fill"
+                                formmethod="post" th:formaction="@{/threads/alchemist/start}">
+                            Start thread
+                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm flex-fill"
+                                formnovalidate formmethod="post" th:formaction="@{/threads/alchemist/interrupt}">
+                            Kill thread
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
-
     </div>
 
     <!-- Global actions -->
