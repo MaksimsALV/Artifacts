@@ -7,7 +7,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionAcceptNewTask.acti
 import static com.artifacts.game.endpoints.mycharacters.ActionCompleteTask.actionCompleteTask;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
-
+//todo maybe merge in FightingTask tbh as it is my great design template - or maybe not.
 public class CompleteFightTask {
     public static void completeFightTask(String name) throws InterruptedException {
         var coordinates = GetAllMaps.getAllMaps("monsters");
