@@ -9,8 +9,8 @@ import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class GetFightTask {
-    public static String getFightTask(String name, String activityLocation) throws InterruptedException {
-        var coordinates = GetAllMaps.getAllMaps(activityLocation);
+    public static String getFightTask(String name) throws InterruptedException {
+        var coordinates = GetAllMaps.getAllMaps("monsters");
         var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
         var y = coordinates.getJSONArray("data").getJSONObject(0).getInt("y");
 
@@ -21,10 +21,10 @@ public class GetFightTask {
         }
         response = actionAcceptNewTask(name);
         statusCode = response.getInt("statusCode");
-        var taskCode = response.getJSONObject("data").getJSONObject("task").getString("code");
+        var activityLocation = response.getJSONObject("data").getJSONObject("task").getString("code");
         if (statusCode == CODE_SUCCESS) {
             globalCooldownManager(name, response);
         }
-        return taskCode;
+        return activityLocation;
     }
 }

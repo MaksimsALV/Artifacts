@@ -8,7 +8,8 @@ import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
 public class runMethodDebug {
     public static void main(String[] args) throws InterruptedException {
         Login.login();
-        var activityLocation = getFightTask("MaxiTheGuy", "monsters");
-        fightTask("MaxiTheGuy", activityLocation);
+        //var activityLocation = getFightTask("MaxiTheGuy", "monsters");
+        //fightTask("MaxiTheGuy", activityLocation);
+        fightTask("MaxiTheGuy", ""); //call this just to start fightTask logic, activityLocation is blank as expected
     }
 }

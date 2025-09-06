@@ -4,6 +4,7 @@ import com.artifacts.game.endpoints.maps.GetAllMaps;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.game.endpoints.mycharacters.ActionAcceptNewTask.actionAcceptNewTask;
+import static com.artifacts.game.endpoints.mycharacters.ActionCompleteTask.actionCompleteTask;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
@@ -18,7 +19,7 @@ public class CompleteFightTask {
         if (statusCode == CODE_SUCCESS) {
             globalCooldownManager(name, response);
         }
-        response = actionAcceptNewTask(name);
+        response = actionCompleteTask(name);
         statusCode = response.getInt("statusCode");
         if (statusCode == CODE_SUCCESS) {
             globalCooldownManager(name, response);
