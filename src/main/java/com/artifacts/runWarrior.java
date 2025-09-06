@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static com.artifacts.game.library.characters.Characters.getMiner;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
 import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
+import static com.artifacts.game.logic.activity.fighting.FightingTask.fightTask;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
@@ -24,7 +25,8 @@ public class runWarrior {
         System.out.println("\nLogin successful");
         System.out.println("\ninitial Character data is received successfully");
 
-        fight(getWarrior(), "highwayman");
+        fight(getWarrior(), "mushmush");
+        //fightTask(getWarrior(), "monsters");
         //craftGear(getWarrior(), "gearcrafting", "copper_helmet", 16);
         //Gathering.gather(getWarrior(), "copper_rocks");
     }
