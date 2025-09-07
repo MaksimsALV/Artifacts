@@ -10,9 +10,12 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
 public class GetAllItems {
-    public static JSONObject getAllItems(String craftMaterial) {
+    public static JSONObject getAllItems(String craftMaterial, String type) {
+        var craftMaterialParameter = (craftMaterial == null || craftMaterial.isBlank()) ? "" : "?craft_material=" + craftMaterial; //if null or blank, put nothing (empty string), else put parameter+value
+        var typeParameter = (type == null || type.isBlank()) ? "" : "?type=" + type;
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/items" + "?craft_material=" + craftMaterial;
+        var endpoint = baseUrl + "/items" + craftMaterialParameter + typeParameter;
+        //var endpoint = baseUrl + "/items" + "?craft_material=" + craftMaterial;
 
         try {
             HttpResponse<String> response = Send.get(endpoint, false);
