@@ -25,7 +25,8 @@ public class runWarrior {
         System.out.println("\nLogin successful");
         System.out.println("\ninitial Character data is received successfully");
 
-        fight(getWarrior(), "mushmush");
+        //fight(getWarrior(), "wolf");
+        fightTask(getWarrior(), "");
         //fightTask(getWarrior(), "monsters");
         //craftGear(getWarrior(), "gearcrafting", "copper_helmet", 16);
         //Gathering.gather(getWarrior(), "copper_rocks");

@@ -37,7 +37,7 @@ public class FightingTask {
             response = actionFight(name);
             statusCode = response.getInt("statusCode");
             var taskTotal = response.getJSONObject("data").getJSONObject("character").getInt("task_total");
-            var taskCurrent = response.getJSONObject("data").getJSONObject("character").getInt("task_current");
+            var taskCurrent = response.getJSONObject("data").getJSONObject("character").getInt("task_progress");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);
                 if (taskCurrent == taskTotal) {

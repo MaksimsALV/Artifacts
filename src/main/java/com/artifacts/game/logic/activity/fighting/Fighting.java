@@ -25,6 +25,7 @@ public class Fighting {
             globalCooldownManager(name, response);
         }
 
+        //todo should add globalHealthManager here too
         response = actionRest(name);
         statusCode = response.getInt("statusCode");
         if (statusCode == CODE_SUCCESS) {

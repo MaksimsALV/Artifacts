@@ -12,8 +12,8 @@ public class GlobalHealthManager2 {
         var characterData = response.getJSONObject("data").getJSONObject("character");
         var maxHP = characterData.getInt("max_hp");
         var currentHP = characterData.getInt("hp") * 100;
-        var unhealthy = (currentHP <= maxHP * 70); //unhealthy threshold, integer represents %
-        if (unhealthy) { //todo add food eating here
+        var unhealthy = (currentHP <= maxHP * 75); //unhealthy threshold, integer represents %
+        if (unhealthy) { //todo add food eating here; also health potion usage
             response = actionRest(name);
             var statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
