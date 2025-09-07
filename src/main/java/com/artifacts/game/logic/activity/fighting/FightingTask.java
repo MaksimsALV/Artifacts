@@ -1,6 +1,7 @@
 package com.artifacts.game.logic.activity.fighting;
 
 import com.artifacts.game.endpoints.maps.GetAllMaps;
+import com.artifacts.tools.GlobalHealthManager2;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionAcceptNewTask.actionAcceptNewTask;
@@ -36,22 +37,23 @@ public class FightingTask {
         while (true) {
             response = actionFight(name);
             statusCode = response.getInt("statusCode");
-            var taskTotal = response.getJSONObject("data").getJSONObject("character").getInt("task_total");
-            var taskCurrent = response.getJSONObject("data").getJSONObject("character").getInt("task_progress");
             if (statusCode == CODE_SUCCESS) {
+                var taskTotal = response.getJSONObject("data").getJSONObject("character").getInt("task_total");
+                var taskCurrent = response.getJSONObject("data").getJSONObject("character").getInt("task_progress");
                 globalCooldownManager(name, response);
+                GlobalHealthManager2.globalHealthManager(name, response); //todo testing globalHealthManager
                 if (taskCurrent == taskTotal) {
                     completeFightTask(name); //todo check if this works as i want. When all done i execute completeFightTask, then start fightTask again from scratch, stopping current loop
                     fightTask(name, activityLocation);
                     return;
                 }
-                if (unhealthy(response)) {
-                    response = actionRest(name);
-                    statusCode = response.getInt("statusCode");
-                    if (statusCode == CODE_SUCCESS) {
-                        globalCooldownManager(name, response);
-                    }
-                }
+//                if (unhealthy(response)) {
+//                    response = actionRest(name);
+//                    statusCode = response.getInt("statusCode");
+//                    if (statusCode == CODE_SUCCESS) {
+//                        globalCooldownManager(name, response);
+//                    }
+//                }
                 continue;
 
             } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {

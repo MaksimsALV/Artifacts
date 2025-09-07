@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getMiner;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
+import static com.artifacts.game.logic.activity.crafting.CraftingResources.craftResources;
 import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
@@ -25,7 +26,7 @@ public class runMiner {
 
         gather(getMiner(), "iron_rocks");
         //Gathering.gather(getMiner(), "iron_rocks");
-        //craftResources(getMiner(), "mining", "copper_bar", 10);
+        //craftResources(getMiner(), "mining", "iron_bar", 10);
         //craftGear(getMiner(), "jewelrycrafting", "copper_ring", 16);
     }
 }
