@@ -23,6 +23,6 @@ public class runLumberjack {
         System.out.println("\nLogin successful");
         System.out.println("\ninitial Character data is received successfully");
 
-        Gathering.gather(getLumberjack(), "spruce_tree");
+        Gathering.gather(getLumberjack(), "birch_tree");
     }
 }
