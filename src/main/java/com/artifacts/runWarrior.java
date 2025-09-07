@@ -27,8 +27,8 @@ public class runWarrior {
         System.out.println("\ninitial Character data is received successfully");
 
         //fight(getWarrior(), "skeleton");
-        fightTask(getWarrior(), "");
-        //craftGear(getWarrior(), "gearcrafting", "copper_helmet", 16);
+        //fightTask(getWarrior(), "");
+        craftGear(getWarrior(), "weaponcrafting", "iron_sword", 10);
         //Gathering.gather(getWarrior(), "copper_rocks");
     }
 }

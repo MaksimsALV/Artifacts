@@ -48,8 +48,16 @@ public class CraftingGear {
                         globalCooldownManager(name, response);
                     }
 
+                    //todo actually have to rewrite this hardcoded monstrosity into for loop to get ingredients from array and quantity
+                    //todo also i dont think it will work if there is no 2 ingredients. so I have to always change that in code
                     var ingredientCodeOne = craftingIngredients.getJSONObject(0).getString("code");
                     response = actionWithdrawBankItem(name, ingredientCodeOne, 100);
+                    statusCode = response.getInt("statusCode");
+                    if (statusCode == CODE_SUCCESS) {
+                        globalCooldownManager(name, response);
+                    }
+                    var ingredientCodeTwo = craftingIngredients.getJSONObject(1).getString("code");
+                    response = actionWithdrawBankItem(name, ingredientCodeTwo, 50);
                     statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
@@ -73,8 +81,16 @@ public class CraftingGear {
                 globalCooldownManager(name, response);
             }
 
+            //todo actually have to rewrite this hardcoded monstrosity into for loop to get ingredients from array and quantity
+            //todo also i dont think it will work if there is no 2 ingredients. so I have to always change that in code
             var ingredientCodeOne = craftingIngredients.getJSONObject(0).getString("code");
-            response = actionWithdrawBankItem(name, ingredientCodeOne, 100);
+            response = actionWithdrawBankItem(name, ingredientCodeOne, 50);
+            statusCode = response.getInt("statusCode");
+            if (statusCode == CODE_SUCCESS) {
+                globalCooldownManager(name, response);
+            }
+            var ingredientCodeTwo = craftingIngredients.getJSONObject(1).getString("code");
+            response = actionWithdrawBankItem(name, ingredientCodeTwo, 100);
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);
