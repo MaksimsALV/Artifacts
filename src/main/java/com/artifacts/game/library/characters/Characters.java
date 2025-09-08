@@ -6,7 +6,7 @@ public final class Characters {
         private static final String MINER = "Bjorn"; //Strong miner from Scandinavia. Is well known for his jewelry-crafting skills. Can assist in killing/woodcutting too due to strength
         private static final String ALCHEMIST = "Linzy"; //Well known gnome alchemist from city named Dalaran. Knows all herbs.
         private static final String LUMBERJACK = "Axel"; //The master of Axe itself! Best lumberjack in the region. Can assist in killing/mining too due to strength
-        private static final String CHEF = "Sushimiko"; //Master Chef of these lands, the well known sushi expert. Incredible talented fisher-woman that cooks great fish dishes.
+        private static final String CHEF = "Sushimiko"; //Master Chef of these lands, the well known sushi expert. Incredible talented fisher-woman that cooks great fish dishes. As a Master-Chef, She knows how to kill small animals too, with her sharp knife!
 
         public static String getWarrior() {
             return WARRIOR;
