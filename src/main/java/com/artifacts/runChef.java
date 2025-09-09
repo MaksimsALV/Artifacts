@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getChef;
 import static com.artifacts.game.library.characters.Characters.getMiner;
+import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
@@ -24,5 +25,6 @@ public class runChef {
         System.out.println("\ninitial Character data is received successfully");
 
         Gathering.gather(getChef(), "shrimp_fishing_spot");
+        //fight(getChef(), "chicken");
     }
 }

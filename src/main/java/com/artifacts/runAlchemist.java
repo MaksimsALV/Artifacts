@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getAlchemist;
 import static com.artifacts.game.library.characters.Characters.getMiner;
+import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
@@ -24,5 +25,6 @@ public class runAlchemist {
         System.out.println("\ninitial Character data is received successfully");
 
         Gathering.gather(getAlchemist(), "sunflower_field");
+        //craftGear(getAlchemist(), "alchemy", "small_health_potion", 33);
     }
 }

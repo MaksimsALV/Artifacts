@@ -25,8 +25,7 @@ public class runMiner {
         System.out.println("\ninitial Character data is received successfully");
 
         gather(getMiner(), "coal_rocks");
-        //Gathering.gather(getMiner(), "iron_rocks");
-        //craftResources(getMiner(), "mining", "iron_bar", 10);
+        //craftResources(getMiner(), "mining", "copper_bar", 10);
         //craftGear(getMiner(), "jewelrycrafting", "copper_ring", 16);
     }
 }

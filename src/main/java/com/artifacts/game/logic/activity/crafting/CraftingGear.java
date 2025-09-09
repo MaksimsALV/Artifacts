@@ -56,12 +56,12 @@ public class CraftingGear {
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
                     }
-                    var ingredientCodeTwo = craftingIngredients.getJSONObject(1).getString("code");
-                    response = actionWithdrawBankItem(name, ingredientCodeTwo, 50);
-                    statusCode = response.getInt("statusCode");
-                    if (statusCode == CODE_SUCCESS) {
-                        globalCooldownManager(name, response);
-                    }
+//                    var ingredientCodeTwo = craftingIngredients.getJSONObject(1).getString("code");
+//                    response = actionWithdrawBankItem(name, ingredientCodeTwo, 50);
+//                    statusCode = response.getInt("statusCode");
+//                    if (statusCode == CODE_SUCCESS) {
+//                        globalCooldownManager(name, response);
+//                    }
                     craftGear(name, activityLocation, item, quantity);
                     return;
                 }
@@ -89,12 +89,12 @@ public class CraftingGear {
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);
             }
-            var ingredientCodeTwo = craftingIngredients.getJSONObject(1).getString("code");
-            response = actionWithdrawBankItem(name, ingredientCodeTwo, 100);
-            statusCode = response.getInt("statusCode");
-            if (statusCode == CODE_SUCCESS) {
-                globalCooldownManager(name, response);
-            }
+//            var ingredientCodeTwo = craftingIngredients.getJSONObject(1).getString("code");
+//            response = actionWithdrawBankItem(name, ingredientCodeTwo, 100);
+//            statusCode = response.getInt("statusCode");
+//            if (statusCode == CODE_SUCCESS) {
+//                globalCooldownManager(name, response);
+//            }
         }
     }
 }

@@ -10,8 +10,9 @@ import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHand
 public class GetBankItems {
 
     public static JSONObject getBankItems(String name) {
+        var sizeParam = "?size=" + 100; //todo make it differently, for more than 1 param in endpoint
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/bank/items";
+        var endpoint = baseUrl + "/my/bank/items" + sizeParam;
 
         try {
             HttpResponse<String> response = Send.get(endpoint, true);
