@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getChef;
 import static com.artifacts.game.library.characters.Characters.getMiner;
-import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
+//import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication

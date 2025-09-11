@@ -1,3 +1,4 @@
+/*
 package com.artifacts.tools;
 
 import org.json.JSONObject;
@@ -15,3 +16,5 @@ public class GlobalHealthManager {
         return false;
     }
 }
+
+ */

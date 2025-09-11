@@ -12,7 +12,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 import static com.artifacts.game.logic.activity.tasks.CompleteFightTask.completeFightTask;
 import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
-import static com.artifacts.tools.GlobalHealthManager.unhealthy;
+//import static com.artifacts.tools.GlobalHealthManager.unhealthy;
 
 public class FightingTask {
     public static void fightTask(String name, String activityLocation) throws InterruptedException {

@@ -11,8 +11,9 @@ import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 import static com.artifacts.service.UtilityEquipmentManager.*;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
-public class Fighting2equippingUtilityWIP {
-    public static void fight(String name, String activityLocation, String utilityOne, String utilityTwo) throws InterruptedException {
+public class Fighting2 {
+    public static void
+    fight(String name, String activityLocation, String utilityOne, String utilityTwo) throws InterruptedException {
         equipUtilitySlotOne(name, utilityOne);
         equipUtilitySlotTwo(name, utilityTwo);
 

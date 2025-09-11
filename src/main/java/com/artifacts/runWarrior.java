@@ -1,16 +1,11 @@
 package com.artifacts;
 
 import com.artifacts.game.engine.launcher.Login;
-import com.artifacts.game.logic.activity.fighting.Fighting;
+import com.artifacts.game.logic.activity.fighting.Fighting2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static com.artifacts.game.library.characters.Characters.getMiner;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
-import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
-import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
-import static com.artifacts.game.logic.activity.fighting.FightingTask.fightTask;
-import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
 public class runWarrior {
@@ -29,6 +24,7 @@ public class runWarrior {
         //fight(getWarrior(), "chicken");
         //fightTask(getWarrior(), "");
         //craftGear(getWarrior(), "weaponcrafting", "iron_sword", 10);
-        gather(getWarrior(), "iron_rocks");
+        //gather(getWarrior(), "iron_rocks");
+        Fighting2.fight(getWarrior(), "skeleton", "small_health_potion", "");
     }
 }

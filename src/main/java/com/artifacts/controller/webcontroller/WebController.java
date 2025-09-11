@@ -1,10 +1,12 @@
+/*
 package com.artifacts.controller.webcontroller;
 import com.artifacts.game.endpoints.maps.GetAllMaps;
 import com.artifacts.game.endpoints.monsters.GetAllMonsters;
 import com.artifacts.game.endpoints.resources.GetAllResources;
 import com.artifacts.game.endpoints.serverdetails.GetServerDetails;
 import com.artifacts.game.library.characters.Characters;
-import com.artifacts.game.logic.activity.fighting.Fighting;
+//import com.artifacts.game.logic.activity.fighting.Fighting;
+import com.artifacts.game.logic.activity.fighting.Fighting2;
 import com.artifacts.game.logic.activity.gathering.Gathering;
 import jakarta.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
@@ -80,7 +82,7 @@ public class WebController {
             Runnable r = () -> {
                 try {
                     if (hasMonsterSelected) {
-                        Fighting.fight(character, monster);
+                        Fighting2.fight(character, monster);
                     } else {
                         Gathering.gather(character, resource);
                     }
@@ -198,3 +200,6 @@ public class WebController {
         }
     }
 }
+
+
+ */

@@ -1,20 +1,23 @@
 package com.artifacts.service;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
+import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.game.endpoints.mycharacters.ActionEquipItem.actionEquipItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class UtilityEquipmentManager {
     public static boolean checkUtilitySlotOne(String name, String utilityOne) {
-        var utilityEquipmentSlotOneStatus = getCharacter(name).getJSONObject("data").getString("utility1_slot");
-        var utilitySlotOneIsEmpty = utilityEquipmentSlotOneStatus.isEmpty() && !utilityOne.isEmpty();
+        var utilityEquipmentSlotOne = getCharacter(name).getJSONObject("data").getString("utility1_slot");
+        var utilitySlotOneIsEmpty = utilityEquipmentSlotOne.isEmpty() && !utilityOne.isEmpty();
         return utilitySlotOneIsEmpty;
     }
     public static boolean checkUtilitySlotTwo(String name, String utilityTwo) {
-        var utilityEquipmentSlotTwoStatus = getCharacter(name).getJSONObject("data").getString("utility2_slot");
-        var utilitySlotTwoIsEmpty = utilityEquipmentSlotTwoStatus.isEmpty() && !utilityTwo.isEmpty();
+        var utilityEquipmentSlotTwo = getCharacter(name).getJSONObject("data").getString("utility2_slot");
+        var utilitySlotTwoIsEmpty = utilityEquipmentSlotTwo.isEmpty() && !utilityTwo.isEmpty();
         return utilitySlotTwoIsEmpty;
     }
 
@@ -29,7 +32,17 @@ public class UtilityEquipmentManager {
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);
-                //todo equip
+                response = actionEquipItem(name, utilityOne, "utility1", 100);
+                if (statusCode == CODE_SUCCESS) {
+                    globalCooldownManager(name, response);
+                }
+            } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {
+                response = actionDepositBankItem(name);
+                statusCode = response.getInt("statusCode");
+                if (statusCode == CODE_SUCCESS) {
+                    globalCooldownManager(name, response);
+                    equipUtilitySlotOne(name, utilityOne);
+                }
             }
         }
     }
@@ -45,7 +58,17 @@ public class UtilityEquipmentManager {
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);
-                //todo equip
+                response = actionEquipItem(name, utilityTwo, "utility2", 100);
+                if (statusCode == CODE_SUCCESS) {
+                    globalCooldownManager(name, response);
+                }
+            } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {
+                response = actionDepositBankItem(name);
+                statusCode = response.getInt("statusCode");
+                if (statusCode == CODE_SUCCESS) {
+                    globalCooldownManager(name, response);
+                    equipUtilitySlotTwo(name, utilityTwo);
+                }
             }
         }
     }

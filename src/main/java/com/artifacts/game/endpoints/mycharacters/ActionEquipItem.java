@@ -14,11 +14,10 @@ public class ActionEquipItem {
     public static JSONObject actionEquipItem(String name, String itemCode, String itemSlot, Integer quantity) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/equip";
-        var requestBody = new JSONArray()
-                .put(new JSONObject()
+        var requestBody = new JSONObject()
                         .put("code", itemCode)
                         .put("slot", itemSlot)
-                        .put("quantity", quantity))
+                        .put("quantity", quantity)
                 .toString();
 
         try {
