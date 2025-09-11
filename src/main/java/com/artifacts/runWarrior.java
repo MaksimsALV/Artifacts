@@ -1,11 +1,12 @@
 package com.artifacts;
 
 import com.artifacts.game.engine.launcher.Login;
-import com.artifacts.game.logic.activity.fighting.Fighting2;
+import com.artifacts.game.logic.activity.crafting.Crafting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getWarrior;
+import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
 
 @SpringBootApplication
 public class runWarrior {
@@ -25,6 +26,8 @@ public class runWarrior {
         //fightTask(getWarrior(), "");
         //craftGear(getWarrior(), "weaponcrafting", "iron_sword", 10);
         //gather(getWarrior(), "iron_rocks");
-        Fighting2.fight(getWarrior(), "skeleton", "small_health_potion", "");
+        craft(getWarrior(), "weaponcrafting", "iron_sword", 10);
+        //Fighting2.fight(getWarrior(), "skeleton", "small_health_potion", "");
+
     }
 }

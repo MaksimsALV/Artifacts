@@ -1,13 +1,12 @@
 package com.artifacts;
 
 import com.artifacts.game.engine.launcher.Login;
-import com.artifacts.game.logic.activity.gathering.Gathering;
+import com.artifacts.game.logic.activity.crafting.Crafting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getLumberjack;
-import static com.artifacts.game.library.characters.Characters.getMiner;
-import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
+import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
 
 @SpringBootApplication
 public class runLumberjack {
@@ -24,7 +23,8 @@ public class runLumberjack {
         System.out.println("\ninitial Character data is received successfully");
 
         //Gathering.gather(getLumberjack(), "birch_tree");
-        Gathering.gather(getLumberjack(), "iron_rocks");
+        //Gathering.gather(getLumberjack(), "iron_rocks");
+        craft(getLumberjack(), "mining", "iron_bar", 10);
 
     }
 }

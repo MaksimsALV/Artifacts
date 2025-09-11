@@ -9,8 +9,8 @@ import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
-public class CraftingResources2 {
-    public static void craftResources(String name, String activityLocation, String item, int quantity) throws InterruptedException {
+public class Crafting {
+    public static void craft(String name, String activityLocation, String item, int quantity) throws InterruptedException {
         var response = getAllMaps(activityLocation);
         var dataArray = response.getJSONArray("data");
         var x = dataArray.getJSONObject(0).getInt("x");
@@ -92,7 +92,7 @@ public class CraftingResources2 {
                         globalCooldownManager(name, response);
                     }
                 }
-                craftResources(name, activityLocation, item, quantity);
+                craft(name, activityLocation, item, quantity);
                 return;
             }
             return;

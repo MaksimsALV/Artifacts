@@ -6,7 +6,7 @@ import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.library.characters.Characters.getMiner;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
-import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
+//import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
 import static com.artifacts.game.logic.activity.fighting.FightingTask.fightTask;
 import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
 
@@ -18,7 +18,7 @@ public class runMethodDebug {
         //fightTask(getWarrior(), ""); //call this just to start fightTask logic, activityLocation is blank as expected
         //getAllItems("", "utility");
         //actionDepositBankItem(getMiner());
-        craftGear(getWarrior(), "weaponcrafting", "iron_sword", 16);
+ //       craftGear(getWarrior(), "weaponcrafting", "iron_sword", 16);
 
     }
 }

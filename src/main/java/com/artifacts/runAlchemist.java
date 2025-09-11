@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getAlchemist;
 import static com.artifacts.game.library.characters.Characters.getMiner;
-import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
+//import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication

@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.logic.activity.crafting;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
@@ -98,3 +99,5 @@ public class CraftingGear {
         }
     }
 }
+
+ */

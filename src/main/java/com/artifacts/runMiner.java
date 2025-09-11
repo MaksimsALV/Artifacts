@@ -1,15 +1,14 @@
 package com.artifacts;
 
 import com.artifacts.game.engine.launcher.Login;
-import com.artifacts.game.logic.activity.crafting.CraftingResources2;
+import com.artifacts.game.logic.activity.crafting.Crafting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getMiner;
-import static com.artifacts.game.library.characters.Characters.getWarrior;
-import static com.artifacts.game.logic.activity.crafting.CraftingResources.craftResources;
+import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
 //import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
-import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
+
 
 @SpringBootApplication
 public class runMiner {
@@ -28,6 +27,6 @@ public class runMiner {
         //gather(getMiner(), "coal_rocks");
         //craftResources(getMiner(), "mining", "copper_bar", 10);
         //craftGear(getMiner(), "jewelrycrafting", "copper_ring", 16);
-        CraftingResources2.craftResources(getMiner(), "mining", "steel_bar", 10);
+        craft(getMiner(), "mining", "steel_bar", 10);
     }
 }
