@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.artifacts.game.library.characters.Characters.getLumberjack;
 import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
+import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
 public class runLumberjack {
@@ -22,9 +23,9 @@ public class runLumberjack {
         System.out.println("\nLogin successful");
         System.out.println("\ninitial Character data is received successfully");
 
-        //Gathering.gather(getLumberjack(), "birch_tree");
+        gather(getLumberjack(), "birch_tree");
         //Gathering.gather(getLumberjack(), "iron_rocks");
-        craft(getLumberjack(), "mining", "iron_bar", 10);
+        //craft(getLumberjack(), "woodcutting", "hardwood_plank", 10);
 
     }
 }

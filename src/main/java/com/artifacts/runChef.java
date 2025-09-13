@@ -24,7 +24,7 @@ public class runChef {
         System.out.println("\nLogin successful");
         System.out.println("\ninitial Character data is received successfully");
 
-        Gathering.gather(getChef(), "shrimp_fishing_spot");
+        Gathering.gather(getChef(), "trout_fishing_spot");
         //fight(getChef(), "chicken");
     }
 }

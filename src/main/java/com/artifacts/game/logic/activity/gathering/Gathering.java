@@ -30,12 +30,25 @@ public class Gathering {
                 globalCooldownManager(name, response);
                 continue;
             } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {
-                response = actionMove(name, 4, 1);
-                statusCode = response.getInt("statusCode");
-                if (statusCode == CODE_SUCCESS) {
-                    globalCooldownManager(name, response);
+                if (activityLocation.equals("nettle") || activityLocation.equals("glowstem") || activityLocation.equals("trout_fishing_spot") || activityLocation.equals("bass_fishing_spot")) {
+                    response = actionMove(name, 7, 13);
+                    statusCode = response.getInt("statusCode");
+                    if (statusCode == CODE_SUCCESS) {
+                        globalCooldownManager(name, response);
+                    } else {
+                        response = actionMove(name, 4, 1);
+                        statusCode = response.getInt("statusCode");
+                        if (statusCode == CODE_SUCCESS) {
+                            globalCooldownManager(name, response);
+                        }
+                    }
+                } else {
+                    response = actionMove(name, 4, 1);
+                    statusCode = response.getInt("statusCode");
+                    if (statusCode == CODE_SUCCESS) {
+                        globalCooldownManager(name, response);
+                    }
                 }
-
                 response = actionDepositBankItem(name);
                 statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {

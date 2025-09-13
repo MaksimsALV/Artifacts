@@ -2,11 +2,15 @@ package com.artifacts;
 
 import com.artifacts.game.engine.launcher.Login;
 import com.artifacts.game.logic.activity.crafting.Crafting;
+import com.artifacts.game.logic.activity.fighting.Fighting2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import static com.artifacts.game.library.characters.Characters.getLumberjack;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
 import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
+import static com.artifacts.game.logic.activity.fighting.FightingTask.fightTask;
+import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
 public class runWarrior {
@@ -23,11 +27,12 @@ public class runWarrior {
         System.out.println("\ninitial Character data is received successfully");
 
         //fight(getWarrior(), "chicken");
-        //fightTask(getWarrior(), "");
-        //craftGear(getWarrior(), "weaponcrafting", "iron_sword", 10);
+        fightTask(getWarrior(), "");
+        //craft(getWarrior(), "weaponcrafting", "steel_battleaxe", 1);
         //gather(getWarrior(), "iron_rocks");
-        craft(getWarrior(), "weaponcrafting", "iron_sword", 10);
-        //Fighting2.fight(getWarrior(), "skeleton", "small_health_potion", "");
+        //craft(getWarrior(), "gearcrafting", "iron_boots", 10);
+        //craft(getWarrior(), "mining", "iron_bar", 15);
+        //Fighting2.fight(getWarrior(), "vampire", "small_health_potion", "");
 
     }
 }
