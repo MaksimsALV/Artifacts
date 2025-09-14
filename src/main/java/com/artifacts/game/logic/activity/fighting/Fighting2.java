@@ -17,6 +17,7 @@ import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 public class Fighting2 {
     public static void
     fight(String name, String activityLocation, String utilityOne, String utilityTwo, String consumable) throws InterruptedException {
+        //todo spamming getCharacter here a lot. Need to call it once here, then not call it in below mentioned methods at all. Else spamming like crazy
         equipUtilitySlotOne(name, utilityOne);
         equipUtilitySlotTwo(name, utilityTwo);
         getConsumables(name, consumable);

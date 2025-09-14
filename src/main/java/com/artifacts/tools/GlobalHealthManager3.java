@@ -2,6 +2,7 @@ package com.artifacts.tools;
 
 import org.json.JSONObject;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_MISSING_ITEM;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.game.endpoints.items.GetItem.getItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
@@ -34,18 +35,25 @@ public class GlobalHealthManager3 {
                 if (statusCode == CODE_SUCCESS) {
                     globalCooldownManager(name, response);
                     globalHealthManager(name, response, consumable);
-                } else { //if acitonUseItem returns anything that is not 200, im just resting.
+                } else if (statusCode == CODE_MISSING_ITEM) { //fallback to consume just 1 in case i need to eat like 5, but inventory has 4.
+                    response = actionUseItem(name, consumable, 1);
+                    statusCode = response.getInt("statusCode");
+                    if (statusCode == CODE_SUCCESS) {
+                        globalCooldownManager(name, response);
+                        globalHealthManager(name, response, consumable);
+                    } else { //if acitonUseItem returns anything that is not 200, im just resting.
+                        response = actionRest(name);
+                        statusCode = response.getInt("statusCode");
+                        if (statusCode == CODE_SUCCESS) {
+                            globalCooldownManager(name, response);
+                        }
+                    }
+                } else {
                     response = actionRest(name);
                     statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
                     }
-                }
-            } else {
-                response = actionRest(name);
-                var statusCode = response.getInt("statusCode");
-                if (statusCode == CODE_SUCCESS) {
-                    globalCooldownManager(name, response);
                 }
             }
         }
