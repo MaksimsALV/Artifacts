@@ -13,6 +13,7 @@ import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHand
 import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
 import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
 import static com.artifacts.game.library.characters.Characters.getAlchemist;
+import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
 
 public class ActionDepositBankItem {
@@ -51,13 +52,14 @@ public class ActionDepositBankItem {
 //            utilityCodes.add(itemCode);
 //        }
         var utilityItem = getAllUtilityItems();
+        var consumableItem = getAllConsumableItems();
         for (var i = 0; i < inventory.length(); i++) {
             var item = inventory.getJSONObject(i);
             var itemName = item.getString("code");
             var itemQuantity = item.getInt("quantity");
             //if (!itemName.isEmpty() && itemQuantity > 0 || itemName.equals("small_health_potion")) { //todo testing small health pot filtering from depositing if have in inventory. if works, change getAllItems type=utility
             //if (!itemName.isEmpty() && itemQuantity > 0 ) {
-            if (!itemName.isEmpty() && itemQuantity > 0 && (name.equals(getAlchemist()) || !utilityItem.contains(itemName))) { //todo testing itemsList api - there is problem for crafting, as after craft i cannot deposit items...
+            if (!itemName.isEmpty() && itemQuantity > 0 && !consumableItem.contains(itemName) && (name.equals(getAlchemist()) || !utilityItem.contains(itemName))) { //todo testing
                     item.remove("slot");
             } else {
                 inventory.remove(i);

@@ -27,12 +27,12 @@ public class runWarrior {
         System.out.println("\ninitial Character data is received successfully");
 
         //fight(getWarrior(), "chicken");
-        fightTask(getWarrior(), "");
+        //fightTask(getWarrior(), "");
         //craft(getWarrior(), "weaponcrafting", "steel_battleaxe", 1);
         //gather(getWarrior(), "iron_rocks");
         //craft(getWarrior(), "gearcrafting", "iron_boots", 10);
         //craft(getWarrior(), "mining", "iron_bar", 15);
-        //Fighting2.fight(getWarrior(), "vampire", "small_health_potion", "");
+        Fighting2.fight(getWarrior(), "spider", "minor_health_potion", "", "");
 
     }
 }

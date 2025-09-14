@@ -8,14 +8,17 @@ import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.ac
 import static com.artifacts.game.endpoints.mycharacters.ActionFight.actionFight;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
+import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
+import static com.artifacts.service.ConsumableManager.getConsumables;
 import static com.artifacts.service.UtilityEquipmentManager.*;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 
 public class Fighting2 {
     public static void
-    fight(String name, String activityLocation, String utilityOne, String utilityTwo) throws InterruptedException {
+    fight(String name, String activityLocation, String utilityOne, String utilityTwo, String consumable) throws InterruptedException {
         equipUtilitySlotOne(name, utilityOne);
         equipUtilitySlotTwo(name, utilityTwo);
+        getConsumables(name, consumable);
 
         var coordinates = GetAllMaps.getAllMaps(activityLocation);
         var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
@@ -34,10 +37,10 @@ public class Fighting2 {
         }
 
         while (true) {
-            checkUtilitySlotOne(name, utilityOne);
-            checkUtilitySlotTwo(name, utilityTwo);
-            if (checkUtilitySlotOne(name, utilityOne) || checkUtilitySlotTwo(name, utilityTwo)) {
-                fight(name, activityLocation, utilityOne, utilityTwo);
+            //checkUtilitySlotOne(name, utilityOne); //todo testing: i think i dont need it because im calling it already in if block below
+            //checkUtilitySlotTwo(name, utilityTwo); //todo testing: i think i dont need it because im calling it already in if block below
+            if (checkUtilitySlotOne(name, utilityOne) || checkUtilitySlotTwo(name, utilityTwo) || checkInventoryConsumables(name, consumable)) {
+                fight(name, activityLocation, utilityOne, utilityTwo, consumable);
                 break;
             }
 
@@ -59,15 +62,15 @@ public class Fighting2 {
                 statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
                     globalCooldownManager(name, response);
-                    fight(name, activityLocation, utilityOne, utilityTwo);
+                    fight(name, activityLocation, utilityOne, utilityTwo, consumable);
                     return;
 
                 }
-                fight(name, activityLocation, utilityOne, utilityTwo);
+                fight(name, activityLocation, utilityOne, utilityTwo, consumable);
                 return;
 
             } else if (statusCode == CODE_MAP_CONTENT_NOT_FOUND) {
-                fight(name, activityLocation, utilityOne, utilityTwo);
+                fight(name, activityLocation, utilityOne, utilityTwo, consumable);
                 return;
             }
             return;

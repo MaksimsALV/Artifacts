@@ -16,4 +16,15 @@ public class GetItemsByItemType {
         }
         return utilityCodes;
     }
+
+    public static List<String> getAllConsumableItems() {
+        var itemTypeConsumableData = getAllItems("", "consumable");
+        var itemTypeConsumableDataArray = itemTypeConsumableData.getJSONArray("data");
+        List<String> consumableCodes = new ArrayList<>();
+        for (var i = 0; i < itemTypeConsumableDataArray.length(); i++) {
+            var itemCode = itemTypeConsumableDataArray.getJSONObject(i).getString("code");
+            consumableCodes.add(itemCode);
+        }
+        return consumableCodes;
+    }
 }
