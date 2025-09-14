@@ -9,6 +9,7 @@ import static com.artifacts.game.library.characters.Characters.getWarrior;
 //import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
 import static com.artifacts.game.logic.activity.fighting.FightingTask.fightTask;
 import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
+import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 
 public class runMethodDebug {
     public static void main(String[] args) throws InterruptedException {
@@ -19,6 +20,7 @@ public class runMethodDebug {
         //getAllItems("", "utility");
         //actionDepositBankItem(getMiner());
  //       craftGear(getWarrior(), "weaponcrafting", "iron_sword", 16);
+        checkInventoryConsumables(getWarrior(), "cooked_gudgeon");
 
     }
 }

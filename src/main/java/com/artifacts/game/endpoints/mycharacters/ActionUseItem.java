@@ -10,7 +10,7 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 
 public class ActionUseItem {
-    public static JSONObject actionUseItem(String name, String itemCode, String quantity) {
+    public static JSONObject actionUseItem(String name, String itemCode, int quantity) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/my/" + name + "/action/use";
         var requestBody = new JSONObject()

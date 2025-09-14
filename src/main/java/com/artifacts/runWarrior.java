@@ -32,7 +32,7 @@ public class runWarrior {
         //gather(getWarrior(), "iron_rocks");
         //craft(getWarrior(), "gearcrafting", "iron_boots", 10);
         //craft(getWarrior(), "mining", "iron_bar", 15);
-        Fighting2.fight(getWarrior(), "spider", "minor_health_potion", "", "");
+        Fighting2.fight(getWarrior(), "spider", "minor_health_potion", "", "cooked_gudgeon");
 
     }
 }

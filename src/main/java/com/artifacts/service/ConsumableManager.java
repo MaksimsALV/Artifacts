@@ -13,11 +13,12 @@ import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
 public class ConsumableManager {
     public static boolean checkInventoryConsumables(String name, String consumable) {
         var inventoryConsumable = getCharacter(name).getJSONObject("data").getJSONArray("inventory");
-        var consumableItem = getAllConsumableItems();
+        //var consumableItem = getAllConsumableItems();
         for (var i = 0; i < inventoryConsumable.length(); i++) {
             var item = inventoryConsumable.getJSONObject(i);
             var itemName = item.getString("code");
-            if (consumableItem.contains(itemName)) {
+            //if (consumableItem.contains(itemName)) {
+            if (itemName.equals(consumable)) {
                 return true;
             }
         }

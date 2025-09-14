@@ -2,6 +2,7 @@ package com.artifacts.game.logic.activity.fighting;
 
 import com.artifacts.game.endpoints.maps.GetAllMaps;
 import com.artifacts.tools.GlobalHealthManager2;
+import com.artifacts.tools.GlobalHealthManager3;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
@@ -37,9 +38,7 @@ public class Fighting2 {
         }
 
         while (true) {
-            //checkUtilitySlotOne(name, utilityOne); //todo testing: i think i dont need it because im calling it already in if block below
-            //checkUtilitySlotTwo(name, utilityTwo); //todo testing: i think i dont need it because im calling it already in if block below
-            if (checkUtilitySlotOne(name, utilityOne) || checkUtilitySlotTwo(name, utilityTwo) || checkInventoryConsumables(name, consumable)) {
+            if (checkUtilitySlotOne(name, utilityOne) || checkUtilitySlotTwo(name, utilityTwo) || !checkInventoryConsumables(name, consumable)) {
                 fight(name, activityLocation, utilityOne, utilityTwo, consumable);
                 break;
             }
@@ -48,7 +47,8 @@ public class Fighting2 {
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
                 globalCooldownManager(name, response);
-                GlobalHealthManager2.globalHealthManager(name, response);
+                //GlobalHealthManager2.globalHealthManager(name, response);
+                GlobalHealthManager3.globalHealthManager(name, response, consumable); //todo testing improved GHM3
                 continue;
 
             } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {

@@ -13,6 +13,7 @@ import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHand
 import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
 import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
 import static com.artifacts.game.library.characters.Characters.getAlchemist;
+import static com.artifacts.game.library.characters.Characters.getChef;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
 
@@ -59,8 +60,10 @@ public class ActionDepositBankItem {
             var itemQuantity = item.getInt("quantity");
             //if (!itemName.isEmpty() && itemQuantity > 0 || itemName.equals("small_health_potion")) { //todo testing small health pot filtering from depositing if have in inventory. if works, change getAllItems type=utility
             //if (!itemName.isEmpty() && itemQuantity > 0 ) {
-            if (!itemName.isEmpty() && itemQuantity > 0 && !consumableItem.contains(itemName) && (name.equals(getAlchemist()) || !utilityItem.contains(itemName))) { //todo testing
-                    item.remove("slot");
+
+            //if (!itemName.isEmpty() && itemQuantity > 0 && (name.equals(getChef()) || !consumableItem.contains(itemName)) && (name.equals(getAlchemist()) || !utilityItem.contains(itemName))) { //todo testing
+            if (!itemName.isEmpty() && itemQuantity > 0) { //todo testing
+                item.remove("slot");
             } else {
                 inventory.remove(i);
                 i--;
