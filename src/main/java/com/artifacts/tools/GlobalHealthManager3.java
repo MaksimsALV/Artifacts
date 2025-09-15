@@ -15,9 +15,9 @@ public class GlobalHealthManager3 {
     public static void globalHealthManager(String name, JSONObject response, String consumable) throws InterruptedException {
         var characterData = response.getJSONObject("data").getJSONObject("character");
         var maxHP = characterData.getInt("max_hp");
-        var currentHP = characterData.getInt("hp");
+        var currentHP = characterData.getInt("hp") * 100;
         var missingHP = (maxHP - currentHP);
-        var unhealthy = (currentHP < maxHP);
+        var unhealthy = (currentHP <= maxHP * 50); //unhealthy threshold, integer represents %
         if (unhealthy) {
             if (consumable == null || consumable.isEmpty()) {
                 response = actionRest(name);
