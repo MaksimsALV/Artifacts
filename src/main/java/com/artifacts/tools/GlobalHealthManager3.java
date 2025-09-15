@@ -19,6 +19,14 @@ public class GlobalHealthManager3 {
         var missingHP = (maxHP - currentHP);
         var unhealthy = (currentHP < maxHP);
         if (unhealthy) {
+            if (consumable == null || consumable.isEmpty()) {
+                response = actionRest(name);
+                int statusCode = response.getInt("statusCode");
+                if (statusCode == CODE_SUCCESS) {
+                    globalCooldownManager(name, response);
+                }
+                return;
+            }
             int heal = 0;
             var healingItemEffectsData = getItem(consumable).getJSONObject("data").getJSONArray("effects");
             for (var i = 0; i < healingItemEffectsData.length(); i++) {
