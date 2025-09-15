@@ -37,6 +37,7 @@ public class GetFightTask {
                 statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
                     globalCooldownManager(name, response);
+                    return getFightTask(name);
                 } else if (statusCode == CODE_MISSING_ITEM) {
                     response = actionMove(name, 4, 1);
                     statusCode = response.getInt("statusCode");
@@ -47,12 +48,13 @@ public class GetFightTask {
                     statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
+                        return getFightTask(name);
                     } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {
                         response = actionDepositBankItem(name);
                         statusCode = response.getInt("statusCode");
                         if (statusCode == CODE_SUCCESS) {
                             globalCooldownManager(name, response);
-                            getFightTask(name);
+                            return getFightTask(name);
                         }
                     }
                 }
@@ -66,6 +68,7 @@ public class GetFightTask {
                 statusCode = response.getInt("statusCode");
                 if (statusCode == CODE_SUCCESS) {
                     globalCooldownManager(name, response);
+                    return getFightTask(name);
                 } else if (statusCode == CODE_MISSING_ITEM) {
                     response = actionMove(name, 4, 1);
                     statusCode = response.getInt("statusCode");
@@ -76,12 +79,13 @@ public class GetFightTask {
                     statusCode = response.getInt("statusCode");
                     if (statusCode == CODE_SUCCESS) {
                         globalCooldownManager(name, response);
+                        return getFightTask(name);
                     } else if (statusCode == CODE_CHARACTER_INVENTORY_FULL) {
                         response = actionDepositBankItem(name);
                         statusCode = response.getInt("statusCode");
                         if (statusCode == CODE_SUCCESS) {
                             globalCooldownManager(name, response);
-                            getFightTask(name);
+                            return getFightTask(name);
                         }
                     }
                 }
