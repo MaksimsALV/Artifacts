@@ -11,22 +11,28 @@ public class GetCharacter {
     public static JSONObject getCharacter(String name) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/characters/" + name;
+        var count = 0;
+        var retry = 7;
 
-        try {
-            HttpResponse<String> response = Send.get(endpoint, false);
+        while (true) {
+            try {
+                HttpResponse<String> response = Send.get(endpoint, false);
 
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-                var jsonObject = new JSONObject(response.body());
-                jsonObject.put("statusCode", response.statusCode());
-                return jsonObject;
+                if (response.statusCode() == CODE_SUCCESS) {
+                    System.out.println(endpoint + " | " + CODE_SUCCESS);
+                    var jsonObject = new JSONObject(response.body());
+                    jsonObject.put("statusCode", response.statusCode());
+                    return jsonObject;
+                }
+                globalErrorHandler(response, endpoint);
+                return new JSONObject().put("statusCode", response.statusCode());
+
+            } catch (Exception e) {
+                System.err.println(endpoint + " | Exception: " + e.getMessage());
+                if (++count >= retry) {
+                    return null;
+                }
             }
-            globalErrorHandler(response, endpoint);
-            return new JSONObject().put("statusCode", response.statusCode());
-
-        } catch (Exception getCharacterException) {
-            System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
-            return null;
         }
     }
 }
