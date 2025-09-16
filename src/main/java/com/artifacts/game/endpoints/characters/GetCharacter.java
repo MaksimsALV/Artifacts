@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.net.http.HttpResponse;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.tools.Delay.delay;
 
 public class GetCharacter {
     public static JSONObject getCharacter(String name) {
@@ -31,6 +32,11 @@ public class GetCharacter {
                 System.err.println(endpoint + " | Exception: " + e.getMessage());
                 if (++count >= retry) {
                     return null;
+                }
+                try {
+                    delay(1);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         }
