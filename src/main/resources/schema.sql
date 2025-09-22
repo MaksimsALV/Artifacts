@@ -1,9 +1,13 @@
-CREATE TABLE IF NOT EXISTS fight_logs (
-                                          id             UUID        PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS artifacts.fight_logs (
+                                          season         INTEGER     NOT NULL,
                                           character_name TEXT        NOT NULL,
                                           monster_name   TEXT        NOT NULL,
-                                          won            BOOLEAN     NOT NULL,
+                                          result         TEXT        NOT NULL,
                                           turns          INTEGER     NOT NULL,
                                           xp_gained      INTEGER     NOT NULL,
-                                          created_at     TIMESTAMPTZ NOT NULL
+                                          logs           TEXT        NOT NULL,
+                                          gold           INTEGER     NOT NULL,
+                                          items          TEXT,
+                                          cooldown       INTEGER     NOT NULL,
+                                          created_at     TIMESTAMP   NOT NULL
 );

@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.logic.activity.fighting;
 
 import com.artifacts.game.endpoints.maps.GetAllMaps;
@@ -78,4 +79,6 @@ public class Fighting2 {
         }
     }
 }
+
+ */
 

@@ -6,12 +6,14 @@ import org.json.JSONObject;
 import java.net.http.HttpResponse;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
-import static com.artifacts.tools.Retry.retry;
+import static com.artifacts.tools.Delay.delay;
 
 public class GetCharacter {
     public static JSONObject getCharacter(String name) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/characters/" + name;
+        var count = 0;
+        var retry = 7;
 
         while (true) {
             try {
@@ -28,8 +30,13 @@ public class GetCharacter {
 
             } catch (Exception e) {
                 System.err.println(endpoint + " | Exception: " + e.getMessage());
-                if (!retry()) {
+                if (++count >= retry) {
                     return null;
+                }
+                try {
+                    delay(1);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         }

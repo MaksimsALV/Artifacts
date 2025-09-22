@@ -23,8 +23,8 @@ public class runLumberjack {
         System.out.println("\nLogin successful");
         System.out.println("\ninitial Character data is received successfully");
 
-        gather(getLumberjack(), "birch_tree");
-        //Gathering.gather(getLumberjack(), "iron_rocks");
+        gather(getLumberjack(), "dead_tree");
+        //gather(getLumberjack(), "gold_rocks");
         //craft(getLumberjack(), "woodcutting", "hardwood_plank", 10);
 
     }

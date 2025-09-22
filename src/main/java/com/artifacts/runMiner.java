@@ -27,7 +27,7 @@ public class runMiner {
 
         gather(getMiner(), "coal_rocks");
         //craftResources(getMiner(), "mining", "copper_bar", 10);
-        //craft(getMiner(), "jewelrycrafting", "iron_ring", 5);
-        //craft(getMiner(), "mining", "iron_bar", 10);
+        //craft(getMiner(), "jewelrycrafting", "fire_ring", 5);
+        //craft(getMiner(), "mining", "steel_bar", 10);
     }
 }

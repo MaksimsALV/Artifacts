@@ -14,6 +14,8 @@ import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 import static com.artifacts.service.ConsumableManager.getConsumables;
 import static com.artifacts.service.UtilityEquipmentManager.*;
 import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.controller.repositorycontroller.StoreFightResultController.storeFightResult;
+
 
 public class Fighting3 {
     public static void
@@ -51,6 +53,7 @@ public class Fighting3 {
             response = actionFight(name);
             statusCode = response.getInt("statusCode");
             if (statusCode == CODE_SUCCESS) {
+                storeFightResult(response); // todo to get logs in DB rolling
                 globalCooldownManager(name, response);
                 //GlobalHealthManager2.globalHealthManager(name, response);
                 GlobalHealthManager3.globalHealthManager(name, response, consumable); //todo testing improved GHM3

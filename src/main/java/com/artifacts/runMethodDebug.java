@@ -7,7 +7,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.ac
 import static com.artifacts.game.library.characters.Characters.getMiner;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
 //import static com.artifacts.game.logic.activity.crafting.CraftingGear.craftGear;
-import static com.artifacts.game.logic.activity.fighting.FightingTask.fightTask;
+//import static com.artifacts.game.logic.activity.fighting.FightingTask.fightTask;
 import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
 import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 

@@ -1,4 +1,4 @@
-package com.artifacts.tools;
+/*package com.artifacts.tools;
 
 import org.json.JSONObject;
 
@@ -22,3 +22,5 @@ public class GlobalHealthManager2 {
         }
     }
 }
+
+ */
