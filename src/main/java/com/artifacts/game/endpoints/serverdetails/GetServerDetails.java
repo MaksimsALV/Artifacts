@@ -2,16 +2,53 @@ package com.artifacts.game.endpoints.serverdetails;
 
 import com.artifacts.api.http.Send;
 import com.artifacts.game.config.BaseURL;
+import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
 
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.tools.Delay.delay;
 
 public class GetServerDetails {
     public static boolean serverIsUp;
 
-    public static HttpResponse<String> getServerDetails() {
-        //todo should redo the logic similar to other endpoints
+//    public static HttpResponse<String> getServerDetails() {
+//        //todo should redo the logic similar to other endpoints
+//        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
+//        var endpoint = baseUrl + "/";
+//        var count = 0;
+//        var retry = 7;
+//
+//        while (true) {
+//            try {
+//                HttpResponse<String> response = Send.get(endpoint, false);
+//
+//                if (response.statusCode() == 200) {
+//                    serverIsUp = true;
+//                    return response;
+//                } else {
+//                    serverIsUp = false;
+//                    System.err.println("getServerDetails unexpected status code: " + response.statusCode());
+//                }
+//            } catch (Exception getServerDetailsError) {
+//                serverIsUp = false;
+//                System.err.println("Exception getServerDetailsError: " + getServerDetailsError.getMessage());
+//                if (++count >= retry) {
+//                    return null;
+//                }
+//                try {
+//                    delay(5);
+//                } catch (InterruptedException ie) {
+//                    throw new RuntimeException(ie);
+//                }
+//            }
+//            return null;
+//        }
+//    }
+
+    //getServerDetails2.0
+    public static JSONObject getServerDetails() {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/";
         var count = 0;
@@ -21,16 +58,20 @@ public class GetServerDetails {
             try {
                 HttpResponse<String> response = Send.get(endpoint, false);
 
-                if (response.statusCode() == 200) {
+                if (response.statusCode() == CODE_SUCCESS) {
                     serverIsUp = true;
-                    return response;
-                } else {
-                    serverIsUp = false;
-                    System.err.println("getServerDetails unexpected status code: " + response.statusCode());
+                    System.out.println(endpoint + " | " + CODE_SUCCESS);
+                    var jsonObject = new JSONObject(response.body());
+                    jsonObject.put("statusCode", response.statusCode());
+                    return jsonObject;
                 }
-            } catch (Exception getServerDetailsError) {
+                globalErrorHandler(response, endpoint);
                 serverIsUp = false;
-                System.err.println("Exception getServerDetailsError: " + getServerDetailsError.getMessage());
+                return new JSONObject().put("statusCode", response.statusCode());
+
+            } catch (Exception e) {
+                serverIsUp = false;
+                System.err.println("Exception getServerDetailsError: " + e);
                 if (++count >= retry) {
                     return null;
                 }
@@ -40,7 +81,6 @@ public class GetServerDetails {
                     throw new RuntimeException(ie);
                 }
             }
-            return null;
         }
     }
 }
