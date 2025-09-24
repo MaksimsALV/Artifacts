@@ -15,7 +15,7 @@ public class StoreFightResultController {
     }
 
     public static void storeFightResult(JSONObject fightResponse) {
-        var season = 5; //todo need to change getserverstatus to return JSONObject, then i can change this to variable instead of hardcoded
+        var season = GetServerDetails.season.get("season");
         var data = fightResponse.getJSONObject("data");
         var fightData = data.getJSONObject("fight");
         var cooldownData = data.getJSONObject("cooldown");
