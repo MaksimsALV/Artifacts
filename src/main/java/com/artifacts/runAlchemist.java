@@ -26,6 +26,6 @@ public class runAlchemist {
         System.out.println("\ninitial Character data is received successfully");
 
         gather(getAlchemist(), "nettle");
-        //craft(getAlchemist(), "alchemy", "minor_health_potion", 33);
+        //craft(getAlchemist(), "alchemy", "earth_boost_potion", 16);
     }
 }

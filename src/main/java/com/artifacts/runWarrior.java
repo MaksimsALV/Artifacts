@@ -34,8 +34,6 @@ public class runWarrior {
         //craft(getWarrior(), "gearcrafting", "iron_boots", 10);
         //craft(getWarrior(), "mining", "iron_bar", 15);
         //Fighting2.fight(getWarrior(), "wolf", "", "", "cooked_gudgeon");
-        Fighting3.fight(getWarrior(), "skeleton", "", "", "cooked_shrimp", false); //use either one: fightTask tor activityLocation
-
-
+        Fighting3.fight(getWarrior(), "ogre", "", "", "cooked_trout", false); //use either one: fightTask tor activityLocation
     }
 }

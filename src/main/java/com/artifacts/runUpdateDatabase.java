@@ -1,3 +1,4 @@
+/*
 package com.artifacts;
 
 import com.artifacts.game.engine.launcher.Login;
@@ -46,3 +47,5 @@ public class runUpdateDatabase {
         }
     }
 }
+
+ */

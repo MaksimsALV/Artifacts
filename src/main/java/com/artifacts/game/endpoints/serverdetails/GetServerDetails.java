@@ -5,13 +5,16 @@ import com.artifacts.game.config.BaseURL;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.tools.Delay.delay;
+import static com.artifacts.tools.Retry.retry;
 
 public class GetServerDetails {
     public static boolean serverIsUp;
+    public static HashMap<String, Integer> season = new HashMap<>();
 
 //    public static HttpResponse<String> getServerDetails() {
 //        //todo should redo the logic similar to other endpoints
@@ -51,8 +54,9 @@ public class GetServerDetails {
     public static JSONObject getServerDetails() {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
         var endpoint = baseUrl + "/";
-        var count = 0;
-        var retry = 7;
+        var retryCount = 0;
+//        var retryAmount = 7;
+//        var retryDelay = 10;
 
         while (true) {
             try {
@@ -63,6 +67,8 @@ public class GetServerDetails {
                     System.out.println(endpoint + " | " + CODE_SUCCESS);
                     var jsonObject = new JSONObject(response.body());
                     jsonObject.put("statusCode", response.statusCode());
+                    var seasonNumber = jsonObject.getJSONObject("data").getJSONObject("season").getInt("number");
+                    season.put("season", seasonNumber);
                     return jsonObject;
                 }
                 globalErrorHandler(response, endpoint);
@@ -72,15 +78,15 @@ public class GetServerDetails {
             } catch (Exception e) {
                 serverIsUp = false;
                 System.err.println("Exception getServerDetailsError: " + e);
-                if (++count >= retry) {
+                if (!retry(++retryCount)) {
                     return null;
                 }
-                try {
-                    delay(5);
-                } catch (InterruptedException ie) {
-                    throw new RuntimeException(ie);
-                }
             }
+//                if (++count >= retryAmount) {
+//                    return null;
+//                }
+//                delay(retryDelay);
+//            }
         }
     }
 }

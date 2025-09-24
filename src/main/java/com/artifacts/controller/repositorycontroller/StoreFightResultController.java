@@ -1,5 +1,6 @@
 package com.artifacts.controller.repositorycontroller;
 
+import com.artifacts.game.endpoints.serverdetails.GetServerDetails;
 import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;

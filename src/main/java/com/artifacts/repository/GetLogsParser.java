@@ -1,3 +1,4 @@
+/*
 package com.artifacts.repository;
 
 import org.json.JSONArray;
@@ -47,3 +48,5 @@ public class GetLogsParser {
         return output;
     }
 }
+
+ */
