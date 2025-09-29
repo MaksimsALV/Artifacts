@@ -1,4 +1,4 @@
-package com.artifacts.tools;
+package com.artifacts.service;
 
 import org.json.JSONObject;
 
@@ -7,10 +7,10 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.game.endpoints.items.GetItem.getItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 import static com.artifacts.game.endpoints.mycharacters.ActionUseItem.actionUseItem;
-import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 //todo need to add rest and food eating in here, because it will handle all the healing in the future
-public class GlobalHealthManager3 {
+public class GlobalHealthManager {
 
     public static void globalHealthManager(String name, JSONObject response, String consumable) throws InterruptedException {
         var characterData = response.getJSONObject("data").getJSONObject("character");

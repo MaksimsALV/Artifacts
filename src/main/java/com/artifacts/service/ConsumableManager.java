@@ -4,11 +4,9 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTOR
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionEquipItem.actionEquipItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
-import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
-import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 public class ConsumableManager {
     public static boolean checkInventoryConsumables(String name, String consumable) {

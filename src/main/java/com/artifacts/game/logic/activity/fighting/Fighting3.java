@@ -1,3 +1,4 @@
+/*
 package com.artifacts.game.logic.activity.fighting;
 
 import com.artifacts.game.endpoints.maps.GetAllMaps;
@@ -13,7 +14,7 @@ import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
 import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 import static com.artifacts.service.ConsumableManager.getConsumables;
 import static com.artifacts.service.UtilityEquipmentManager.*;
-import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 import static com.artifacts.controller.repositorycontroller.StoreFightResultController.storeFightResult;
 
 
@@ -94,4 +95,6 @@ public class Fighting3 {
         }
     }
 }
+
+ */
 

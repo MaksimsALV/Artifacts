@@ -1,7 +1,6 @@
 package com.artifacts.game.logic.activity.tasks;
 
 import com.artifacts.game.endpoints.maps.GetAllMaps;
-import org.json.JSONObject;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
@@ -11,7 +10,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionTaskCancel.actionTaskCancel;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.game.logic.activity.tasks.FightTaskLimitator.fightTaskIsValidForExecution;
-import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 //todo maybe merge in FightingTask tbh as it is my great design template - or maybe not.
 public class GetFightTask {

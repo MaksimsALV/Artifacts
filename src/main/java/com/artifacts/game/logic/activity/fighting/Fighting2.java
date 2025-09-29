@@ -13,7 +13,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
 import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 import static com.artifacts.service.ConsumableManager.getConsumables;
 import static com.artifacts.service.UtilityEquipmentManager.*;
-import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 public class Fighting2 {
     public static void

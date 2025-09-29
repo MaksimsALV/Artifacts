@@ -7,7 +7,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.ac
 import static com.artifacts.game.endpoints.mycharacters.ActionEquipItem.actionEquipItem;
 import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
-import static com.artifacts.tools.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 public class UtilityEquipmentManager {
     public static boolean checkUtilitySlotOne(String name, String utilityOne) {
