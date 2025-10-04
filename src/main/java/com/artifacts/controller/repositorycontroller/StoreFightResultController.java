@@ -22,10 +22,11 @@ public class StoreFightResultController {
         var cooldownData = data.getJSONObject("cooldown");
         var characterData = data.getJSONObject("character");
 
-        var monster = "unknown"; //todo new season will have opponent here
+        //var monster = "unknown"; //todo new season will have opponent here
 
         var character = characterData.getString("name");
         var result = fightData.getString("result");
+        var monster = fightData.getString("opponent");
         var turns = fightData.getInt("turns");
         var xpGained = fightData.getInt("xp");
         var logsText = fightData.getJSONArray("logs").toString();
