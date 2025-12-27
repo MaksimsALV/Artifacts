@@ -2,6 +2,7 @@ package com.artifacts.controller.charcontroller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.artifacts.Launcher.runLumberjack;
 import static com.artifacts.Launcher.stopLumberjack;
@@ -9,8 +10,8 @@ import static com.artifacts.Launcher.stopLumberjack;
 @Controller
 public class LumberjackController {
     @PostMapping("/runLumberjack")
-    public String start() {
-        runLumberjack();
+    public String start(@RequestParam String action, @RequestParam String value) {
+        runLumberjack(action, value);
         return "redirect:/";
     }
     @PostMapping("/stopLumberjack")

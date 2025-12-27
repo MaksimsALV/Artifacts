@@ -9,6 +9,8 @@ import static com.artifacts.game.library.characters.Characters.getWarrior;
 import static com.artifacts.game.library.characters.Characters.getLumberjack;
 import static com.artifacts.game.library.characters.Characters.getChef;
 import static com.artifacts.game.library.characters.Characters.getAlchemist;
+import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
+import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
@@ -28,12 +30,16 @@ public class Launcher {
     private static Thread alchemistThread;
 
 
-    public static void runWarrior(String resourceCode) {
+    public static void runWarrior(String action, String value) {
         warriorThread = new Thread(() -> {
             try {
-                gather(getWarrior(), resourceCode);
-//                fight(getWarrior(), "ogre", "minor_health_potion", "", "cooked_trout", false); //use either one: fightTask tor activityLocation
-//                craft(getWarrior(), "gearcrafting", "tromatising_mask", 1);
+                if (action.equals("fight")) {
+                    fight(getWarrior(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                } else if (action.equals("gather")) {
+                    gather(getWarrior(), value);
+                } else {
+                    craft(getWarrior(), "gearcrafting", "tromatising_mask", 1);
+                }
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -50,12 +56,16 @@ public class Launcher {
     }
 
 
-    public static void runMiner() {
+    public static void runMiner(String action, String value) {
         minerThread = new Thread(() -> {
             try {
-                gather(getMiner(), "coal_rocks");
-//                fight(getMiner(), "", "", "", "cooked_trout", true); //use either one: fightTask tor activityLocation
-//                craft(getMiner(), "mining", "copper_bar", 10);
+                if (action.equals("fight")) {
+                    fight(getMiner(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                } else if (action.equals("gather")) {
+                    gather(getMiner(), value);
+                } else {
+                    craft(getMiner(), "gearcrafting", "tromatising_mask", 1);
+                }
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -72,12 +82,16 @@ public class Launcher {
     }
 
 
-    public static void runLumberjack() {
+    public static void runLumberjack(String action, String value) {
         lumberjackThread = new Thread(() -> {
             try {
-                gather(getLumberjack(), "birch_tree");
-//                fight(getLumberjack(), "", "", "", "cooked_trout", true); //use either one: fightTask tor activityLocation
-//                craft(getLumberjack(), "woodcutting", "ash_plank", 10);
+                if (action.equals("fight")) {
+                    fight(getLumberjack(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                } else if (action.equals("gather")) {
+                    gather(getLumberjack(), value);
+                } else {
+                    craft(getLumberjack(), "gearcrafting", "tromatising_mask", 1);
+                }
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -94,12 +108,16 @@ public class Launcher {
     }
 
 
-    public static void runChef() {
+    public static void runChef(String action, String value) {
         chefThread = new Thread(() -> {
             try {
-                gather(getChef(), "trout_spot");
-//                craft(getChef(), "cooking", "cooked_trout", 100);
-//                fight(getChef(), "chicken");
+                if (action.equals("fight")) {
+                    fight(getChef(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                } else if (action.equals("gather")) {
+                    gather(getChef(), value);
+                } else {
+                    craft(getChef(), "gearcrafting", "tromatising_mask", 1);
+                }
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -116,12 +134,16 @@ public class Launcher {
     }
 
 
-    public static void runAlchemist() {
+    public static void runAlchemist(String action, String value) {
         alchemistThread = new Thread(() -> {
             try {
-                gather(getAlchemist(), "nettle");
-//                craft(getAlchemist(), "alchemy", "air_boost_potion", 16);
-
+                if (action.equals("fight")) {
+                    fight(getAlchemist(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                } else if (action.equals("gather")) {
+                    gather(getAlchemist(), value);
+                } else {
+                    craft(getAlchemist(), "gearcrafting", "tromatising_mask", 1);
+                }
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
