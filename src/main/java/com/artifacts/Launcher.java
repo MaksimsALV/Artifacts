@@ -28,10 +28,10 @@ public class Launcher {
     private static Thread alchemistThread;
 
 
-    public static void runWarrior() {
+    public static void runWarrior(String resourceCode) {
         warriorThread = new Thread(() -> {
             try {
-                gather(getWarrior(), "coal_rocks");
+                gather(getWarrior(), resourceCode);
 //                fight(getWarrior(), "ogre", "minor_health_potion", "", "cooked_trout", false); //use either one: fightTask tor activityLocation
 //                craft(getWarrior(), "gearcrafting", "tromatising_mask", 1);
             } catch (InterruptedException ie) {

@@ -4,6 +4,7 @@ import com.artifacts.game.engine.launcher.Login;
 
 import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.game.endpoints.resources.GetAllResources.getAllResourcesAsList;
 import static com.artifacts.game.endpoints.serverdetails.GetServerDetails.getServerDetails;
 import static com.artifacts.game.endpoints.serverdetails.GetServerDetails.season;
 import static com.artifacts.game.library.characters.Characters.getMiner;
@@ -23,6 +24,7 @@ public class runMethodDebug {
         //actionDepositBankItem(getMiner());
  //       craftGear(getWarrior(), "weaponcrafting", "iron_sword", 16);
         //checkInventoryConsumables(getWarrior(), "cooked_gudgeon");
-        getServerDetails();
+//        getServerDetails();
+        System.out.println(getAllResourcesAsList());
     }
 }

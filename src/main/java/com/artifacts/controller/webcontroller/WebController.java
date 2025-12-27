@@ -1,12 +1,21 @@
 package com.artifacts.controller.webcontroller;
 //import com.artifacts.game.logic.activity.fighting.Fighting;
+import com.artifacts.game.endpoints.resources.GetAllResources;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONObject;
+
+import static com.artifacts.game.endpoints.resources.GetAllResources.getAllResourcesAsList;
 
 @Controller
 public class WebController {
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("resources", getAllResourcesAsList());
         return "index";
     }
 }

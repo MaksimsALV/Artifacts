@@ -16,14 +16,28 @@
             <div class="card shadow-sm h-100 text-center">
                 <div class="card-body">
                     <h5 class="card-title">Warrior</h5>
-                    <div class="d-grid gap-2">
-                        <form th:action="@{/runWarrior}" method="post">
-                            <button type="submit" class="btn btn-success">Start</button>
-                        </form>
-                        <form th:action="@{/stopWarrior}" method="post">
-                            <button type="submit" class="btn btn-danger">Stop</button>
-                        </form>
-                    </div>
+
+                    <!-- START form (includes dropdown so it gets submitted) -->
+                    <form th:action="@{/runWarrior}" method="post" class="d-grid gap-2">
+                        <div class="text-start">
+                            <label class="form-label">Resource</label>
+                            <select class="form-select" name="resourceCode" required>
+                                <option value="" disabled selected>Choose...</option>
+                                <option th:each="code : ${resources}"
+                                        th:value="${code}"
+                                        th:text="${code}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Start</button>
+                    </form>
+
+                    <!-- STOP form -->
+                    <form th:action="@{/stopWarrior}" method="post" class="d-grid gap-2 mt-2">
+                        <button type="submit" class="btn btn-danger">Stop</button>
+                    </form>
+
                 </div>
             </div>
         </div>
