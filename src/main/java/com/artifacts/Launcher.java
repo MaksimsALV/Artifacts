@@ -16,6 +16,9 @@ public class Launcher {
     public static void main(String[] args) {
         System.setProperty("server.port", "8080");
         SpringApplication.run(Launcher.class, args);
+        Login.login();
+        System.out.println("\nLogin successful");
+        System.out.println("\ninitial Character data is received successfully");
     }
 
     private static Thread warriorThread;
@@ -28,10 +31,6 @@ public class Launcher {
     public static void runWarrior() {
         warriorThread = new Thread(() -> {
             try {
-                Login.login();
-                System.out.println("\nLogin successful");
-                System.out.println("\ninitial Character data is received successfully");
-
                 gather(getWarrior(), "coal_rocks");
 //                fight(getWarrior(), "ogre", "minor_health_potion", "", "cooked_trout", false); //use either one: fightTask tor activityLocation
 //                craft(getWarrior(), "gearcrafting", "tromatising_mask", 1);
@@ -54,10 +53,6 @@ public class Launcher {
     public static void runMiner() {
         minerThread = new Thread(() -> {
             try {
-                Login.login();
-                System.out.println("\nLogin successful");
-                System.out.println("\ninitial Character data is received successfully");
-
                 gather(getMiner(), "coal_rocks");
 //                fight(getMiner(), "", "", "", "cooked_trout", true); //use either one: fightTask tor activityLocation
 //                craft(getMiner(), "mining", "copper_bar", 10);
@@ -80,10 +75,6 @@ public class Launcher {
     public static void runLumberjack() {
         lumberjackThread = new Thread(() -> {
             try {
-                Login.login();
-                System.out.println("\nLogin successful");
-                System.out.println("\ninitial Character data is received successfully");
-
                 gather(getLumberjack(), "birch_tree");
 //                fight(getLumberjack(), "", "", "", "cooked_trout", true); //use either one: fightTask tor activityLocation
 //                craft(getLumberjack(), "woodcutting", "ash_plank", 10);
@@ -106,10 +97,6 @@ public class Launcher {
     public static void runChef() {
         chefThread = new Thread(() -> {
             try {
-                Login.login();
-                System.out.println("\nLogin successful");
-                System.out.println("\ninitial Character data is received successfully");
-
                 gather(getChef(), "trout_spot");
 //                craft(getChef(), "cooking", "cooked_trout", 100);
 //                fight(getChef(), "chicken");
@@ -132,10 +119,6 @@ public class Launcher {
     public static void runAlchemist() {
         alchemistThread = new Thread(() -> {
             try {
-                Login.login();
-                System.out.println("\nLogin successful");
-                System.out.println("\ninitial Character data is received successfully");
-
                 gather(getAlchemist(), "nettle");
 //                craft(getAlchemist(), "alchemy", "air_boost_potion", 16);
 
