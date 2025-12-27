@@ -16,8 +16,8 @@ import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 public class runMethodDebug {
     public static void main(String[] args) throws InterruptedException {
         //Login.login();
-        //var activityLocation = getFightTask("MaxiTheGuy", "monsters");
-        //fightTask("MaxiTheGuy", activityLocation);
+        //var activityLocation = getFightTask("Max", "monsters");
+        //fightTask("Max", activityLocation);
         //fightTask(getWarrior(), ""); //call this just to start fightTask logic, activityLocation is blank as expected
         //getAllItems("", "utility");
         //actionDepositBankItem(getMiner());

@@ -1,4 +1,3 @@
-/*
 package com.artifacts.controller.webcontroller;
 import com.artifacts.game.endpoints.maps.GetAllMaps;
 import com.artifacts.game.endpoints.monsters.GetAllMonsters;
@@ -6,7 +5,7 @@ import com.artifacts.game.endpoints.resources.GetAllResources;
 import com.artifacts.game.endpoints.serverdetails.GetServerDetails;
 import com.artifacts.game.library.characters.Characters;
 //import com.artifacts.game.logic.activity.fighting.Fighting;
-import com.artifacts.game.logic.activity.fighting.Fighting2;
+import com.artifacts.game.logic.activity.fighting.Fighting;
 import com.artifacts.game.logic.activity.gathering.Gathering;
 import jakarta.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
@@ -21,80 +20,89 @@ import java.util.List;
 import java.util.Map;
 
 import static com.artifacts.game.library.characters.Characters.*;
+import static com.artifacts.runApplication.*;
 
 @Controller
 public class WebController {
-    private volatile Thread thread1;
-    private volatile Thread thread2;
-    private volatile Thread thread3;
-    private volatile Thread thread4;
-    private volatile Thread thread5;
-
     @GetMapping("/")
-    public String indexGET(Model model) {
-        HttpResponse<String> serverStatusStringResponse = GetServerDetails.getServerDetails();
-        model.addAttribute("statusCode", serverStatusStringResponse.statusCode());
-
-        var response = GetAllMonsters.getAllMonsters();
-        List<String> monsterCode = new ArrayList<>();
-        var dataArray = response.getJSONArray("data");
-        for (int i = 0; i < dataArray.length(); i++) {
-            monsterCode.add(dataArray.getJSONObject(i).getString("code"));
-        }
-        model.addAttribute("monsterCode", monsterCode);
-
-        response = GetAllResources.getAllResources();
-        List<String> resourceCode = new ArrayList<>();
-        dataArray = response.getJSONArray("data");
-        for (int i = 0; i < dataArray.length(); i++) {
-            resourceCode.add(dataArray.getJSONObject(i).getString("code"));
-        }
-        model.addAttribute("resourceCode", resourceCode);
-
-        model.addAttribute("characterNames", List.of(
-                getWarrior(),
-                getMiner(),
-                getLumberjack(),
-                getChef(),
-                getAlchemist()
-        ));
+    public String index() {
         return "index";
     }
+}
 
-    @PostMapping("/")
-    public String indexPOST(
-            @RequestParam(value = "slot") int slot,
-            @RequestParam(value = "characterName", required = false) String character,
-            @RequestParam(value = "monsterCode", required = false) String monster,
-            @RequestParam(value = "resourceCode", required = false) String resource,
-            @RequestParam(value = "action", required = false) String action) {
-
-        var hasMonsterSelected = monster != null && !monster.isBlank();
-        var hasResourceSelected = resource != null && !resource.isBlank();
-
-        String threadName = nameForSlot(slot);
-
-        if ("start".equals(action)) {
-            if (hasMonsterSelected == hasResourceSelected) {
-                return "redirect:/";
-            }
-
-            Runnable r = () -> {
-                try {
-                    if (hasMonsterSelected) {
-                        Fighting2.fight(character, monster);
-                    } else {
-                        Gathering.gather(character, resource);
-                    }
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            };
-
-            Thread t = new Thread(r, threadName);
-            t.setDaemon(true);
-            t.start();
-
+//@Controller
+//public class WebController {
+//    private volatile Thread thread1;
+//    private volatile Thread thread2;
+//    private volatile Thread thread3;
+//    private volatile Thread thread4;
+//    private volatile Thread thread5;
+//
+//    @GetMapping("/")
+//    public String indexGET(Model model) {
+//        HttpResponse<String> serverStatusStringResponse = GetServerDetails.getServerDetails();
+//        model.addAttribute("statusCode", serverStatusStringResponse.statusCode());
+//
+//        var response = GetAllMonsters.getAllMonsters();
+//        List<String> monsterCode = new ArrayList<>();
+//        var dataArray = response.getJSONArray("data");
+//        for (int i = 0; i < dataArray.length(); i++) {
+//            monsterCode.add(dataArray.getJSONObject(i).getString("code"));
+//        }
+//        model.addAttribute("monsterCode", monsterCode);
+//
+//        response = GetAllResources.getAllResources();
+//        List<String> resourceCode = new ArrayList<>();
+//        dataArray = response.getJSONArray("data");
+//        for (int i = 0; i < dataArray.length(); i++) {
+//            resourceCode.add(dataArray.getJSONObject(i).getString("code"));
+//        }
+//        model.addAttribute("resourceCode", resourceCode);
+//
+//        model.addAttribute("characterNames", List.of(
+//                getWarrior(),
+//                getMiner(),
+//                getLumberjack(),
+//                getChef(),
+//                getAlchemist()
+//        ));
+//        return "index";
+//    }
+//
+//    @PostMapping("/")
+//    public String indexPOST(
+//            @RequestParam(value = "slot") int slot,
+//            @RequestParam(value = "characterName", required = false) String character,
+//            @RequestParam(value = "monsterCode", required = false) String monster,
+//            @RequestParam(value = "resourceCode", required = false) String resource,
+//            @RequestParam(value = "action", required = false) String action) {
+//
+//        var hasMonsterSelected = monster != null && !monster.isBlank();
+//        var hasResourceSelected = resource != null && !resource.isBlank();
+//
+//        String threadName = nameForSlot(slot);
+//
+//        if ("start".equals(action)) {
+//            if (hasMonsterSelected == hasResourceSelected) {
+//                return "redirect:/";
+//            }
+//
+//            Runnable r = () -> {
+//                try {
+//                    if (hasMonsterSelected) {
+//                        Fighting2.fight(character, monster);
+//                    } else {
+//                        Gathering.gather(character, resource);
+//                    }
+//                } catch (InterruptedException e) {
+//                    Thread.currentThread().interrupt();
+//                }
+//            };
+//
+//            Thread t = new Thread(r, threadName);
+//            t.setDaemon(true);
+//            t.start();
+//
 //            if (slot == 1) {
 //                thread1 = new Thread(() -> {
 //                    try {
@@ -154,17 +162,17 @@ public class WebController {
 //                thread5.setDaemon(true);
 //                thread5.start();
 //            }
-
-        } else if ("kill".equals(action)) {
-            // interrupt first matching thread by name
-            for (Thread t : Thread.getAllStackTraces().keySet()) {
-                if (threadName.equals(t.getName())) {
-                    t.interrupt();
-                    break;
-                }
-            }
-        }
-
+//
+//        } else if ("kill".equals(action)) {
+//            // interrupt first matching thread by name
+//            for (Thread t : Thread.getAllStackTraces().keySet()) {
+//                if (threadName.equals(t.getName())) {
+//                    t.interrupt();
+//                    break;
+//                }
+//            }
+//        }
+//
 //        } else if ("kill".equals(action)) {
 //            if (slot == 1 && thread1 != null) {
 //                System.out.println("Thread killed");
@@ -187,19 +195,18 @@ public class WebController {
 //                thread5.interrupt();
 //            }
 //        }
-        return "redirect:/";
-    }
-    private String nameForSlot(int slot) {
-        switch (slot) {
-            case 1:  return "warrior";
-            case 2:  return "miner";
-            case 3:  return "alchemist";
-            case 4:  return "lumberjack";
-            case 5:  return "chef";
-            default: throw new IllegalArgumentException("Invalid slot: " + slot);
-        }
-    }
-}
+//        return "redirect:/";
+//    }
+//    private String nameForSlot(int slot) {
+//        switch (slot) {
+//            case 1:  return "warrior";
+//            case 2:  return "miner";
+//            case 3:  return "alchemist";
+//            case 4:  return "lumberjack";
+//            case 5:  return "chef";
+//            default: throw new IllegalArgumentException("Invalid slot: " + slot);
+//        }
+//    }
+//}
 
 
- */

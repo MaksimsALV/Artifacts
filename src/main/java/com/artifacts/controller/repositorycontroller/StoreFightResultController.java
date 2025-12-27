@@ -20,18 +20,16 @@ public class StoreFightResultController {
         var data = fightResponse.getJSONObject("data");
         var fightData = data.getJSONObject("fight");
         var cooldownData = data.getJSONObject("cooldown");
-        var characterData = data.getJSONObject("character");
+        var fightDataForCharacter = fightData.getJSONArray("characters").getJSONObject(0);
 
-        //var monster = "unknown"; //todo new season will have opponent here
-
-        var character = characterData.getString("name");
+        var character = fightDataForCharacter.getString("character_name");
         var result = fightData.getString("result");
         var monster = fightData.getString("opponent");
         var turns = fightData.getInt("turns");
-        var xpGained = fightData.getInt("xp");
+        var xpGained = fightDataForCharacter.getInt("xp");
         var logsText = fightData.getJSONArray("logs").toString();
-        var itemsText = fightData.getJSONArray("drops").isEmpty() ? null : fightData.getJSONArray("drops").toString();
-        var gold = fightData.getInt("gold");
+        var itemsText = fightDataForCharacter.getJSONArray("drops").isEmpty() ? null : fightDataForCharacter.getJSONArray("drops").toString();
+        var gold = fightDataForCharacter.getInt("gold");
         var cooldown = cooldownData.getInt("total_seconds");
         var createdAt = OffsetDateTime.now(ZoneOffset.UTC);
 

@@ -6,7 +6,7 @@ import static com.artifacts.game.endpoints.tasks.GetTask.getTask;
 public class FightTaskLimitator {
     public static boolean fightTaskIsValidForExecution(String taskCode) throws InterruptedException {
         var taskMonsterLevel = getTask(taskCode).getJSONObject("data").getInt("level");
-        if (taskMonsterLevel <= 19) {
+        if (taskMonsterLevel <= 16) {
             return true;
         } return false;
     }

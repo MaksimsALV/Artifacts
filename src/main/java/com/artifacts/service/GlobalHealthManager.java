@@ -13,7 +13,15 @@ import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 public class GlobalHealthManager {
 
     public static void globalHealthManager(String name, JSONObject response, String consumable) throws InterruptedException {
-        var characterData = response.getJSONObject("data").getJSONObject("character");
+        //fight response for characters v2.0.0 due to S6 update
+        //var characterData = response.getJSONObject("data").getJSONArray("characters").getJSONObject(0);
+//        var characterData = response.getJSONObject("data").getJSONObject("character");
+
+        JSONObject data = response.optJSONObject("data");
+        var characterData = data.has("characters")
+                ? data.getJSONArray("characters").getJSONObject(0)
+                : data.getJSONObject("character");
+
         var maxHP = characterData.getInt("max_hp");
         var currentHP = characterData.getInt("hp");
         var missingHP = (maxHP - currentHP);
