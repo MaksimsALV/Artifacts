@@ -12,10 +12,10 @@ import static com.artifacts.game.library.characters.Characters.getAlchemist;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
 @SpringBootApplication
-public class runApplication {
+public class Launcher {
     public static void main(String[] args) {
         System.setProperty("server.port", "8080");
-        SpringApplication.run(runApplication.class, args);
+        SpringApplication.run(Launcher.class, args);
     }
 
     private static Thread warriorThread;
@@ -31,7 +31,10 @@ public class runApplication {
                 Login.login();
                 System.out.println("\nLogin successful");
                 System.out.println("\ninitial Character data is received successfully");
+
                 gather(getWarrior(), "coal_rocks");
+//                fight(getWarrior(), "ogre", "minor_health_potion", "", "cooked_trout", false); //use either one: fightTask tor activityLocation
+//                craft(getWarrior(), "gearcrafting", "tromatising_mask", 1);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -54,7 +57,10 @@ public class runApplication {
                 Login.login();
                 System.out.println("\nLogin successful");
                 System.out.println("\ninitial Character data is received successfully");
+
                 gather(getMiner(), "coal_rocks");
+//                fight(getMiner(), "", "", "", "cooked_trout", true); //use either one: fightTask tor activityLocation
+//                craft(getMiner(), "mining", "copper_bar", 10);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -77,7 +83,10 @@ public class runApplication {
                 Login.login();
                 System.out.println("\nLogin successful");
                 System.out.println("\ninitial Character data is received successfully");
+
                 gather(getLumberjack(), "birch_tree");
+//                fight(getLumberjack(), "", "", "", "cooked_trout", true); //use either one: fightTask tor activityLocation
+//                craft(getLumberjack(), "woodcutting", "ash_plank", 10);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -100,7 +109,10 @@ public class runApplication {
                 Login.login();
                 System.out.println("\nLogin successful");
                 System.out.println("\ninitial Character data is received successfully");
+
                 gather(getChef(), "trout_spot");
+//                craft(getChef(), "cooking", "cooked_trout", 100);
+//                fight(getChef(), "chicken");
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
@@ -123,7 +135,10 @@ public class runApplication {
                 Login.login();
                 System.out.println("\nLogin successful");
                 System.out.println("\ninitial Character data is received successfully");
+
                 gather(getAlchemist(), "nettle");
+//                craft(getAlchemist(), "alchemy", "air_boost_potion", 16);
+
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {

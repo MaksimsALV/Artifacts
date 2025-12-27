@@ -1,26 +1,7 @@
 package com.artifacts.controller.webcontroller;
-import com.artifacts.game.endpoints.maps.GetAllMaps;
-import com.artifacts.game.endpoints.monsters.GetAllMonsters;
-import com.artifacts.game.endpoints.resources.GetAllResources;
-import com.artifacts.game.endpoints.serverdetails.GetServerDetails;
-import com.artifacts.game.library.characters.Characters;
 //import com.artifacts.game.logic.activity.fighting.Fighting;
-import com.artifacts.game.logic.activity.fighting.Fighting;
-import com.artifacts.game.logic.activity.gathering.Gathering;
-import jakarta.servlet.http.HttpServletRequest;
-import org.json.JSONObject;
-import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.artifacts.game.library.characters.Characters.*;
-import static com.artifacts.runApplication.*;
 
 @Controller
 public class WebController {

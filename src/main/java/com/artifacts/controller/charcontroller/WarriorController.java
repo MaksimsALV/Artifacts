@@ -3,8 +3,8 @@ package com.artifacts.controller.charcontroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static com.artifacts.runApplication.runWarrior;
-import static com.artifacts.runApplication.stopWarrior;
+import static com.artifacts.Launcher.runWarrior;
+import static com.artifacts.Launcher.stopWarrior;
 
 @Controller
 public class WarriorController {

@@ -3,8 +3,8 @@ package com.artifacts.controller.charcontroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static com.artifacts.runApplication.runMiner;
-import static com.artifacts.runApplication.stopMiner;
+import static com.artifacts.Launcher.runMiner;
+import static com.artifacts.Launcher.stopMiner;
 
 @Controller
 public class MinerController {

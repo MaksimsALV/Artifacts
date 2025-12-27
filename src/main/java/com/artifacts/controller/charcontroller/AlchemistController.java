@@ -3,8 +3,8 @@ package com.artifacts.controller.charcontroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static com.artifacts.runApplication.runAlchemist;
-import static com.artifacts.runApplication.stopAlchemist;
+import static com.artifacts.Launcher.runAlchemist;
+import static com.artifacts.Launcher.stopAlchemist;
 
 @Controller
 public class AlchemistController {

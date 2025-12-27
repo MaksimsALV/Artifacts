@@ -3,8 +3,8 @@ package com.artifacts.controller.charcontroller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import static com.artifacts.runApplication.runLumberjack;
-import static com.artifacts.runApplication.stopLumberjack;
+import static com.artifacts.Launcher.runLumberjack;
+import static com.artifacts.Launcher.stopLumberjack;
 
 @Controller
 public class LumberjackController {
