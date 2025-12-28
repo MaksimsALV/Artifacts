@@ -26,7 +26,14 @@
 
                         <select class="form-select" name="value" required>
                             <option value="" disabled selected>Choose...</option>
-                            <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+
+                            <optgroup label="Resources">
+                                <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Monsters">
+                                <option th:each="code : ${monsters}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>
@@ -55,7 +62,14 @@
 
                         <select class="form-select" name="value" required>
                             <option value="" disabled selected>Choose...</option>
-                            <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+
+                            <optgroup label="Resources">
+                                <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Monsters">
+                                <option th:each="code : ${monsters}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>
@@ -84,7 +98,14 @@
 
                         <select class="form-select" name="value" required>
                             <option value="" disabled selected>Choose...</option>
-                            <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+
+                            <optgroup label="Resources">
+                                <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Monsters">
+                                <option th:each="code : ${monsters}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>
@@ -113,7 +134,14 @@
 
                         <select class="form-select" name="value" required>
                             <option value="" disabled selected>Choose...</option>
-                            <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+
+                            <optgroup label="Resources">
+                                <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Monsters">
+                                <option th:each="code : ${monsters}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>
@@ -142,7 +170,14 @@
 
                         <select class="form-select" name="value" required>
                             <option value="" disabled selected>Choose...</option>
-                            <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+
+                            <optgroup label="Resources">
+                                <option th:each="code : ${resources}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Monsters">
+                                <option th:each="code : ${monsters}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>
