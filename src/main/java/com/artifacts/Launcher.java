@@ -158,6 +158,4 @@ public class Launcher {
             System.out.println(getAlchemist() + " thread stopped");
         }
     }
-
-
 }
