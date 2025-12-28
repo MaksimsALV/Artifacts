@@ -31,4 +31,13 @@ public class GetAllMonsters {
             return null;
         }
     }
+
+    public static List<String> getAllMonstersAsList() {
+        var response = getAllMonsters().getJSONArray("data");
+        List<String> listOfMonsterCodes = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            listOfMonsterCodes.add(response.getJSONObject(i).getString("code"));
+        }
+        return listOfMonsterCodes;
+    }
 }
