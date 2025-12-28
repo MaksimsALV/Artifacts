@@ -36,10 +36,10 @@ public class GetAllResources {
 
     public static List<String> getAllResourcesAsList() {
         var response = getAllResources().getJSONArray("data");
-        List<String> resourceCode = new ArrayList<>();
+        List<String> listOfResourceCodes = new ArrayList<>();
         for (int i = 0; i < response.length(); i++) {
-            resourceCode.add(response.getJSONObject(i).getString("code"));
+            listOfResourceCodes.add(response.getJSONObject(i).getString("code"));
         }
-        return resourceCode;
+        return listOfResourceCodes;
     }
 }
