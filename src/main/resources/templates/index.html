@@ -36,6 +36,17 @@
                             </optgroup>
                         </select>
 
+                        <!-- Utilities (optional, always shown) -->
+                        <select class="form-select" name="utilityOne">
+                            <option value="" selected>Utility 1 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
+                        <select class="form-select" name="utilityTwo">
+                            <option value="" selected>Utility 2 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
                         <button type="submit" class="btn btn-success">Start</button>
                     </form>
 
@@ -70,6 +81,17 @@
                             <optgroup label="Monsters">
                                 <option th:each="code : ${monsters}" th:value="${code}" th:text="${code}"></option>
                             </optgroup>
+                        </select>
+
+                        <!-- Utilities (optional, always shown) -->
+                        <select class="form-select" name="utilityOne">
+                            <option value="" selected>Utility 1 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
+                        <select class="form-select" name="utilityTwo">
+                            <option value="" selected>Utility 2 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>
@@ -108,6 +130,17 @@
                             </optgroup>
                         </select>
 
+                        <!-- Utilities (optional, always shown) -->
+                        <select class="form-select" name="utilityOne">
+                            <option value="" selected>Utility 1 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
+                        <select class="form-select" name="utilityTwo">
+                            <option value="" selected>Utility 2 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
                         <button type="submit" class="btn btn-success">Start</button>
                     </form>
 
@@ -144,6 +177,17 @@
                             </optgroup>
                         </select>
 
+                        <!-- Utilities (optional, always shown) -->
+                        <select class="form-select" name="utilityOne">
+                            <option value="" selected>Utility 1 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
+                        <select class="form-select" name="utilityTwo">
+                            <option value="" selected>Utility 2 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
                         <button type="submit" class="btn btn-success">Start</button>
                     </form>
 
@@ -178,6 +222,17 @@
                             <optgroup label="Monsters">
                                 <option th:each="code : ${monsters}" th:value="${code}" th:text="${code}"></option>
                             </optgroup>
+                        </select>
+
+                        <!-- Utilities (optional, always shown) -->
+                        <select class="form-select" name="utilityOne">
+                            <option value="" selected>Utility 1 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
+                        <select class="form-select" name="utilityTwo">
+                            <option value="" selected>Utility 2 (optional)</option>
+                            <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>

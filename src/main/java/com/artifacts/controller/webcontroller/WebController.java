@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
 
+import static com.artifacts.game.endpoints.items.GetAllItems.getAllUtilityItemsAsList;
 import static com.artifacts.game.endpoints.monsters.GetAllMonsters.getAllMonstersAsList;
 import static com.artifacts.game.endpoints.resources.GetAllResources.getAllResourcesAsList;
 
@@ -18,6 +19,7 @@ public class WebController {
     public String index(Model model) {
         model.addAttribute("resources", getAllResourcesAsList());
         model.addAttribute("monsters", getAllMonstersAsList());
+        model.addAttribute("utilities", getAllUtilityItemsAsList());
         return "index";
     }
 }

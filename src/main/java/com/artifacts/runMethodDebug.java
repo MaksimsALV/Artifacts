@@ -3,6 +3,7 @@ package com.artifacts;
 import com.artifacts.game.engine.launcher.Login;
 
 import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
+import static com.artifacts.game.endpoints.items.GetAllItems.getAllUtilityItemsAsList;
 import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.game.endpoints.resources.GetAllResources.getAllResourcesAsList;
 import static com.artifacts.game.endpoints.serverdetails.GetServerDetails.getServerDetails;
@@ -25,6 +26,6 @@ public class runMethodDebug {
  //       craftGear(getWarrior(), "weaponcrafting", "iron_sword", 16);
         //checkInventoryConsumables(getWarrior(), "cooked_gudgeon");
 //        getServerDetails();
-        System.out.println(getAllResourcesAsList());
+        System.out.println(getAllUtilityItemsAsList());
     }
 }

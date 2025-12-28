@@ -10,8 +10,11 @@ import static com.artifacts.Launcher.stopWarrior;
 @Controller
 public class WarriorController {
     @PostMapping("/runWarrior")
-    public String start(@RequestParam String action, @RequestParam String value) {
-        runWarrior(action, value);
+    public String start(@RequestParam String action,
+                        @RequestParam String value,
+                        @RequestParam(required = false, defaultValue = "") String utilityOne,
+                        @RequestParam(required = false, defaultValue = "") String utilityTwo) {
+        runWarrior(action, value, utilityOne, utilityTwo);
         return "redirect:/";
     }
     @PostMapping("/stopWarrior")

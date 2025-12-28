@@ -30,11 +30,11 @@ public class Launcher {
     private static Thread alchemistThread;
 
 
-    public static void runWarrior(String action, String value) {
+    public static void runWarrior(String action, String value, String utilityOne, String utilityTwo) {
         warriorThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getWarrior(), value, "minor_health_potion", "", "cooked_trout", false);
+                    fight(getWarrior(), value, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getWarrior(), value);
                 } else {
@@ -56,11 +56,11 @@ public class Launcher {
     }
 
 
-    public static void runMiner(String action, String value) {
+    public static void runMiner(String action, String value, String utilityOne, String utilityTwo) {
         minerThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getMiner(), value, "minor_health_potion", "", "cooked_trout", false);
+                    fight(getMiner(), value, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getMiner(), value);
                 } else {
@@ -82,11 +82,11 @@ public class Launcher {
     }
 
 
-    public static void runLumberjack(String action, String value) {
+    public static void runLumberjack(String action, String value, String utilityOne, String utilityTwo) {
         lumberjackThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getLumberjack(), value, "minor_health_potion", "", "cooked_trout", false);
+                    fight(getLumberjack(), value, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getLumberjack(), value);
                 } else {
@@ -108,11 +108,11 @@ public class Launcher {
     }
 
 
-    public static void runChef(String action, String value) {
+    public static void runChef(String action, String value, String utilityOne, String utilityTwo) {
         chefThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getChef(), value, "minor_health_potion", "", "cooked_trout", false);
+                    fight(getChef(), value, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getChef(), value);
                 } else {
@@ -134,11 +134,11 @@ public class Launcher {
     }
 
 
-    public static void runAlchemist(String action, String value) {
+    public static void runAlchemist(String action, String value, String utilityOne, String utilityTwo) {
         alchemistThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getAlchemist(), value, "minor_health_potion", "", "cooked_trout", false);
+                    fight(getAlchemist(), value, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getAlchemist(), value);
                 } else {

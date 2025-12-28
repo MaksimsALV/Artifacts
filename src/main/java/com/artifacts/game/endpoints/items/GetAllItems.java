@@ -5,6 +5,8 @@ import com.artifacts.game.config.BaseURL;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
@@ -33,5 +35,14 @@ public class GetAllItems {
             System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
             return null;
         }
+    }
+
+    public static List<String> getAllUtilityItemsAsList() {
+        var response = getAllItems("", "utility").getJSONArray("data");
+        List<String> listOfUtilityItemCodes = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            listOfUtilityItemCodes.add(response.getJSONObject(i).getString("code"));
+        }
+        return listOfUtilityItemCodes;
     }
 }

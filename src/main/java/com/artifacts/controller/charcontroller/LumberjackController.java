@@ -10,8 +10,11 @@ import static com.artifacts.Launcher.stopLumberjack;
 @Controller
 public class LumberjackController {
     @PostMapping("/runLumberjack")
-    public String start(@RequestParam String action, @RequestParam String value) {
-        runLumberjack(action, value);
+    public String start(@RequestParam String action,
+                        @RequestParam String value,
+                        @RequestParam(required = false, defaultValue = "") String utilityOne,
+                        @RequestParam(required = false, defaultValue = "") String utilityTwo) {
+        runLumberjack(action, value, utilityOne, utilityTwo);
         return "redirect:/";
     }
     @PostMapping("/stopLumberjack")
