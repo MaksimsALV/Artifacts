@@ -13,8 +13,9 @@ public class LumberjackController {
     public String start(@RequestParam String action,
                         @RequestParam String activityLocation,
                         @RequestParam(required = false, defaultValue = "") String utilityOne,
-                        @RequestParam(required = false, defaultValue = "") String utilityTwo) {
-        runLumberjack(action, activityLocation, utilityOne, utilityTwo);
+                        @RequestParam(required = false, defaultValue = "") String utilityTwo,
+                        @RequestParam(required = false, defaultValue = "") String consumable) {
+        runLumberjack(action, activityLocation, utilityOne, utilityTwo, consumable);
         return "redirect:/";
     }
     @PostMapping("/stopLumberjack")

@@ -13,8 +13,9 @@ public class ChefController {
     public String start(@RequestParam String action,
                         @RequestParam String activityLocation,
                         @RequestParam(required = false, defaultValue = "") String utilityOne,
-                        @RequestParam(required = false, defaultValue = "") String utilityTwo) {
-        runChef(action, activityLocation, utilityOne, utilityTwo);
+                        @RequestParam(required = false, defaultValue = "") String utilityTwo,
+                        @RequestParam(required = false, defaultValue = "") String consumable) {
+        runChef(action, activityLocation, utilityOne, utilityTwo, consumable);
         return "redirect:/";
     }
     @PostMapping("/stopChef")

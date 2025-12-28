@@ -47,6 +47,12 @@
                             <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
                         </select>
 
+                        <!-- Consumable (optional) -->
+                        <select class="form-select" name="consumable">
+                            <option value="" selected>Consumable (optional)</option>
+                            <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
+                        </select>
+
                         <button type="submit" class="btn btn-success">Start</button>
                     </form>
 
@@ -92,6 +98,12 @@
                         <select class="form-select" name="utilityTwo">
                             <option value="" selected>Utility 2 (optional)</option>
                             <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
+                        <!-- Consumable (optional) -->
+                        <select class="form-select" name="consumable">
+                            <option value="" selected>Consumable (optional)</option>
+                            <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>
@@ -141,6 +153,12 @@
                             <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
                         </select>
 
+                        <!-- Consumable (optional) -->
+                        <select class="form-select" name="consumable">
+                            <option value="" selected>Consumable (optional)</option>
+                            <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
+                        </select>
+
                         <button type="submit" class="btn btn-success">Start</button>
                     </form>
 
@@ -188,6 +206,12 @@
                             <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
                         </select>
 
+                        <!-- Consumable (optional) -->
+                        <select class="form-select" name="consumable">
+                            <option value="" selected>Consumable (optional)</option>
+                            <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
+                        </select>
+
                         <button type="submit" class="btn btn-success">Start</button>
                     </form>
 
@@ -233,6 +257,12 @@
                         <select class="form-select" name="utilityTwo">
                             <option value="" selected>Utility 2 (optional)</option>
                             <option th:each="u : ${utilities}" th:value="${u}" th:text="${u}"></option>
+                        </select>
+
+                        <!-- Consumable (optional) -->
+                        <select class="form-select" name="consumable">
+                            <option value="" selected>Consumable (optional)</option>
+                            <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
                         </select>
 
                         <button type="submit" class="btn btn-success">Start</button>

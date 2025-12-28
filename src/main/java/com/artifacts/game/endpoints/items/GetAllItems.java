@@ -45,4 +45,13 @@ public class GetAllItems {
         }
         return listOfUtilityItemCodes;
     }
+
+    public static List<String> getAllConsumablesAsList() {
+        var response = getAllItems("", "consumable").getJSONArray("data");
+        List<String> listOfConsumableCodes = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            listOfConsumableCodes.add(response.getJSONObject(i).getString("code"));
+        }
+        return listOfConsumableCodes;
+    }
 }

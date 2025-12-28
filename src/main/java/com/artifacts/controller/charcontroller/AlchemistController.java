@@ -13,8 +13,9 @@ public class AlchemistController {
     public String start(@RequestParam String action,
                         @RequestParam String activityLocation,
                         @RequestParam(required = false, defaultValue = "") String utilityOne,
-                        @RequestParam(required = false, defaultValue = "") String utilityTwo) {
-        runAlchemist(action, activityLocation, utilityOne, utilityTwo);
+                        @RequestParam(required = false, defaultValue = "") String utilityTwo,
+                        @RequestParam(required = false, defaultValue = "") String consumable) {
+        runAlchemist(action, activityLocation, utilityOne, utilityTwo, consumable);
         return "redirect:/";
     }
     @PostMapping("/stopAlchemist")
