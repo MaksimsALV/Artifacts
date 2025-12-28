@@ -11,11 +11,12 @@ import static com.artifacts.Launcher.stopAlchemist;
 public class AlchemistController {
     @PostMapping("/runAlchemist")
     public String start(@RequestParam String action,
-                        @RequestParam String activityLocation,
+                        @RequestParam(required = false, defaultValue = "") String activityLocation,
                         @RequestParam(required = false, defaultValue = "") String utilityOne,
                         @RequestParam(required = false, defaultValue = "") String utilityTwo,
-                        @RequestParam(required = false, defaultValue = "") String consumable) {
-        runAlchemist(action, activityLocation, utilityOne, utilityTwo, consumable);
+                        @RequestParam(required = false, defaultValue = "") String consumable,
+                        @RequestParam(required = false, defaultValue = "false") boolean fightTask) {
+        runAlchemist(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask);
         return "redirect:/";
     }
     @PostMapping("/stopAlchemist")

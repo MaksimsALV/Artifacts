@@ -11,11 +11,12 @@ import static com.artifacts.Launcher.stopMiner;
 public class MinerController {
     @PostMapping("/runMiner")
     public String start(@RequestParam String action,
-                        @RequestParam String activityLocation,
+                        @RequestParam(required = false, defaultValue = "") String activityLocation,
                         @RequestParam(required = false, defaultValue = "") String utilityOne,
                         @RequestParam(required = false, defaultValue = "") String utilityTwo,
-                        @RequestParam(required = false, defaultValue = "") String consumable) {
-        runMiner(action, activityLocation, utilityOne, utilityTwo, consumable);
+                        @RequestParam(required = false, defaultValue = "") String consumable,
+                        @RequestParam(required = false, defaultValue = "false") boolean fightTask) {
+        runMiner(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask);
         return "redirect:/";
     }
     @PostMapping("/stopMiner")
