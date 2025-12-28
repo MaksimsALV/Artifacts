@@ -30,13 +30,13 @@ public class Launcher {
     private static Thread alchemistThread;
 
 
-    public static void runWarrior(String action, String value, String utilityOne, String utilityTwo) {
+    public static void runWarrior(String action, String activityLocation, String utilityOne, String utilityTwo) {
         warriorThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getWarrior(), value, utilityOne, utilityTwo, "cooked_trout", false);
+                    fight(getWarrior(), activityLocation, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
-                    gather(getWarrior(), value);
+                    gather(getWarrior(), activityLocation);
                 } else {
                     craft(getWarrior(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -56,13 +56,13 @@ public class Launcher {
     }
 
 
-    public static void runMiner(String action, String value, String utilityOne, String utilityTwo) {
+    public static void runMiner(String action, String activityLocation, String utilityOne, String utilityTwo) {
         minerThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getMiner(), value, utilityOne, utilityTwo, "cooked_trout", false);
+                    fight(getMiner(), activityLocation, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
-                    gather(getMiner(), value);
+                    gather(getMiner(), activityLocation);
                 } else {
                     craft(getMiner(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -82,13 +82,13 @@ public class Launcher {
     }
 
 
-    public static void runLumberjack(String action, String value, String utilityOne, String utilityTwo) {
+    public static void runLumberjack(String action, String activityLocation, String utilityOne, String utilityTwo) {
         lumberjackThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getLumberjack(), value, utilityOne, utilityTwo, "cooked_trout", false);
+                    fight(getLumberjack(), activityLocation, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
-                    gather(getLumberjack(), value);
+                    gather(getLumberjack(), activityLocation);
                 } else {
                     craft(getLumberjack(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -108,13 +108,13 @@ public class Launcher {
     }
 
 
-    public static void runChef(String action, String value, String utilityOne, String utilityTwo) {
+    public static void runChef(String action, String activityLocation, String utilityOne, String utilityTwo) {
         chefThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getChef(), value, utilityOne, utilityTwo, "cooked_trout", false);
+                    fight(getChef(), activityLocation, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
-                    gather(getChef(), value);
+                    gather(getChef(), activityLocation);
                 } else {
                     craft(getChef(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -134,13 +134,13 @@ public class Launcher {
     }
 
 
-    public static void runAlchemist(String action, String value, String utilityOne, String utilityTwo) {
+    public static void runAlchemist(String action, String activityLocation, String utilityOne, String utilityTwo) {
         alchemistThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getAlchemist(), value, utilityOne, utilityTwo, "cooked_trout", false);
+                    fight(getAlchemist(), activityLocation, utilityOne, utilityTwo, "cooked_trout", false);
                 } else if (action.equals("gather")) {
-                    gather(getAlchemist(), value);
+                    gather(getAlchemist(), activityLocation);
                 } else {
                     craft(getAlchemist(), "gearcrafting", "tromatising_mask", 1);
                 }

@@ -11,10 +11,10 @@ import static com.artifacts.Launcher.stopChef;
 public class ChefController {
     @PostMapping("/runChef")
     public String start(@RequestParam String action,
-                        @RequestParam String value,
+                        @RequestParam String activityLocation,
                         @RequestParam(required = false, defaultValue = "") String utilityOne,
                         @RequestParam(required = false, defaultValue = "") String utilityTwo) {
-        runChef(action, value, utilityOne, utilityTwo);
+        runChef(action, activityLocation, utilityOne, utilityTwo);
         return "redirect:/";
     }
     @PostMapping("/stopChef")
