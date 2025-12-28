@@ -34,7 +34,7 @@ public class Launcher {
         warriorThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getWarrior(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                    fight(getWarrior(), value, "minor_health_potion", "", "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getWarrior(), value);
                 } else {
@@ -60,7 +60,7 @@ public class Launcher {
         minerThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getMiner(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                    fight(getMiner(), value, "minor_health_potion", "", "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getMiner(), value);
                 } else {
@@ -86,7 +86,7 @@ public class Launcher {
         lumberjackThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getLumberjack(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                    fight(getLumberjack(), value, "minor_health_potion", "", "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getLumberjack(), value);
                 } else {
@@ -112,7 +112,7 @@ public class Launcher {
         chefThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getChef(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                    fight(getChef(), value, "minor_health_potion", "", "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getChef(), value);
                 } else {
@@ -138,7 +138,7 @@ public class Launcher {
         alchemistThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
-                    fight(getAlchemist(), "ogre", "minor_health_potion", "", "cooked_trout", false);
+                    fight(getAlchemist(), value, "minor_health_potion", "", "cooked_trout", false);
                 } else if (action.equals("gather")) {
                     gather(getAlchemist(), value);
                 } else {
