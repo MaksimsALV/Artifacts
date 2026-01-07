@@ -9,6 +9,7 @@ import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
 //import static com.artifacts.game.library.locations.GatheringZones.RESOURCE_FIELDS;
 //import static com.artifacts.game.library.recources.Resources.RESOURCE_LOCATION;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.tools.Delay.delay;
 
 public class Gathering {
     public static void gather(String name, String activityLocation) throws InterruptedException {
@@ -56,6 +57,10 @@ public class Gathering {
                 }
                 gather(name, activityLocation);
                 return;
+            } else if (statusCode == CODE_CHARACTER_LOCKED) {
+                System.err.println("486 happened! Starting delay, then continue");
+                delay(5);
+                continue;
             }
             return;
         }
