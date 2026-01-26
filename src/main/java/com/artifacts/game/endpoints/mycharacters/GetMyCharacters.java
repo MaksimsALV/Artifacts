@@ -1,8 +1,5 @@
-/*
 package com.artifacts.game.endpoints.mycharacters;
 
-import com.artifacts.api.http.Send;
-import com.artifacts.game.config.BaseURL;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
@@ -12,7 +9,55 @@ import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.api.http.Client.getRequest;
+import static com.artifacts.api.http.Client.send;
+import static com.artifacts.game.endpoints.token.Token.token;
+import static com.artifacts.tools.Retry.retry;
 
+//GetMyCharacters 2.0
+public class GetMyCharacters {
+    public static List<HashMap<String, String>> MY_CHARACTERS = new ArrayList<>();
+
+    public static JSONObject getMyCharacters() {
+        var retryCount = 0;
+        var endpoint = "/my/characters";
+        var request = getRequest(endpoint, token);
+
+        while (true) {
+            try {
+                HttpResponse<String> response = send(request);
+
+                if (response.statusCode() == CODE_SUCCESS) {
+                    System.out.println(endpoint + " | " + CODE_SUCCESS);
+                    var responseBody = new JSONObject(response.body());
+                    var responseDataArray = responseBody.getJSONArray("data");
+                    MY_CHARACTERS.clear();
+
+                    for (var characterObject : responseDataArray) {
+                        var eachCharacter = (JSONObject) characterObject;
+                        HashMap<String, String> characterData = new HashMap<>();
+                        for (var key : eachCharacter.keySet()) {
+                            var value = eachCharacter.get(key).toString();
+                            characterData.put(key, value);
+                        }
+                        MY_CHARACTERS.add(characterData);
+                    }
+                    return responseBody;
+                }
+                globalErrorHandler(response, endpoint);
+                return new JSONObject().put("statusCode", response.statusCode());
+
+            } catch (Exception e) {
+                System.err.println(endpoint + " | Exception: " + e);
+                if (!retry(++retryCount)) {
+                    return null;
+                }
+            }
+        }
+    }
+}
+
+/*//GetMyCharacters 1.0
 public class GetMyCharacters {
     public static List<HashMap<String, String>> MY_CHARACTERS = new ArrayList<>();
 
@@ -48,6 +93,6 @@ public class GetMyCharacters {
         }
         return null;
     }
-}
+}*/
 
- */
+

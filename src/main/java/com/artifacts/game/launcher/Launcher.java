@@ -1,9 +1,11 @@
-package com.artifacts;
+package com.artifacts.game.launcher;
 
-import com.artifacts.game.engine.launcher.Login;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import static com.artifacts.game.endpoints.serverdetails.GetServerDetails.getServerDetails;
+import static com.artifacts.game.endpoints.serverdetails.GetServerDetails.serverIsUp;
+import static com.artifacts.game.endpoints.token.Token.getToken;
 import static com.artifacts.game.library.characters.Characters.getMiner;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
 import static com.artifacts.game.library.characters.Characters.getLumberjack;
@@ -13,14 +15,25 @@ import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
 import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
 import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.artifacts")
 public class Launcher {
     public static void main(String[] args) {
-        System.setProperty("server.port", "8080");
+          //login 1.0
+//        System.setProperty("server.port", "8080");
+//        SpringApplication.run(Launcher.class, args);
+//        Login.login();
+//        System.out.println("\nLogin successful");
+//        System.out.println("\ninitial Character data is received successfully");
+
+        //login 2.0
         SpringApplication.run(Launcher.class, args);
-        Login.login();
-        System.out.println("\nLogin successful");
-        System.out.println("\ninitial Character data is received successfully");
+        getServerDetails();
+        if (serverIsUp) {
+            System.out.println("\nServer is UP. Retrieving token...");
+            getToken();
+        } else {
+            System.exit(0);
+        }
     }
 
     private static Thread warriorThread;

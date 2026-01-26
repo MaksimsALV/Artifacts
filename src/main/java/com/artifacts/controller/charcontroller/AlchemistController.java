@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.artifacts.Launcher.runAlchemist;
-import static com.artifacts.Launcher.stopAlchemist;
+import static com.artifacts.game.launcher.Launcher.runAlchemist;
+import static com.artifacts.game.launcher.Launcher.stopAlchemist;
 
 @Controller
 public class AlchemistController {

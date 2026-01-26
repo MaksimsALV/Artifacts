@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.artifacts.Launcher.runMiner;
-import static com.artifacts.Launcher.stopMiner;
+import static com.artifacts.game.launcher.Launcher.runMiner;
+import static com.artifacts.game.launcher.Launcher.stopMiner;
 
 @Controller
 public class MinerController {

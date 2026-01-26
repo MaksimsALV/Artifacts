@@ -1,7 +1,5 @@
 package com.artifacts.game.endpoints.mycharacters;
 
-import com.artifacts.api.http.Send;
-import com.artifacts.game.config.BaseURL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.http.HttpResponse;
@@ -10,36 +8,71 @@ import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
+import static com.artifacts.api.http.Client.postRequest;
+import static com.artifacts.api.http.Client.send;
 import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
 import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
+import static com.artifacts.game.endpoints.token.Token.token;
 import static com.artifacts.game.library.characters.Characters.getAlchemist;
 import static com.artifacts.game.library.characters.Characters.getChef;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
+import static com.artifacts.tools.Retry.retry;
 
+//ActionDepositBankItem 2.0
 public class ActionDepositBankItem {
     public static JSONObject actionDepositBankItem(String name) {
-        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/" + name + "/action/bank/deposit/item";
+        var retryCount = 0;
+        var endpoint = "/my/" + name + "/action/bank/deposit/item";
         var requestBody = getItemsForBankDeposit(name).toString();
+        var request = postRequest(endpoint, token, requestBody);
 
-        try {
-            HttpResponse<String> response = Send.post(endpoint, requestBody, true);
+        while (true) {
+            try {
+                HttpResponse<String> response = send(request);
 
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-                var jsonObject = new JSONObject(response.body());
-                jsonObject.put("statusCode", response.statusCode());
-                return jsonObject;
+                if (response.statusCode() == CODE_SUCCESS) {
+                    System.out.println(endpoint + " | " + CODE_SUCCESS);
+                    var responseBody = new JSONObject(response.body());
+                    responseBody.put("statusCode", response.statusCode());
+                    return responseBody;
+                }
+                globalErrorHandler(response, endpoint);
+                return new JSONObject().put("statusCode", response.statusCode());
+
+            } catch (Exception e) {
+                System.err.println(endpoint + " | Exception: " + e);
+                if (!retry(++retryCount)) {
+                    return null;
+                }
             }
-            globalErrorHandler(response, endpoint);
-            return new JSONObject().put("statusCode", response.statusCode());
-
-        } catch (Exception actionDepositBankItemException) {
-            System.err.println(endpoint + " | Exception: " + actionDepositBankItemException.getMessage());
-            return null;
         }
     }
+
+/*    //ActionDepositBankItem 1.0
+    public class ActionDepositBankItem {
+        public static JSONObject actionDepositBankItem(String name) {
+            var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
+            var endpoint = baseUrl + "/my/" + name + "/action/bank/deposit/item";
+            var requestBody = getItemsForBankDeposit(name).toString();
+
+            try {
+                HttpResponse<String> response = Send.post(endpoint, requestBody, true);
+
+                if (response.statusCode() == CODE_SUCCESS) {
+                    System.out.println(endpoint + " | " + CODE_SUCCESS);
+                    var jsonObject = new JSONObject(response.body());
+                    jsonObject.put("statusCode", response.statusCode());
+                    return jsonObject;
+                }
+                globalErrorHandler(response, endpoint);
+                return new JSONObject().put("statusCode", response.statusCode());
+
+            } catch (Exception actionDepositBankItemException) {
+                System.err.println(endpoint + " | Exception: " + actionDepositBankItemException.getMessage());
+                return null;
+            }
+        }*/
 
     public static JSONArray getItemsForBankDeposit(String name) {
         var getCharacterResponseObject = getCharacter(name); //getting latest character data for deposit

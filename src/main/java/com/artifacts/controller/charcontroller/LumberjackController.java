@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.artifacts.Launcher.runLumberjack;
-import static com.artifacts.Launcher.stopLumberjack;
+import static com.artifacts.game.launcher.Launcher.runLumberjack;
+import static com.artifacts.game.launcher.Launcher.stopLumberjack;
 
 @Controller
 public class LumberjackController {

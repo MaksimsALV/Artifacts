@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.artifacts.Launcher.runWarrior;
-import static com.artifacts.Launcher.stopWarrior;
+import static com.artifacts.game.launcher.Launcher.runWarrior;
+import static com.artifacts.game.launcher.Launcher.stopWarrior;
 
 @Controller
 public class WarriorController {
