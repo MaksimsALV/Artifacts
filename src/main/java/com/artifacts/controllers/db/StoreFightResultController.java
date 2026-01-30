@@ -1,4 +1,4 @@
-package com.artifacts.controller.repositorycontroller;
+package com.artifacts.controllers.db;
 
 import com.artifacts.api.endpoints.get.GetServerDetails;
 import org.json.JSONObject;

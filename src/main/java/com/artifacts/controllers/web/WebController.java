@@ -1,4 +1,4 @@
-package com.artifacts.controller.webcontroller;
+package com.artifacts.controllers.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.artifacts.controller.charcontroller;
+package com.artifacts.controllers.characters;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

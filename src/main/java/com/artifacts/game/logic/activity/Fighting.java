@@ -13,7 +13,7 @@ import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 import static com.artifacts.service.ConsumableManager.getConsumables;
 import static com.artifacts.service.UtilityEquipmentManager.*;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
-import static com.artifacts.controller.repositorycontroller.StoreFightResultController.storeFightResult;
+import static com.artifacts.controllers.db.StoreFightResultController.storeFightResult;
 import static com.artifacts.service.GlobalHealthManager.globalHealthManager;
 
 
