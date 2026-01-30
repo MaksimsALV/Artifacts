@@ -4,6 +4,8 @@ package com.artifacts.api.http;
 //import com.artifacts.game.config.BaseURL;
 //import com.artifacts.game.endpoints.token.Token;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -11,12 +13,19 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Base64;
 
+@Component
 //client 2.0
 public class Client {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
-    private static final String BASE_URL = Config.getBaseUrl();
-    private static final String USERNAME = Config.getUsername();
-    private static final String PASSWORD = Config.getPassword();
+
+    private static String USERNAME;
+    private static String PASSWORD;
+    private static String BASE_URL;
+    public Client(Config config) {
+        this.USERNAME = config.getUsername();
+        this.PASSWORD = config.getPassword();
+        this.BASE_URL = config.getBaseUrl();
+    }
 
     //GET request
     public static HttpRequest getRequest(String endpoint, String token) {
@@ -64,12 +73,3 @@ public class Client {
         return CLIENT;
     }
 }
-
-//client 1.0
-//public class Client {
-//    private static final HttpClient client = HttpClient.newHttpClient();
-//
-//    public static HttpClient getClient() {
-//        return client;
-//    }
-//}
