@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.activity.gathering;
+package com.artifacts.game.logic.activity;
 
 import com.artifacts.api.endpoints.get.GetAllMaps;
 

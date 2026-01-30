@@ -11,9 +11,9 @@ import static com.artifacts.game.library.characters.Characters.getWarrior;
 import static com.artifacts.game.library.characters.Characters.getLumberjack;
 import static com.artifacts.game.library.characters.Characters.getChef;
 import static com.artifacts.game.library.characters.Characters.getAlchemist;
-import static com.artifacts.game.logic.activity.crafting.Crafting.craft;
-import static com.artifacts.game.logic.activity.fighting.Fighting.fight;
-import static com.artifacts.game.logic.activity.gathering.Gathering.gather;
+import static com.artifacts.game.logic.activity.Crafting.craft;
+import static com.artifacts.game.logic.activity.Fighting.fight;
+import static com.artifacts.game.logic.activity.Gathering.gather;
 
 @SpringBootApplication(scanBasePackages = "com.artifacts")
 public class Launcher {

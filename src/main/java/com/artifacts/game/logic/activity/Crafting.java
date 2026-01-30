@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.activity.crafting;
+package com.artifacts.game.logic.activity;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.endpoints.get.GetItem.getItem;

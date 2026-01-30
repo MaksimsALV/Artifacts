@@ -3,7 +3,7 @@ package com.artifacts;
 import com.artifacts.api.endpoints.get.GetAllMaps;
 import com.artifacts.api.endpoints.post.ActionGathering;
 import com.artifacts.api.endpoints.post.ActionMove;
-import com.artifacts.game.logic.activity.gathering.Gathering;
+import com.artifacts.game.logic.activity.Gathering;
 import com.artifacts.service.GlobalCooldownManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
