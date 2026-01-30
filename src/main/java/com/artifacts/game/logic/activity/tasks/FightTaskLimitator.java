@@ -1,7 +1,6 @@
 package com.artifacts.game.logic.activity.tasks;
 
-import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
-import static com.artifacts.game.endpoints.tasks.GetTask.getTask;
+import static com.artifacts.api.endpoints.get.GetTask.getTask;
 
 public class FightTaskLimitator {
     public static boolean fightTaskIsValidForExecution(String taskCode) throws InterruptedException {

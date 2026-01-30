@@ -1,19 +1,22 @@
-package com.artifacts.game.endpoints.characters;
+package com.artifacts.api.endpoints.get;
 
 import org.json.JSONObject;
+
 import java.net.http.HttpResponse;
-import static com.artifacts.api.errorhandling.ErrorCodes.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.getRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.tools.Delay.delay;
 import static com.artifacts.tools.Retry.retry;
 
-//GetCharacter 2.0
-public class GetCharacter {
-    public static JSONObject getCharacter(String name) {
+//GetAllMonsters 2.0
+public class GetAllMonsters {
+    public static JSONObject getAllMonsters() {
         var retryCount = 0;
-        var endpoint = "/characters/" + name;
+        var endpoint = "/monsters";
         var request = getRequest(endpoint, null);
 
         while (true) {
@@ -37,19 +40,13 @@ public class GetCharacter {
             }
         }
     }
-}
 
-//GetCharacter 1.0
-/*
-public class GetCharacter {
-    public static JSONObject getCharacter(String name) {
-        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/characters/" + name;
-        var retryCount = 0;
-//        var retryAmount = 7;
-//        var retryDelay = 10;
+/*    //GetAllMonsters 1.0
+    public class GetAllMonsters {
+        public static JSONObject getAllMonsters() {
+            var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
+            var endpoint = baseUrl + "/monsters";
 
-        while (true) {
             try {
                 HttpResponse<String> response = Send.get(endpoint, false);
 
@@ -62,18 +59,18 @@ public class GetCharacter {
                 globalErrorHandler(response, endpoint);
                 return new JSONObject().put("statusCode", response.statusCode());
 
-            } catch (Exception e) {
-                System.err.println(endpoint + " | Exception: " + e);
-                if (!retry(++retryCount)) {
-                    return null;
-                }
+            } catch (Exception getCharacterException) {
+                System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
+                return null;
             }
-//                if (++count >= retryAmount) {
-//                    return null;
-//                }
-//                delay(retryDelay);
-//            }
+        }*/
+
+    public static List<String> getAllMonstersAsList() {
+        var response = getAllMonsters().getJSONArray("data");
+        List<String> listOfMonsterCodes = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            listOfMonsterCodes.add(response.getJSONObject(i).getString("code"));
         }
+        return listOfMonsterCodes;
     }
 }
- */

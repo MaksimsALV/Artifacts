@@ -4,9 +4,9 @@ import org.json.JSONObject;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_MISSING_ITEM;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
-import static com.artifacts.game.endpoints.items.GetItem.getItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
-import static com.artifacts.game.endpoints.mycharacters.ActionUseItem.actionUseItem;
+import static com.artifacts.api.endpoints.get.GetItem.getItem;
+import static com.artifacts.api.endpoints.post.ActionRest.actionRest;
+import static com.artifacts.api.endpoints.post.ActionUseItem.actionUseItem;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 //todo need to add rest and food eating in here, because it will handle all the healing in the future

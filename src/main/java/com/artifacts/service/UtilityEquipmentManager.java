@@ -2,11 +2,11 @@ package com.artifacts.service;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
-import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
-import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionEquipItem.actionEquipItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
-import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
+import static com.artifacts.api.endpoints.get.GetCharacter.getCharacter;
+import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.api.endpoints.post.ActionEquipItem.actionEquipItem;
+import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
+import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 public class UtilityEquipmentManager {

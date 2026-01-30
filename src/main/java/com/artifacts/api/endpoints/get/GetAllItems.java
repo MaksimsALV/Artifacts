@@ -1,4 +1,4 @@
-package com.artifacts.game.endpoints.items;
+package com.artifacts.api.endpoints.get;
 
 import org.json.JSONObject;
 

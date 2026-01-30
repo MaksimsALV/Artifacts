@@ -3,7 +3,7 @@ package com.artifacts.game.library.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
+import static com.artifacts.api.endpoints.get.GetAllItems.getAllItems;
 
 public class GetItemsByItemType {
     public static List<String> getAllUtilityItems() {

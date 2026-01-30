@@ -1,4 +1,4 @@
-package com.artifacts.game.endpoints.token;
+package com.artifacts.api.endpoints.post;
 
 //import com.artifacts.api.http.Client;
 
@@ -6,7 +6,6 @@ import java.net.http.HttpResponse;
 import org.json.JSONObject;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
-import static com.artifacts.api.errorhandling.ErrorCodes.CODE_TOKEN_GENERATION_FAIL;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.*;
 import static com.artifacts.tools.Retry.retry;

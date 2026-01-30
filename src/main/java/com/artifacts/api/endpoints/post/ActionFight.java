@@ -1,21 +1,20 @@
-package com.artifacts.game.endpoints.tasks;
+package com.artifacts.api.endpoints.post;
 
 import org.json.JSONObject;
-
 import java.net.http.HttpResponse;
-
-import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
-import static com.artifacts.api.http.Client.getRequest;
+import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//GetTask 2.0
-public class GetTask {
-    public static JSONObject getTask(String taskCode) {
+//ActionFight 2.0
+public class ActionFight {
+    public static JSONObject actionFight(String name) {
         var retryCount = 0;
-        var endpoint = "/tasks/list/" + taskCode;
-        var request = getRequest(endpoint, null);
+        var endpoint = "/my/" + name + "/action/fight";
+        var request = postRequest(endpoint, token, null);
 
         while (true) {
             try {
@@ -41,14 +40,14 @@ public class GetTask {
 }
 
 /*
-//GetTask 1.0
-public class GetTask {
-    public static JSONObject getTask(String taskCode) {
+//ActionFight 1.0
+public class ActionFight {
+    public static JSONObject actionFight(String name) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/tasks/list/" + taskCode;
+        var endpoint = baseUrl + "/my/" + name + "/action/fight";
 
         try {
-            HttpResponse<String> response = Send.get(endpoint, false);
+            HttpResponse<String> response = Send.post(endpoint, "", true);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -59,8 +58,8 @@ public class GetTask {
             globalErrorHandler(response, endpoint);
             return new JSONObject().put("statusCode", response.statusCode());
 
-        } catch (Exception getTaskException) {
-            System.err.println(endpoint + " | Exception: " + getTaskException.getMessage());
+        } catch (Exception actionFightException) {
+            System.err.println(endpoint + " | Exception: " + actionFightException.getMessage());
             return null;
         }
     }

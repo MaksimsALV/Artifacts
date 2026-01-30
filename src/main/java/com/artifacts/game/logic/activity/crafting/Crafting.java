@@ -1,12 +1,12 @@
 package com.artifacts.game.logic.activity.crafting;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
-import static com.artifacts.game.endpoints.items.GetItem.getItem;
-import static com.artifacts.game.endpoints.maps.GetAllMaps.getAllMaps;
-import static com.artifacts.game.endpoints.mycharacters.ActionCrafting.actionCrafting;
-import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
-import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
+import static com.artifacts.api.endpoints.get.GetItem.getItem;
+import static com.artifacts.api.endpoints.get.GetAllMaps.getAllMaps;
+import static com.artifacts.api.endpoints.post.ActionCrafting.actionCrafting;
+import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
+import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 public class Crafting {

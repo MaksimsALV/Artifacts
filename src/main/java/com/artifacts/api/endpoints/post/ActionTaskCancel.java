@@ -1,4 +1,4 @@
-package com.artifacts.game.endpoints.mycharacters;
+package com.artifacts.api.endpoints.post;
 
 import org.json.JSONObject;
 
@@ -6,17 +6,17 @@ import java.net.http.HttpResponse;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
-import static com.artifacts.api.http.Client.getRequest;
+import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.game.endpoints.token.Token.token;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//GetCharacterLogs 2.0
-public class GetCharacterLogs {
-    public static JSONObject getCharacterLogs(String name) {
+//ActionTaskCancel 2.0
+public class ActionTaskCancel {
+    public static JSONObject actionTaskCancel(String name) {
         var retryCount = 0;
-        var endpoint = "/my/logs/" + name;
-        var request = getRequest(endpoint, token);
+        var endpoint = "/my/" + name + "/action/task/cancel";
+        var request = postRequest(endpoint, token, null);
 
         while (true) {
             try {
@@ -41,14 +41,14 @@ public class GetCharacterLogs {
     }
 }
 
-/*//GetCharacterLogs 1.0
-public class GetCharacterLogs {
-    public static JSONObject getCharacterLogs(String name) {
+/*//ActionTaskCancel 1.0
+public class ActionTaskCancel {
+    public static JSONObject actionTaskCancel(String name) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/logs/" + name;
+        var endpoint = baseUrl + "/my/" + name + "/action/task/cancel";
 
         try {
-            HttpResponse<String> response = Send.get(endpoint, true);
+            HttpResponse<String> response = Send.post(endpoint, "", true);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -59,8 +59,8 @@ public class GetCharacterLogs {
             globalErrorHandler(response, endpoint);
             return new JSONObject().put("statusCode", response.statusCode());
 
-        } catch (Exception getCharacterException) {
-            System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
+        } catch (Exception actionTaskCancelException) {
+            System.err.println(endpoint + " | Exception: " + actionTaskCancelException.getMessage());
             return null;
         }
     }

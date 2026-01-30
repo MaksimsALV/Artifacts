@@ -1,10 +1,10 @@
 package com.artifacts.game.logic.activity.tasks;
 
-import com.artifacts.game.endpoints.maps.GetAllMaps;
+import com.artifacts.api.endpoints.get.GetAllMaps;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
-import static com.artifacts.game.endpoints.mycharacters.ActionCompleteTask.actionCompleteTask;
-import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
+import static com.artifacts.api.endpoints.post.ActionCompleteTask.actionCompleteTask;
+import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 //todo maybe merge in FightingTask tbh as it is my great design template - or maybe not.
 public class CompleteFightTask {

@@ -1,23 +1,21 @@
-package com.artifacts.game.endpoints.resources;
+package com.artifacts.api.endpoints.post;
 
 import org.json.JSONObject;
-
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
-import static com.artifacts.api.http.Client.getRequest;
+import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//GetAllResources 2.0
-public class GetAllResources {
-    public static JSONObject getAllResources() {
+//ActionCrafting 2.0
+public class ActionCrafting {
+    public static JSONObject actionCrafting(String name, String item, int quantity) {
         var retryCount = 0;
-        var endpoint = "/resources";
-        var request = getRequest(endpoint, null);
+        var endpoint = "/my/" + name + "/action/crafting";
+        var requestBody = actionCraftingBody(item, quantity);
+        var request = postRequest(endpoint, token, requestBody);
 
         while (true) {
             try {
@@ -41,14 +39,15 @@ public class GetAllResources {
         }
     }
 
-/*    //GetAllResources 1.0
-    public class GetAllResources {
-        public static JSONObject getAllResources() {
+/*    //ActionCrafting 1.0
+    public class ActionCrafting {
+        public static JSONObject actionCrafting(String name, String item, int quantity) {
             var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-            var endpoint = baseUrl + "/resources";
+            var endpoint = baseUrl + "/my/" + name + "/action/crafting";
+            var requestBody = actionCraftingBody(item, quantity);
 
             try {
-                HttpResponse<String> response = Send.get(endpoint, false);
+                HttpResponse<String> response = Send.post(endpoint, requestBody, true);
 
                 if (response.statusCode() == CODE_SUCCESS) {
                     System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -59,18 +58,16 @@ public class GetAllResources {
                 globalErrorHandler(response, endpoint);
                 return new JSONObject().put("statusCode", response.statusCode());
 
-            } catch (Exception getCharacterException) {
-                System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
+            } catch (Exception actionCraftingException) {
+                System.err.println(endpoint + " | Exception: " + actionCraftingException.getMessage());
                 return null;
             }
         }*/
 
-    public static List<String> getAllResourcesAsList() {
-        var response = getAllResources().getJSONArray("data");
-        List<String> listOfResourceCodes = new ArrayList<>();
-        for (int i = 0; i < response.length(); i++) {
-            listOfResourceCodes.add(response.getJSONObject(i).getString("code"));
-        }
-        return listOfResourceCodes;
+    public static String actionCraftingBody(String item, int quantity) {
+        var jsonObject = new JSONObject();
+        jsonObject.put("code", item.toLowerCase());
+        jsonObject.put("quantity", quantity);
+        return jsonObject.toString();
     }
 }

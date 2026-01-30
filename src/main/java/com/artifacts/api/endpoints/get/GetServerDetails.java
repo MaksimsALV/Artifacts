@@ -1,6 +1,5 @@
-package com.artifacts.game.endpoints.serverdetails;
+package com.artifacts.api.endpoints.get;
 
-import com.artifacts.api.http.Client;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;

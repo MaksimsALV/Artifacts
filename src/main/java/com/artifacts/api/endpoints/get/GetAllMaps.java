@@ -1,20 +1,21 @@
-package com.artifacts.game.endpoints.mycharacters;
+package com.artifacts.api.endpoints.get;
 
 import org.json.JSONObject;
+
 import java.net.http.HttpResponse;
-import static com.artifacts.api.errorhandling.ErrorCodes.*;
+
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
-import static com.artifacts.api.http.Client.postRequest;
+import static com.artifacts.api.http.Client.getRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.game.endpoints.token.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//ActionRest 2.0
-public class ActionRest {
-    public static JSONObject actionRest(String name) {
+//GetAllMaps 2.0
+public class GetAllMaps {
+    public static JSONObject getAllMaps(String contentCode) {
         var retryCount = 0;
-        var endpoint = "/my/" + name + "/action/rest";
-        var request = postRequest(endpoint, token, null);
+        var endpoint = "/maps" + "?content_code=" + contentCode;
+        var request = getRequest(endpoint, null);
 
         while (true) {
             try {
@@ -38,15 +39,15 @@ public class ActionRest {
         }
     }
 }
-
-/*//ActionRest 1.0
-public class ActionRest {
-    public static JSONObject actionRest(String name) {
+/*
+//GetAllMaps 1.0
+public class GetAllMaps {
+    public static JSONObject getAllMaps(String contentCode) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/" + name + "/action/rest";
+        var endpoint = baseUrl + "/maps" + "?content_code=" + contentCode;
 
         try {
-            HttpResponse<String> response = Send.post(endpoint, "", true);
+            HttpResponse<String> response = Send.get(endpoint, false);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -57,8 +58,8 @@ public class ActionRest {
             globalErrorHandler(response, endpoint);
             return new JSONObject().put("statusCode", response.statusCode());
 
-        } catch (Exception actionRestException) {
-            System.err.println(endpoint + " | Exception: " + actionRestException.getMessage());
+        } catch (Exception getCharacterException) {
+            System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package com.artifacts.game.endpoints.maps;
+package com.artifacts.api.endpoints.get;
 
 import org.json.JSONObject;
 
@@ -8,14 +8,15 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.getRequest;
 import static com.artifacts.api.http.Client.send;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//GetAllMaps 2.0
-public class GetAllMaps {
-    public static JSONObject getAllMaps(String contentCode) {
+//GetCharacterLogs 2.0
+public class GetCharacterLogs {
+    public static JSONObject getCharacterLogs(String name) {
         var retryCount = 0;
-        var endpoint = "/maps" + "?content_code=" + contentCode;
-        var request = getRequest(endpoint, null);
+        var endpoint = "/my/logs/" + name;
+        var request = getRequest(endpoint, token);
 
         while (true) {
             try {
@@ -39,15 +40,15 @@ public class GetAllMaps {
         }
     }
 }
-/*
-//GetAllMaps 1.0
-public class GetAllMaps {
-    public static JSONObject getAllMaps(String contentCode) {
+
+/*//GetCharacterLogs 1.0
+public class GetCharacterLogs {
+    public static JSONObject getCharacterLogs(String name) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/maps" + "?content_code=" + contentCode;
+        var endpoint = baseUrl + "/my/logs/" + name;
 
         try {
-            HttpResponse<String> response = Send.get(endpoint, false);
+            HttpResponse<String> response = Send.get(endpoint, true);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);

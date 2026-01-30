@@ -1,4 +1,4 @@
-package com.artifacts.game.endpoints.mycharacters;
+package com.artifacts.api.endpoints.post;
 
 import org.json.JSONObject;
 
@@ -8,19 +8,15 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.game.endpoints.token.Token.token;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//ActionUseItem 2.0
-public class ActionUseItem {
-    public static JSONObject actionUseItem(String name, String itemCode, int quantity) {
+//ActionAcceptNewTask 2.0
+public class ActionAcceptNewTask {
+    public static JSONObject actionAcceptNewTask(String name) {
         var retryCount = 0;
-        var endpoint = "/my/" + name + "/action/use";
-        var requestBody = new JSONObject()
-                .put("code", itemCode)
-                .put("quantity", quantity)
-                .toString();
-        var request = postRequest(endpoint, token, requestBody);
+        var endpoint = "/my/" + name + "/action/task/new";
+        var request = postRequest(endpoint, token, null);
 
         while (true) {
             try {
@@ -45,18 +41,14 @@ public class ActionUseItem {
     }
 }
 
-/*//ActionUseItem 1.0
-public class ActionUseItem {
-    public static JSONObject actionUseItem(String name, String itemCode, int quantity) {
+/*//ActionAcceptNewTask 1.0
+public class ActionAcceptNewTask {
+    public static JSONObject actionAcceptNewTask(String name) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/" + name + "/action/use";
-        var requestBody = new JSONObject()
-                .put("code", itemCode)
-                .put("quantity", quantity)
-                .toString();
+        var endpoint = baseUrl + "/my/" + name + "/action/task/new";
 
         try {
-            HttpResponse<String> response = Send.post(endpoint, requestBody, true);
+            HttpResponse<String> response = Send.post(endpoint, "", true);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -67,8 +59,8 @@ public class ActionUseItem {
             globalErrorHandler(response, endpoint);
             return new JSONObject().put("statusCode", response.statusCode());
 
-        } catch (Exception actionUseItemException) {
-            System.err.println(endpoint + " | Exception: " + actionUseItemException.getMessage());
+        } catch (Exception actionGatheringException) {
+            System.err.println(endpoint + " | Exception: " + actionGatheringException.getMessage());
             return null;
         }
     }

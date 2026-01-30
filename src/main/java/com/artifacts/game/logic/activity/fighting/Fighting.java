@@ -1,12 +1,12 @@
 package com.artifacts.game.logic.activity.fighting;
 
-import com.artifacts.game.endpoints.maps.GetAllMaps;
+import com.artifacts.api.endpoints.get.GetAllMaps;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
-import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionFight.actionFight;
-import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
-import static com.artifacts.game.endpoints.mycharacters.ActionRest.actionRest;
+import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.api.endpoints.post.ActionFight.actionFight;
+import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
+import static com.artifacts.api.endpoints.post.ActionRest.actionRest;
 import static com.artifacts.game.logic.activity.tasks.CompleteFightTask.completeFightTask;
 import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
 import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;

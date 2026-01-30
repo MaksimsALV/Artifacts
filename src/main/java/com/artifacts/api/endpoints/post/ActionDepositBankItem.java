@@ -1,20 +1,15 @@
-package com.artifacts.game.endpoints.mycharacters;
+package com.artifacts.api.endpoints.post;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
-import static com.artifacts.game.endpoints.items.GetAllItems.getAllItems;
-import static com.artifacts.game.endpoints.token.Token.token;
-import static com.artifacts.game.library.characters.Characters.getAlchemist;
-import static com.artifacts.game.library.characters.Characters.getChef;
+import static com.artifacts.api.endpoints.get.GetCharacter.getCharacter;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
 import static com.artifacts.tools.Retry.retry;

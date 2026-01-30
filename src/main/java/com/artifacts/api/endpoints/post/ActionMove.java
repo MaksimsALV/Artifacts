@@ -1,23 +1,21 @@
-package com.artifacts.game.endpoints.monsters;
+package com.artifacts.api.endpoints.post;
 
 import org.json.JSONObject;
-
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
+import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
-import static com.artifacts.api.http.Client.getRequest;
+import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//GetAllMonsters 2.0
-public class GetAllMonsters {
-    public static JSONObject getAllMonsters() {
+//ActionMove 2.0
+public class ActionMove {
+    public static JSONObject actionMove(String name, int x, int y) {
         var retryCount = 0;
-        var endpoint = "/monsters";
-        var request = getRequest(endpoint, null);
+        var endpoint = "/my/" + name + "/action/move";
+        var requestBody = actionMoveBody(x, y);
+        var request = postRequest(endpoint, token, requestBody);
 
         while (true) {
             try {
@@ -41,14 +39,15 @@ public class GetAllMonsters {
         }
     }
 
-/*    //GetAllMonsters 1.0
-    public class GetAllMonsters {
-        public static JSONObject getAllMonsters() {
+/*    //ActionMove 1.0
+    public class ActionMove {
+        public static JSONObject actionMove(String name, int x, int y) {
             var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-            var endpoint = baseUrl + "/monsters";
+            var endpoint = baseUrl + "/my/" + name + "/action/move";
+            var requestBody = actionMoveBody(x, y);
 
             try {
-                HttpResponse<String> response = Send.get(endpoint, false);
+                HttpResponse<String> response = Send.post(endpoint, requestBody, true);
 
                 if (response.statusCode() == CODE_SUCCESS) {
                     System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -59,18 +58,16 @@ public class GetAllMonsters {
                 globalErrorHandler(response, endpoint);
                 return new JSONObject().put("statusCode", response.statusCode());
 
-            } catch (Exception getCharacterException) {
-                System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
+            } catch (Exception actionMoveException) {
+                System.err.println(endpoint + " | Exception: " + actionMoveException.getMessage());
                 return null;
             }
         }*/
 
-    public static List<String> getAllMonstersAsList() {
-        var response = getAllMonsters().getJSONArray("data");
-        List<String> listOfMonsterCodes = new ArrayList<>();
-        for (int i = 0; i < response.length(); i++) {
-            listOfMonsterCodes.add(response.getJSONObject(i).getString("code"));
-        }
-        return listOfMonsterCodes;
+    public static String actionMoveBody(int x, int y) {
+        var jsonObject = new JSONObject();
+        jsonObject.put("x", x);
+        jsonObject.put("y", y);
+        return jsonObject.toString();
     }
 }

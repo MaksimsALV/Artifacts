@@ -1,14 +1,14 @@
 package com.artifacts.game.logic.activity.tasks;
 
-import com.artifacts.game.endpoints.maps.GetAllMaps;
+import com.artifacts.api.endpoints.get.GetAllMaps;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
-import static com.artifacts.game.endpoints.characters.GetCharacter.getCharacter;
-import static com.artifacts.game.endpoints.mycharacters.ActionAcceptNewTask.actionAcceptNewTask;
-import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
-import static com.artifacts.game.endpoints.mycharacters.ActionTaskCancel.actionTaskCancel;
-import static com.artifacts.game.endpoints.mycharacters.ActionWithdrawBankItem.actionWithdrawBankItem;
+import static com.artifacts.api.endpoints.get.GetCharacter.getCharacter;
+import static com.artifacts.api.endpoints.post.ActionAcceptNewTask.actionAcceptNewTask;
+import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
+import static com.artifacts.api.endpoints.post.ActionTaskCancel.actionTaskCancel;
+import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.game.logic.activity.tasks.FightTaskLimitator.fightTaskIsValidForExecution;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 

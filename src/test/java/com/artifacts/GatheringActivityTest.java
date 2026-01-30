@@ -1,8 +1,8 @@
 package com.artifacts;
 
-import com.artifacts.game.endpoints.maps.GetAllMaps;
-import com.artifacts.game.endpoints.mycharacters.ActionGathering;
-import com.artifacts.game.endpoints.mycharacters.ActionMove;
+import com.artifacts.api.endpoints.get.GetAllMaps;
+import com.artifacts.api.endpoints.post.ActionGathering;
+import com.artifacts.api.endpoints.post.ActionMove;
 import com.artifacts.game.logic.activity.gathering.Gathering;
 import com.artifacts.service.GlobalCooldownManager;
 import org.json.JSONArray;

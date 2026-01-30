@@ -1,11 +1,11 @@
 package com.artifacts.game.logic.activity.gathering;
 
-import com.artifacts.game.endpoints.maps.GetAllMaps;
+import com.artifacts.api.endpoints.get.GetAllMaps;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
-import static com.artifacts.game.endpoints.mycharacters.ActionDepositBankItem.actionDepositBankItem;
-import static com.artifacts.game.endpoints.mycharacters.ActionGathering.actionGathering;
-import static com.artifacts.game.endpoints.mycharacters.ActionMove.actionMove;
+import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepositBankItem;
+import static com.artifacts.api.endpoints.post.ActionGathering.actionGathering;
+import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 //import static com.artifacts.game.library.locations.GatheringZones.RESOURCE_FIELDS;
 //import static com.artifacts.game.library.recources.Resources.RESOURCE_LOCATION;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;

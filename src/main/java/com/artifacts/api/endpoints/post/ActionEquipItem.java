@@ -1,4 +1,4 @@
-package com.artifacts.game.endpoints.mycharacters;
+package com.artifacts.api.endpoints.post;
 
 import org.json.JSONObject;
 
@@ -8,15 +8,20 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.game.endpoints.token.Token.token;
+import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//ActionAcceptNewTask 2.0
-public class ActionAcceptNewTask {
-    public static JSONObject actionAcceptNewTask(String name) {
+//ActionEquipItem 2.0
+public class ActionEquipItem {
+    public static JSONObject actionEquipItem(String name, String itemCode, String itemSlot, Integer quantity) {
         var retryCount = 0;
-        var endpoint = "/my/" + name + "/action/task/new";
-        var request = postRequest(endpoint, token, null);
+        var endpoint = "/my/" + name + "/action/equip";
+        var requestBody = new JSONObject()
+                .put("code", itemCode)
+                .put("slot", itemSlot)
+                .put("quantity", quantity)
+                .toString();
+        var request = postRequest(endpoint, token, requestBody);
 
         while (true) {
             try {
@@ -41,14 +46,19 @@ public class ActionAcceptNewTask {
     }
 }
 
-/*//ActionAcceptNewTask 1.0
-public class ActionAcceptNewTask {
-    public static JSONObject actionAcceptNewTask(String name) {
+/*//ActionEquipItem 1.0
+public class ActionEquipItem {
+    public static JSONObject actionEquipItem(String name, String itemCode, String itemSlot, Integer quantity) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/" + name + "/action/task/new";
+        var endpoint = baseUrl + "/my/" + name + "/action/equip";
+        var requestBody = new JSONObject()
+                .put("code", itemCode)
+                .put("slot", itemSlot)
+                .put("quantity", quantity)
+                .toString();
 
         try {
-            HttpResponse<String> response = Send.post(endpoint, "", true);
+            HttpResponse<String> response = Send.post(endpoint, requestBody, true);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -59,8 +69,8 @@ public class ActionAcceptNewTask {
             globalErrorHandler(response, endpoint);
             return new JSONObject().put("statusCode", response.statusCode());
 
-        } catch (Exception actionGatheringException) {
-            System.err.println(endpoint + " | Exception: " + actionGatheringException.getMessage());
+        } catch (Exception actionEquipItemException) {
+            System.err.println(endpoint + " | Exception: " + actionEquipItemException.getMessage());
             return null;
         }
     }

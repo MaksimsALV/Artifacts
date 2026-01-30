@@ -1,22 +1,21 @@
-package com.artifacts.game.endpoints.myaccount;
+package com.artifacts.api.endpoints.get;
 
 import org.json.JSONObject;
+
 import java.net.http.HttpResponse;
-import static com.artifacts.api.errorhandling.ErrorCodes.*;
+
+import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.getRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.game.endpoints.token.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//GetBankItems 2.0
-public class GetBankItems {
-
-    public static JSONObject getBankItems() {
+//GetTask 2.0
+public class GetTask {
+    public static JSONObject getTask(String taskCode) {
         var retryCount = 0;
-        var sizeParam = "?size=" + 100; //todo make it differently, for more than 1 param in endpoint
-        var endpoint = "/my/bank/items" + sizeParam;
-        var request = getRequest(endpoint, token);
+        var endpoint = "/tasks/list/" + taskCode;
+        var request = getRequest(endpoint, null);
 
         while (true) {
             try {
@@ -41,16 +40,15 @@ public class GetBankItems {
     }
 }
 
-/*//GetBankItems 1.0
-public class GetBankItems {
-
-    public static JSONObject getBankItems(String name) {
-        var sizeParam = "?size=" + 100; //todo make it differently, for more than 1 param in endpoint
+/*
+//GetTask 1.0
+public class GetTask {
+    public static JSONObject getTask(String taskCode) {
         var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/bank/items" + sizeParam;
+        var endpoint = baseUrl + "/tasks/list/" + taskCode;
 
         try {
-            HttpResponse<String> response = Send.get(endpoint, true);
+            HttpResponse<String> response = Send.get(endpoint, false);
 
             if (response.statusCode() == CODE_SUCCESS) {
                 System.out.println(endpoint + " | " + CODE_SUCCESS);
@@ -61,8 +59,8 @@ public class GetBankItems {
             globalErrorHandler(response, endpoint);
             return new JSONObject().put("statusCode", response.statusCode());
 
-        } catch (Exception getBankItemsException) {
-            System.err.println(endpoint + " | Exception: " + getBankItemsException.getMessage());
+        } catch (Exception getTaskException) {
+            System.err.println(endpoint + " | Exception: " + getTaskException.getMessage());
             return null;
         }
     }

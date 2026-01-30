@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-import static com.artifacts.game.endpoints.items.GetAllItems.getAllConsumablesAsList;
-import static com.artifacts.game.endpoints.items.GetAllItems.getAllUtilityItemsAsList;
-import static com.artifacts.game.endpoints.monsters.GetAllMonsters.getAllMonstersAsList;
-import static com.artifacts.game.endpoints.resources.GetAllResources.getAllResourcesAsList;
+import static com.artifacts.api.endpoints.get.GetAllItems.getAllConsumablesAsList;
+import static com.artifacts.api.endpoints.get.GetAllItems.getAllUtilityItemsAsList;
+import static com.artifacts.api.endpoints.get.GetAllMonsters.getAllMonstersAsList;
+import static com.artifacts.api.endpoints.get.GetAllResources.getAllResourcesAsList;
 
 @Controller
 public class WebController {

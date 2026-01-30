@@ -3,9 +3,9 @@ package com.artifacts.game.launcher;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static com.artifacts.game.endpoints.serverdetails.GetServerDetails.getServerDetails;
-import static com.artifacts.game.endpoints.serverdetails.GetServerDetails.serverIsUp;
-import static com.artifacts.game.endpoints.token.Token.getToken;
+import static com.artifacts.api.endpoints.get.GetServerDetails.getServerDetails;
+import static com.artifacts.api.endpoints.get.GetServerDetails.serverIsUp;
+import static com.artifacts.api.endpoints.post.Token.getToken;
 import static com.artifacts.game.library.characters.Characters.getMiner;
 import static com.artifacts.game.library.characters.Characters.getWarrior;
 import static com.artifacts.game.library.characters.Characters.getLumberjack;
