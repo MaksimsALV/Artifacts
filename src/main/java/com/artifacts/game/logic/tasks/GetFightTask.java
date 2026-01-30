@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.activity.tasks;
+package com.artifacts.game.logic.tasks;
 
 import com.artifacts.api.endpoints.get.GetAllMaps;
 
@@ -9,7 +9,7 @@ import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepos
 import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.api.endpoints.post.ActionTaskCancel.actionTaskCancel;
 import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
-import static com.artifacts.game.logic.activity.tasks.FightTaskLimitator.fightTaskIsValidForExecution;
+import static com.artifacts.game.logic.tasks.FightTaskLimitator.fightTaskIsValidForExecution;
 import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
 
 //todo maybe merge in FightingTask tbh as it is my great design template - or maybe not.

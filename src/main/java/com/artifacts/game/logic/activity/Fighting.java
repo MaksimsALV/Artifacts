@@ -7,8 +7,8 @@ import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepos
 import static com.artifacts.api.endpoints.post.ActionFight.actionFight;
 import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.api.endpoints.post.ActionRest.actionRest;
-import static com.artifacts.game.logic.activity.tasks.CompleteFightTask.completeFightTask;
-import static com.artifacts.game.logic.activity.tasks.GetFightTask.getFightTask;
+import static com.artifacts.game.logic.tasks.CompleteFightTask.completeFightTask;
+import static com.artifacts.game.logic.tasks.GetFightTask.getFightTask;
 import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
 import static com.artifacts.service.ConsumableManager.getConsumables;
 import static com.artifacts.service.UtilityEquipmentManager.*;

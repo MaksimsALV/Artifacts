@@ -1,4 +1,4 @@
-package com.artifacts.game.logic.activity.tasks;
+package com.artifacts.game.logic.tasks;
 
 import com.artifacts.api.endpoints.get.GetAllMaps;
 
