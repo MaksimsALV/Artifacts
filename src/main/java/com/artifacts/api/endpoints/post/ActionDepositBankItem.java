@@ -4,14 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.http.HttpResponse;
 
+import static com.artifacts.api.endpoints.get.GetAllItems.getAllConsumablesAsList;
+import static com.artifacts.api.endpoints.get.GetAllItems.getAllUtilityItemsAsList;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
 import static com.artifacts.api.endpoints.get.GetCharacter.getCharacter;
 import static com.artifacts.api.endpoints.post.Token.token;
-import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
-import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
+//import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
+//import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
 import static com.artifacts.helpers.Retry.retry;
 
 //ActionDepositBankItem 2.0
@@ -80,17 +82,17 @@ public class ActionDepositBankItem {
 //            var itemCode = itemTypeUtilityDataArray.getJSONObject(j).getString("code");
 //            utilityCodes.add(itemCode);
 //        }
-        var utilityItem = getAllUtilityItems();
-        var consumableItem = getAllConsumableItems();
+
+        //todo I believe I dont use it anymore, maybe in crafting? Need to check
+//        var utilityItem = getAllUtilityItemsAsList();
+//        var consumableItem = getAllConsumablesAsList();
         for (var i = 0; i < inventory.length(); i++) {
             var item = inventory.getJSONObject(i);
             var itemName = item.getString("code");
             var itemQuantity = item.getInt("quantity");
-            //if (!itemName.isEmpty() && itemQuantity > 0 || itemName.equals("small_health_potion")) { //todo testing small health pot filtering from depositing if have in inventory. if works, change getAllItems type=utility
-            //if (!itemName.isEmpty() && itemQuantity > 0 ) {
 
             //if (!itemName.isEmpty() && itemQuantity > 0 && (name.equals(getChef()) || !consumableItem.contains(itemName)) && (name.equals(getAlchemist()) || !utilityItem.contains(itemName))) { //todo testing
-            if (!itemName.isEmpty() && itemQuantity > 0) { //todo testing
+            if (!itemName.isEmpty() && itemQuantity > 0) {
                 item.remove("slot");
             } else {
                 inventory.remove(i);
