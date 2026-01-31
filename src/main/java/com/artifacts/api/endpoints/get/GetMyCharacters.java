@@ -16,9 +16,9 @@ import static com.artifacts.helpers.Retry.retry;
 
 //GetMyCharacters 2.0
 public class GetMyCharacters {
-    public static List<HashMap<String, String>> MY_CHARACTERS = new ArrayList<>();
+    public final HashMap<String, String> MY_CHARACTERS = new HashMap<>();
 
-    public static JSONObject getMyCharacters() {
+    public JSONObject getMyCharacters() {
         var retryCount = 0;
         var endpoint = "/my/characters";
         var request = getRequest(endpoint, token);
@@ -30,18 +30,7 @@ public class GetMyCharacters {
                 if (response.statusCode() == CODE_SUCCESS) {
                     System.out.println(endpoint + " | " + CODE_SUCCESS);
                     var responseBody = new JSONObject(response.body());
-                    var responseDataArray = responseBody.getJSONArray("data");
-                    MY_CHARACTERS.clear();
-
-                    for (var characterObject : responseDataArray) {
-                        var eachCharacter = (JSONObject) characterObject;
-                        HashMap<String, String> characterData = new HashMap<>();
-                        for (var key : eachCharacter.keySet()) {
-                            var value = eachCharacter.get(key).toString();
-                            characterData.put(key, value);
-                        }
-                        MY_CHARACTERS.add(characterData);
-                    }
+                    responseBody.put("statusCode", response.statusCode());
                     return responseBody;
                 }
                 globalErrorHandler(response, endpoint);
@@ -55,7 +44,7 @@ public class GetMyCharacters {
             }
         }
     }
-}
+
 
 /*//GetMyCharacters 1.0
 public class GetMyCharacters {
@@ -95,4 +84,40 @@ public class GetMyCharacters {
     }
 }*/
 
+    public HashMap<String, String> getMyCharactersLabelAndNameAsHashMap() {
+        var response = getMyCharacters().optJSONArray("data");
+        MY_CHARACTERS.clear();
+        for (var i = 0; i < response.length(); i++) {
+            var characterName = response.optJSONObject(i).optString("name");
 
+            if ("Max".equals(characterName)) {
+                MY_CHARACTERS.put("WARRIOR", characterName);
+            } else if ("Bjorn".equals(characterName)) {
+                MY_CHARACTERS.put("MINER", characterName);
+            } else if ("Axel".equals(characterName)) {
+                MY_CHARACTERS.put("LUMBERJACK", characterName);
+            } else if ("Sushimiko".equals(characterName)) {
+                MY_CHARACTERS.put("CHEF", characterName);
+            } else if ("Linzy".equals(characterName)) {
+                MY_CHARACTERS.put("ALCHEMIST", characterName);
+            }
+        }
+        return MY_CHARACTERS;
+    }
+
+    public String getWarrior() {
+        return MY_CHARACTERS.get("WARRIOR");
+    }
+    public String getMiner() {
+        return MY_CHARACTERS.get("MINER");
+    }
+    public String getLumberjack() {
+        return MY_CHARACTERS.get("LUMBERJACK");
+    }
+    public String getChef() {
+        return MY_CHARACTERS.get("CHEF");
+    }
+    public String getAlchemist() {
+        return MY_CHARACTERS.get("ALCHEMIST");
+    }
+}

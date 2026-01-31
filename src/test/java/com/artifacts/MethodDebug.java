@@ -3,6 +3,7 @@ package com.artifacts;
 import com.artifacts.game.launcher.Launcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.artifacts.api.endpoints.get.GetMyCharacters;
 
 import static com.artifacts.api.endpoints.get.GetAllItems.getAllConsumablesAsList;
 import static com.artifacts.api.endpoints.post.Token.getToken;
@@ -15,7 +16,11 @@ import static com.artifacts.api.endpoints.post.Token.getToken;
 class MethodDebug {
     @Test
     void debug() {
-//        getToken();
-        System.out.println(getAllConsumablesAsList());
+        getToken();
+
+        GetMyCharacters getMyCharacters = new GetMyCharacters();
+//        System.out.println(getMyCharacters.getMyCharactersAsList());
+        System.out.println("warrior name: " + getMyCharacters.getWarrior());
+
     }
 }

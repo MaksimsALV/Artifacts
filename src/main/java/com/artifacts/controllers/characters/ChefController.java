@@ -1,14 +1,21 @@
 package com.artifacts.controllers.characters;
 
+import com.artifacts.game.launcher.Launcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.artifacts.game.launcher.Launcher.runChef;
-import static com.artifacts.game.launcher.Launcher.stopChef;
+//import static com.artifacts.game.launcher.Launcher.runChef;
+//import static com.artifacts.game.launcher.Launcher.stopChef;
 
 @Controller
 public class ChefController {
+    private final Launcher launcher;
+
+    public ChefController(Launcher launcher) {
+        this.launcher = launcher;
+    }
+
     @PostMapping("/runChef")
     public String start(@RequestParam String action,
                         @RequestParam(required = false, defaultValue = "") String activityLocation,
@@ -16,12 +23,12 @@ public class ChefController {
                         @RequestParam(required = false, defaultValue = "") String utilityTwo,
                         @RequestParam(required = false, defaultValue = "") String consumable,
                         @RequestParam(required = false, defaultValue = "false") boolean fightTask) {
-        runChef(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask);
+        launcher.runChef(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask);
         return "redirect:/";
     }
     @PostMapping("/stopChef")
     public String stop() {
-        stopChef();
+        launcher.stopChef();
         return "redirect:/";
     }
 }
