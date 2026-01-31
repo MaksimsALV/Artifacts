@@ -1,9 +1,5 @@
 package com.artifacts.api.http;
 
-//import com.artifacts.game.config.Auth;
-//import com.artifacts.game.config.BaseURL;
-//import com.artifacts.game.endpoints.token.Token;
-
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -66,10 +62,5 @@ public class Client {
     //response
     public static HttpResponse<String> send(HttpRequest request) throws IOException, InterruptedException {
         return CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-    }
-
-    //todo temporary, must delete later
-        public static HttpClient getClient() {
-        return CLIENT;
     }
 }
