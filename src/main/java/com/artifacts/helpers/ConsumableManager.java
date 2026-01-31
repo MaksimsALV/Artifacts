@@ -1,4 +1,4 @@
-package com.artifacts.service;
+package com.artifacts.helpers;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
@@ -6,7 +6,7 @@ import static com.artifacts.api.endpoints.get.GetCharacter.getCharacter;
 import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
-import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.helpers.GlobalCooldownManager.globalCooldownManager;
 
 public class ConsumableManager {
     public static boolean checkInventoryConsumables(String name, String consumable) {

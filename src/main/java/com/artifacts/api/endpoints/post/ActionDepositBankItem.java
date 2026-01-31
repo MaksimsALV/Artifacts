@@ -12,7 +12,7 @@ import static com.artifacts.api.endpoints.get.GetCharacter.getCharacter;
 import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
 import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
-import static com.artifacts.tools.Retry.retry;
+import static com.artifacts.helpers.Retry.retry;
 
 //ActionDepositBankItem 2.0
 public class ActionDepositBankItem {

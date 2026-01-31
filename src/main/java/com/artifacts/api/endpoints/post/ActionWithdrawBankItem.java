@@ -8,7 +8,7 @@ import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHand
 import static com.artifacts.api.http.Client.postRequest;
 import static com.artifacts.api.http.Client.send;
 import static com.artifacts.api.endpoints.post.Token.token;
-import static com.artifacts.tools.Retry.retry;
+import static com.artifacts.helpers.Retry.retry;
 
 //ActionWithdrawBankItem 2.0
 public class ActionWithdrawBankItem {

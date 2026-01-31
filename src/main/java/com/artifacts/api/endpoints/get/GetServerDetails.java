@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
-//import static com.artifacts.tools.Delay.delay;
+//import static com.artifacts.helpers.Delay.delay;
 import static com.artifacts.api.http.Client.*;
-import static com.artifacts.tools.Retry.retry;
+import static com.artifacts.helpers.Retry.retry;
 
 //GetServerDetails3.0
 public class GetServerDetails {

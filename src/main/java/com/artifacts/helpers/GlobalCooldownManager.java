@@ -1,4 +1,4 @@
-package com.artifacts.service;
+package com.artifacts.helpers;
 
 import org.json.JSONObject;
 

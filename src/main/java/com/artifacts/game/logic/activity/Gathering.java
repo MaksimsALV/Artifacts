@@ -8,8 +8,8 @@ import static com.artifacts.api.endpoints.post.ActionGathering.actionGathering;
 import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 //import static com.artifacts.game.library.locations.GatheringZones.RESOURCE_FIELDS;
 //import static com.artifacts.game.library.recources.Resources.RESOURCE_LOCATION;
-import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
-import static com.artifacts.tools.Delay.delay;
+import static com.artifacts.helpers.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.helpers.Delay.delay;
 
 public class Gathering {
     public static void gather(String name, String activityLocation) throws InterruptedException {

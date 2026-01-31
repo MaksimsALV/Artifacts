@@ -1,4 +1,4 @@
-package com.artifacts.tools;
+package com.artifacts.helpers;
 
 public class Delay {
 //    public static void delay(int seconds) throws InterruptedException {

@@ -9,12 +9,12 @@ import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.api.endpoints.post.ActionRest.actionRest;
 import static com.artifacts.game.logic.tasks.CompleteFightTask.completeFightTask;
 import static com.artifacts.game.logic.tasks.GetFightTask.getFightTask;
-import static com.artifacts.service.ConsumableManager.checkInventoryConsumables;
-import static com.artifacts.service.ConsumableManager.getConsumables;
-import static com.artifacts.service.UtilityEquipmentManager.*;
-import static com.artifacts.service.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.helpers.ConsumableManager.checkInventoryConsumables;
+import static com.artifacts.helpers.ConsumableManager.getConsumables;
+import static com.artifacts.helpers.UtilityEquipmentManager.*;
+import static com.artifacts.helpers.GlobalCooldownManager.globalCooldownManager;
 import static com.artifacts.controllers.db.StoreFightResultController.storeFightResult;
-import static com.artifacts.service.GlobalHealthManager.globalHealthManager;
+import static com.artifacts.helpers.GlobalHealthManager.globalHealthManager;
 
 
 public class Fighting {
