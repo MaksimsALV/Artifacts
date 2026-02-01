@@ -1,12 +1,12 @@
 package com.artifacts.controllers.characters;
 
-import com.artifacts.game.launcher.Launcher;
+import com.artifacts.game.Launcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//import static com.artifacts.game.launcher.Launcher.runAlchemist;
-//import static com.artifacts.game.launcher.Launcher.stopAlchemist;
+//import static com.artifacts.game.Launcher.runAlchemist;
+//import static com.artifacts.game.Launcher.stopAlchemist;
 
 @Controller
 public class AlchemistController {

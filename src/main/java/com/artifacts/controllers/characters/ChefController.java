@@ -1,12 +1,12 @@
 package com.artifacts.controllers.characters;
 
-import com.artifacts.game.launcher.Launcher;
+import com.artifacts.game.Launcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//import static com.artifacts.game.launcher.Launcher.runChef;
-//import static com.artifacts.game.launcher.Launcher.stopChef;
+//import static com.artifacts.game.Launcher.runChef;
+//import static com.artifacts.game.Launcher.stopChef;
 
 @Controller
 public class ChefController {

@@ -1,4 +1,4 @@
-package com.artifacts.game.launcher;
+package com.artifacts.game;
 
 import com.artifacts.api.endpoints.get.GetMyCharacters;
 import org.springframework.boot.SpringApplication;

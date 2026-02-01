@@ -1,12 +1,12 @@
 package com.artifacts.controllers.characters;
 
-import com.artifacts.game.launcher.Launcher;
+import com.artifacts.game.Launcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//import static com.artifacts.game.launcher.Launcher.runWarrior;
-//import static com.artifacts.game.launcher.Launcher.stopWarrior;
+//import static com.artifacts.game.Launcher.runWarrior;
+//import static com.artifacts.game.Launcher.stopWarrior;
 
 @Controller
 public class WarriorController {
