@@ -1,4 +1,4 @@
-package com.artifacts.helpers;
+package com.artifacts.game.helpers;
 
 import org.json.JSONObject;
 

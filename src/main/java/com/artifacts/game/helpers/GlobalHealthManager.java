@@ -1,4 +1,4 @@
-package com.artifacts.helpers;
+package com.artifacts.game.helpers;
 
 import org.json.JSONObject;
 
@@ -7,7 +7,7 @@ import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.endpoints.get.GetItem.getItem;
 import static com.artifacts.api.endpoints.post.ActionRest.actionRest;
 import static com.artifacts.api.endpoints.post.ActionUseItem.actionUseItem;
-import static com.artifacts.helpers.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownManager;
 
 //todo need to add rest and food eating in here, because it will handle all the healing in the future
 public class GlobalHealthManager {

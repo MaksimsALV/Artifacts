@@ -1,7 +1,7 @@
 
-package com.artifacts.helpers;
+package com.artifacts.tools;
 
-import static com.artifacts.helpers.Delay.delay;
+import static com.artifacts.tools.Delay.delay;
 
 public class Retry {
     public static final int RETRY_ATTEMPTS = 7;

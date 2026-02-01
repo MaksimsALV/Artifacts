@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.*;
-import static com.artifacts.helpers.Retry.retry;
+import static com.artifacts.tools.Retry.retry;
 
 //Token 2.0
 public class Token {

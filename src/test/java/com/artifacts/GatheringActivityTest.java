@@ -4,7 +4,7 @@ import com.artifacts.api.endpoints.get.GetAllMaps;
 import com.artifacts.api.endpoints.post.ActionGathering;
 import com.artifacts.api.endpoints.post.ActionMove;
 import com.artifacts.game.logic.activity.Gathering;
-import com.artifacts.helpers.GlobalCooldownManager;
+import com.artifacts.game.helpers.GlobalCooldownManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;

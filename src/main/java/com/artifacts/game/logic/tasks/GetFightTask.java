@@ -10,7 +10,7 @@ import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.api.endpoints.post.ActionTaskCancel.actionTaskCancel;
 import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
 import static com.artifacts.game.logic.tasks.FightTaskLimitator.fightTaskIsValidForExecution;
-import static com.artifacts.helpers.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownManager;
 
 //todo maybe merge in FightingTask tbh as it is my great design template - or maybe not.
 public class GetFightTask {

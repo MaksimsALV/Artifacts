@@ -4,8 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.http.HttpResponse;
 
-import static com.artifacts.api.endpoints.get.GetAllItems.getAllConsumablesAsList;
-import static com.artifacts.api.endpoints.get.GetAllItems.getAllUtilityItemsAsList;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.postRequest;
@@ -14,7 +12,7 @@ import static com.artifacts.api.endpoints.get.GetCharacter.getCharacter;
 import static com.artifacts.api.endpoints.post.Token.token;
 //import static com.artifacts.game.library.items.GetItemsByItemType.getAllConsumableItems;
 //import static com.artifacts.game.library.items.GetItemsByItemType.getAllUtilityItems;
-import static com.artifacts.helpers.Retry.retry;
+import static com.artifacts.tools.Retry.retry;
 
 //ActionDepositBankItem 2.0
 public class ActionDepositBankItem {

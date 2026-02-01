@@ -7,7 +7,7 @@ import static com.artifacts.api.endpoints.post.ActionCrafting.actionCrafting;
 import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepositBankItem;
 import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
-import static com.artifacts.helpers.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownManager;
 
 public class Crafting {
     public static void craft(String name, String activityLocation, String item, int quantity) throws InterruptedException {

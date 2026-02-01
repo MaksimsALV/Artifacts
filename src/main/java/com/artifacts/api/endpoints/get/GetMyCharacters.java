@@ -3,16 +3,14 @@ package com.artifacts.api.endpoints.get;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.getRequest;
 import static com.artifacts.api.http.Client.send;
 import static com.artifacts.api.endpoints.post.Token.token;
-import static com.artifacts.helpers.Retry.retry;
+import static com.artifacts.tools.Retry.retry;
 
 //GetMyCharacters 2.0
 public class GetMyCharacters {

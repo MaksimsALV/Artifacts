@@ -1,4 +1,4 @@
-package com.artifacts.helpers;
+package com.artifacts.game.helpers;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_CHARACTER_INVENTORY_FULL;
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
@@ -7,7 +7,7 @@ import static com.artifacts.api.endpoints.post.ActionDepositBankItem.actionDepos
 import static com.artifacts.api.endpoints.post.ActionEquipItem.actionEquipItem;
 import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 import static com.artifacts.api.endpoints.post.ActionWithdrawBankItem.actionWithdrawBankItem;
-import static com.artifacts.helpers.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownManager;
 
 public class UtilityEquipmentManager {
     public static boolean checkUtilitySlotOne(String name, String utilityOne) {

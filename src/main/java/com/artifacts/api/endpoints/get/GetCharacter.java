@@ -6,7 +6,7 @@ import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.getRequest;
 import static com.artifacts.api.http.Client.send;
-import static com.artifacts.helpers.Retry.retry;
+import static com.artifacts.tools.Retry.retry;
 
 //GetCharacter 2.0
 public class GetCharacter {
