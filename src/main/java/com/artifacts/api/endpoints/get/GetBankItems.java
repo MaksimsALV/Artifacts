@@ -32,30 +32,27 @@ public class GetBankItems {
                     var responseBody = new JSONObject(response.body());
                     var currentPage = responseBody.getInt("page");
                     var totalPages = responseBody.getInt("pages");
-                    ALL_BANK_ITEMS.clear();
-
 
                     while (true) {
                         if (currentPage == totalPages) {
                             responseBody.put("statusCode", response.statusCode());
                             var responseBodyData = responseBody.getJSONArray("data");
-                            for (int i = 0; i < responseBodyData.length(); i++) {
-                                var item = responseBodyData.getJSONObject(i);
+                            responseBodyData.forEach(object -> {
+                                var item = (JSONObject) object;
                                 var code = item.getString("code");
                                 var quantity = item.getInt("quantity");
                                 ALL_BANK_ITEMS.put(code, quantity);
-                            }
-
+                            });
                             return responseBody;
                         } else if (currentPage < totalPages) {
                             responseBody.put("statusCode", response.statusCode());
                             var responseBodyData = responseBody.getJSONArray("data");
-                            for (int i = 0; i < responseBodyData.length(); i++) {
-                                var item = responseBodyData.getJSONObject(i);
+                            responseBodyData.forEach(object -> {
+                                var item = (JSONObject) object;
                                 var code = item.getString("code");
                                 var quantity = item.getInt("quantity");
                                 ALL_BANK_ITEMS.put(code, quantity);
-                            }
+                            });
                             endpoint = "/my/bank/items?size=" + size + "&page=" + (currentPage + 1);
                             request = getRequest(endpoint, token);
                             HttpResponse<String> nextPageResponse = send(request);
@@ -65,7 +62,6 @@ public class GetBankItems {
                                 responseBody = new JSONObject(nextPageResponse.body());
                                 currentPage = responseBody.getInt("page");
                                 totalPages = responseBody.getInt("pages");
-
                                 continue;
                             }
                             globalErrorHandler(nextPageResponse, endpoint);
