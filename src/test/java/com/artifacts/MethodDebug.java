@@ -1,5 +1,6 @@
 package com.artifacts;
 
+import com.artifacts.api.endpoints.get.GetBankItems;
 import com.artifacts.game.Launcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +17,14 @@ class MethodDebug {
     @Test
     void debug() {
         getToken();
-
-        GetMyCharacters getMyCharacters = new GetMyCharacters();
+        GetBankItems getBankItems = new GetBankItems();
+        System.out.println(getBankItems.countMiningResourcesFromBankAsHashMap());
+        System.out.println(getBankItems.countWoodcuttingResourcesFromBankAsHashMap());
+        System.out.println(getBankItems.countFishingResourcesFromBankAsHashMap());
+        System.out.println(getBankItems.countHerbsFromBankAsHashMap());
+//        GetMyCharacters getMyCharacters = new GetMyCharacters();
 //        System.out.println(getMyCharacters.getMyCharactersAsList());
-        System.out.println("warrior name: " + getMyCharacters.getWarrior());
+//        System.out.println("warrior name: " + getMyCharacters.getWarrior());
 
     }
 }
