@@ -1,7 +1,10 @@
 package com.artifacts.api.endpoints.get;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.getRequest;
@@ -9,7 +12,72 @@ import static com.artifacts.api.http.Client.send;
 import static com.artifacts.api.endpoints.post.Token.token;
 import static com.artifacts.tools.Retry.retry;
 
-//GetBankItems 2.0
+//GetBankItems 3.0
+public class GetBankItems {
+    public final JSONArray ALL_BANK_ITEMS = new JSONArray();
+
+    public JSONObject getBankItems() {
+        var retryCount = 0;
+        var size = 100;
+        var page = 1;
+        var endpoint = "/my/bank/items?size=" + size + "&page=" + page;
+        var request = getRequest(endpoint, token);
+
+        while (true) {
+            try {
+                HttpResponse<String> response = send(request);
+
+                if (response.statusCode() == CODE_SUCCESS) {
+                    System.out.println(endpoint + " | " + CODE_SUCCESS);
+                    var responseBody = new JSONObject(response.body());
+                    var currentPage = responseBody.getInt("page");
+                    var totalPages = responseBody.getInt("pages");
+
+                    while (ALL_BANK_ITEMS.length() > 0) {
+                        ALL_BANK_ITEMS.remove(0);
+                    }
+
+                    while (true) {
+                        if (currentPage == totalPages) {
+                            responseBody.put("statusCode", response.statusCode());
+                            ALL_BANK_ITEMS.put(responseBody.getJSONArray("data"));
+                            return responseBody;
+                        } else if (currentPage < totalPages) {
+                            responseBody.put("statusCode", response.statusCode());
+                            ALL_BANK_ITEMS.put(responseBody.getJSONArray("data"));
+                            endpoint = "/my/bank/items?size=" + size + "&page=" + (currentPage + 1);
+                            request = getRequest(endpoint, token);
+                            HttpResponse<String> nextPageResponse = send(request);
+
+                            if (nextPageResponse.statusCode() == CODE_SUCCESS) {
+                                System.out.println(endpoint + " | " + CODE_SUCCESS);
+                                responseBody = new JSONObject(nextPageResponse.body());
+                                currentPage = responseBody.getInt("page");
+                                totalPages = responseBody.getInt("pages");
+
+                                continue;
+                            }
+                            globalErrorHandler(nextPageResponse, endpoint);
+                            return new JSONObject().put("statusCode", nextPageResponse.statusCode());
+                        }
+                        return null;
+                    }
+
+                }
+                globalErrorHandler(response, endpoint);
+                return new JSONObject().put("statusCode", response.statusCode());
+
+            } catch (Exception e) {
+                System.err.println(endpoint + " | Exception: " + e);
+                if (!retry(++retryCount)) {
+                    return null;
+                }
+            }
+        }
+    }
+}
+
+/*//GetBankItems 2.0
 public class GetBankItems {
 
     public static JSONObject getBankItems() {
@@ -39,7 +107,7 @@ public class GetBankItems {
             }
         }
     }
-}
+}*/
 
 /*//GetBankItems 1.0
 public class GetBankItems {
