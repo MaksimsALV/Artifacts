@@ -96,23 +96,30 @@ public class GetAllResources {
             }
         }*/
 
-    public static List<String> getAllResourcesAsList() {
-        var response = getAllResources(null).getJSONArray("data");
-        List<String> listOfResourceCodes = new ArrayList<>();
-        for (int i = 0; i < response.length(); i++) {
-            listOfResourceCodes.add(response.getJSONObject(i).getString("code"));
-        }
-        return listOfResourceCodes;
-    }
 
-    public static List<String> getAllMiningResourcesAsList() {
-        var response = getAllResources("mining").getJSONArray("data");
+    //getAllResourcesAsList 2.0
+    public static List<String> getAllResourcesAsList(String skill) {
+        var response = getAllResources(skill).getJSONArray("data");
         List<String> listOfResourceCodes = new ArrayList<>();
         response.forEach(object -> {
             var item = (JSONObject) object;
-            var code = item.getJSONArray("drops").getJSONObject(0).getString("code");
-            listOfResourceCodes.add(code);
+            var drops = item.getJSONArray("drops");
+            drops.forEach(dropsObject -> {
+                var drop = (JSONObject) dropsObject;
+                var code = drop.getString("code");
+                listOfResourceCodes.add(code);
+            });
         });
         return listOfResourceCodes;
     }
+
+    //  getAllResourcesAsList 1.0
+//    public static List<String> getAllResourcesAsList() {
+//        var response = getAllResources(null).getJSONArray("data");
+//        List<String> listOfResourceCodes = new ArrayList<>();
+//        for (int i = 0; i < response.length(); i++) {
+//            listOfResourceCodes.add(response.getJSONObject(i).getString("code"));
+//        }
+//        return listOfResourceCodes;
+//    }
 }
