@@ -4,7 +4,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.StreamSupport;
 
+import static com.artifacts.api.endpoints.get.GetAllItems.getAllItems;
+//import static com.artifacts.api.endpoints.get.GetAllResources.getAllGatheringResourcesAsList;
+import static com.artifacts.api.endpoints.get.GetAllResources.getAllResourcesAsList;
 import static com.artifacts.api.errorhandling.ErrorCodes.*;
 import static com.artifacts.api.errorhandling.GlobalErrorHandler.globalErrorHandler;
 import static com.artifacts.api.http.Client.getRequest;
@@ -85,27 +90,25 @@ public class GetBankItems {
 
     public HashMap<String, Integer> countMiningResourcesFromBankAsHashMap() {
         getBankItems();
+        var codes = getAllResourcesAsList("mining");
         var resources = new HashMap<String, Integer>();
-        resources.put("copper_ore", ALL_BANK_ITEMS.get("copper_ore"));
-        resources.put("iron_ore", ALL_BANK_ITEMS.get("iron_ore"));
-        resources.put("coal", ALL_BANK_ITEMS.get("coal"));
-        resources.put("gold_ore", ALL_BANK_ITEMS.get("gold_ore"));
-        resources.put("strange_ore", ALL_BANK_ITEMS.get("strange_ore"));
-        resources.put("mithril_ore", ALL_BANK_ITEMS.get("mithril_ore"));
-        resources.put("adamantite_ore", ALL_BANK_ITEMS.get("adamantite_ore"));
+
+        codes.stream()
+                .filter(code -> code.endsWith("_ore") || code.equals("coal"))
+                .distinct()
+                .forEach(code -> resources.put(code, ALL_BANK_ITEMS.getOrDefault(code, 0)));
         return resources;
     }
 
     public HashMap<String, Integer> countWoodcuttingResourcesFromBankAsHashMap() {
         getBankItems();
+        var codes = getAllResourcesAsList("woodcutting");
         var resources = new HashMap<String, Integer>();
-        resources.put("ash_wood", ALL_BANK_ITEMS.get("ash_wood"));
-        resources.put("spruce_wood", ALL_BANK_ITEMS.get("spruce_wood"));
-        resources.put("birch_wood", ALL_BANK_ITEMS.get("birch_wood"));
-        resources.put("dead_wood", ALL_BANK_ITEMS.get("dead_wood"));
-        resources.put("magic_wood", ALL_BANK_ITEMS.get("magic_wood"));
-        resources.put("maple_wood", ALL_BANK_ITEMS.get("maple_wood"));
-        resources.put("palm_wood", ALL_BANK_ITEMS.get("palm_wood"));
+
+        codes.stream()
+                .filter(code -> code.endsWith("_wood"))
+                .distinct()
+                .forEach(code -> resources.put(code, ALL_BANK_ITEMS.getOrDefault(code, 0)));
         return resources;
     }
 
