@@ -38,18 +38,42 @@ public class Gathering {
                 activityLocation = codeToNameMapper.codeToNameMap(missingResourceCode);
                 System.out.println("resource is not at cap: " + missingResourceCode + " | executing gathering loop for that resource.");
             } else { //fallback mechanism when resourceThreshold is reached for all resources
-                activityLocation = "yellow_slime";
+                activityLocation = "red_slime";
                 fight(name, activityLocation, "", "", "", false);
                 System.out.println("all resources ar at cap | executing fighting fallback mechanism.");
                 return;
             }
         }
-        //todo woodcuttingAll
+
         if (woodcuttingAll) {
             var resources = getBankItems.countWoodcuttingResourcesFromBankAsHashMap();
             var resourceIsNotAtCap = resources.entrySet().stream()
                     .filter(entry ->
                             !(entry.getKey().equals("magic_wood") || entry.getKey().equals("palm_wood")))
+                    .filter(entry -> {
+                        var resourceValue = entry.getValue();
+                        return resourceValue == null || resourceValue < resourceThreshold;
+                    })
+                    .findFirst();
+            //todo need to check bank for gathering tools and equip them
+
+            if (resourceIsNotAtCap.isPresent()) {
+                var missingResourceCode = resourceIsNotAtCap.get().getKey();
+                activityLocation = codeToNameMapper.codeToNameMap(missingResourceCode);
+                System.out.println("resource is not at cap: " + missingResourceCode + " | executing gathering loop for that resource.");
+            } else { //fallback mechanism when resourceThreshold is reached for all resources
+                activityLocation = "blue_slime";
+                fight(name, activityLocation, "", "", "", false);
+                System.out.println("all resources ar at cap | executing fighting fallback mechanism.");
+                return;
+            }
+        }
+
+        if (fishingAll) {
+            var resources = getBankItems.countFishingResourcesFromBankAsHashMap();
+            var resourceIsNotAtCap = resources.entrySet().stream()
+                    .filter(entry ->
+                            !(entry.getKey().equals("swordfish")))
                     .filter(entry -> {
                         var resourceValue = entry.getValue();
                         return resourceValue == null || resourceValue < resourceThreshold;
@@ -68,13 +92,29 @@ public class Gathering {
                 return;
             }
         }
-        //todo fishingAll
-        if (fishingAll) {
 
-        }
-        //todo herbsAll
         if (herbsAll) {
+            var resources = getBankItems.countHerbsFromBankAsHashMap();
+            var resourceIsNotAtCap = resources.entrySet().stream()
+                    .filter(entry ->
+                            !(entry.getKey().equals("glowstem_leaf") || entry.getKey().equals("torch_cactus_flower")))
+                    .filter(entry -> {
+                        var resourceValue = entry.getValue();
+                        return resourceValue == null || resourceValue < resourceThreshold;
+                    })
+                    .findFirst();
+            //todo need to check bank for gathering tools and equip them
 
+            if (resourceIsNotAtCap.isPresent()) {
+                var missingResourceCode = resourceIsNotAtCap.get().getKey();
+                activityLocation = codeToNameMapper.codeToNameMap(missingResourceCode);
+                System.out.println("resource is not at cap: " + missingResourceCode + " | executing gathering loop for that resource.");
+            } else { //fallback mechanism when resourceThreshold is reached for all resources
+                activityLocation = "green_slime";
+                fight(name, activityLocation, "", "", "", false);
+                System.out.println("all resources ar at cap | executing fighting fallback mechanism.");
+                return;
+            }
         }
 
         var coordinates = getAllMaps(activityLocation);
