@@ -7,6 +7,9 @@ public class CodeToNameMapper {
         if (code != null && code.endsWith("_ore")) {
             return code.replace("_ore", "_rocks");
         }
+        if (code != null && code.endsWith("_wood")) {
+            return code.replace("_wood", "_tree");
+        }
         return code;
     }
 }

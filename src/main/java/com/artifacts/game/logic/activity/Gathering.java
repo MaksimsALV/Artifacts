@@ -17,10 +17,10 @@ import static com.artifacts.tools.Delay.delay;
 
 //Gathering 2.0
 public class Gathering {
-    public static void gather(String name, String activityLocation, boolean miningAll) throws InterruptedException {
+    public static void gather(String name, String activityLocation, boolean miningAll, boolean woodcuttingAll, boolean fishingAll, boolean herbsAll) throws InterruptedException {
         GetBankItems getBankItems = new GetBankItems();
         CodeToNameMapper codeToNameMapper = new CodeToNameMapper();
-        var resourceThreshold = 1;
+        var resourceThreshold = 75000;
         if (miningAll) {
             var resources = getBankItems.countMiningResourcesFromBankAsHashMap();
             var resourceIsNotAtCap = resources.entrySet().stream()
@@ -30,22 +30,52 @@ public class Gathering {
                         var resourceValue = entry.getValue();
                         return resourceValue == null || resourceValue < resourceThreshold;
                     })
-                    .findFirst()
-                    .orElse(null);
+                    .findFirst();
             //todo need to check bank for gathering tools and equip them
 
-            if (resourceIsNotAtCap != null) {
-                var missingResourceCode = resourceIsNotAtCap.getKey();
+            if (resourceIsNotAtCap.isPresent()) {
+                var missingResourceCode = resourceIsNotAtCap.get().getKey();
                 activityLocation = codeToNameMapper.codeToNameMap(missingResourceCode);
+                System.out.println("resource is not at cap: " + missingResourceCode + " | executing gathering loop for that resource.");
             } else { //fallback mechanism when resourceThreshold is reached for all resources
                 activityLocation = "yellow_slime";
                 fight(name, activityLocation, "", "", "", false);
+                System.out.println("all resources ar at cap | executing fighting fallback mechanism.");
                 return;
             }
         }
         //todo woodcuttingAll
+        if (woodcuttingAll) {
+            var resources = getBankItems.countWoodcuttingResourcesFromBankAsHashMap();
+            var resourceIsNotAtCap = resources.entrySet().stream()
+                    .filter(entry ->
+                            !(entry.getKey().equals("magic_wood") || entry.getKey().equals("palm_wood")))
+                    .filter(entry -> {
+                        var resourceValue = entry.getValue();
+                        return resourceValue == null || resourceValue < resourceThreshold;
+                    })
+                    .findFirst();
+            //todo need to check bank for gathering tools and equip them
+
+            if (resourceIsNotAtCap.isPresent()) {
+                var missingResourceCode = resourceIsNotAtCap.get().getKey();
+                activityLocation = codeToNameMapper.codeToNameMap(missingResourceCode);
+                System.out.println("resource is not at cap: " + missingResourceCode + " | executing gathering loop for that resource.");
+            } else { //fallback mechanism when resourceThreshold is reached for all resources
+                activityLocation = "yellow_slime";
+                fight(name, activityLocation, "", "", "", false);
+                System.out.println("all resources ar at cap | executing fighting fallback mechanism.");
+                return;
+            }
+        }
         //todo fishingAll
+        if (fishingAll) {
+
+        }
         //todo herbsAll
+        if (herbsAll) {
+
+        }
 
         var coordinates = getAllMaps(activityLocation);
         var x = coordinates.getJSONArray("data").getJSONObject(0).getInt("x");
@@ -88,7 +118,7 @@ public class Gathering {
                 if (statusCode == CODE_SUCCESS) {
                     globalCooldownManager(name, response);
                 }
-                gather(name, activityLocation, miningAll);
+                gather(name, activityLocation, miningAll, woodcuttingAll, fishingAll, herbsAll);
                 return;
             } else if (statusCode == CODE_CHARACTER_LOCKED) {
                 System.err.println("486 happened! Starting delay, then continue");
