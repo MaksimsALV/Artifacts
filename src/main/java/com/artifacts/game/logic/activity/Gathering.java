@@ -12,6 +12,7 @@ import static com.artifacts.api.endpoints.post.ActionMove.actionMove;
 //import static com.artifacts.game.library.locations.GatheringZones.RESOURCE_FIELDS;
 //import static com.artifacts.game.library.recources.Resources.RESOURCE_LOCATION;
 import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownManager;
+import static com.artifacts.game.logic.activity.Fighting.fight;
 import static com.artifacts.tools.Delay.delay;
 
 //Gathering 2.0
@@ -36,8 +37,11 @@ public class Gathering {
             if (resourceIsNotAtCap != null) {
                 var missingResourceCode = resourceIsNotAtCap.getKey();
                 activityLocation = codeToNameMapper.codeToNameMap(missingResourceCode);
+            } else { //fallback mechanism when resourceThreshold is reached for all resources
+                activityLocation = "yellow_slime";
+                fight(name, activityLocation, "", "", "", false);
+                return;
             }
-            //todo else fallback to fighting slimes or something
         }
         //todo woodcuttingAll
         //todo fishingAll
