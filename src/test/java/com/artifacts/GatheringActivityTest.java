@@ -35,7 +35,7 @@ class GatheringActivityTest {
             gathering.when(() -> ActionGathering.actionGathering(anyString())).thenReturn(code_character_lockedMock, stopMock);
 
             //simulation
-            Gathering.gather("anyName", "anyActivityLocation");
+            Gathering.gather("anyName", "anyActivityLocation", false); //todo update simulation for miningAll etc.
 
             //verify
             gathering.verify(() -> ActionGathering.actionGathering("anyName"), times(2));
