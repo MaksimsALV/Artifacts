@@ -13,7 +13,7 @@ import static com.artifacts.api.endpoints.get.GetAllResources.getAllResourcesAsL
 public class WebController {
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("resources", getAllResourcesAsList());
+        model.addAttribute("resources", getAllResourcesAsList(null));
         model.addAttribute("monsters", getAllMonstersAsList());
         model.addAttribute("utilities", getAllUtilityItemsAsList());
         model.addAttribute("consumables", getAllConsumablesAsList());
