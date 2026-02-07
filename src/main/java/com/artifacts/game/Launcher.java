@@ -40,13 +40,13 @@ public class Launcher {
     private Thread alchemistThread;
 
 
-    public void runWarrior(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask) {
+    public void runWarrior(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask, boolean miningAll) {
         warriorThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
                     fight(getMyCharacters.getWarrior(), activityLocation, utilityOne, utilityTwo, consumable, fightTask);
                 } else if (action.equals("gather")) {
-                    gather(getMyCharacters.getWarrior(), activityLocation);
+                    gather(getMyCharacters.getWarrior(), activityLocation, miningAll);
                 } else {
                     craft(getMyCharacters.getWarrior(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -66,13 +66,13 @@ public class Launcher {
     }
 
 
-    public void runMiner(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask) {
+    public void runMiner(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask, boolean miningAll) {
         minerThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
                     fight(getMyCharacters.getMiner(), activityLocation, utilityOne, utilityTwo, consumable, fightTask);
                 } else if (action.equals("gather")) {
-                    gather(getMyCharacters.getMiner(), activityLocation);
+                    gather(getMyCharacters.getMiner(), activityLocation, miningAll);
                 } else {
                     craft(getMyCharacters.getMiner(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -92,13 +92,13 @@ public class Launcher {
     }
 
 
-    public void runLumberjack(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask) {
+    public void runLumberjack(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask, boolean miningAll) {
         lumberjackThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
                     fight(getMyCharacters.getLumberjack(), activityLocation, utilityOne, utilityTwo, consumable, fightTask);
                 } else if (action.equals("gather")) {
-                    gather(getMyCharacters.getLumberjack(), activityLocation);
+                    gather(getMyCharacters.getLumberjack(), activityLocation, miningAll);
                 } else {
                     craft(getMyCharacters.getLumberjack(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -118,13 +118,13 @@ public class Launcher {
     }
 
 
-    public void runChef(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask) {
+    public void runChef(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask, boolean miningAll) {
         chefThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
                     fight(getMyCharacters.getChef(), activityLocation, utilityOne, utilityTwo, consumable, fightTask);
                 } else if (action.equals("gather")) {
-                    gather(getMyCharacters.getChef(), activityLocation);
+                    gather(getMyCharacters.getChef(), activityLocation, miningAll);
                 } else {
                     craft(getMyCharacters.getChef(), "gearcrafting", "tromatising_mask", 1);
                 }
@@ -144,13 +144,13 @@ public class Launcher {
     }
 
 
-    public void runAlchemist(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask) {
+    public void runAlchemist(String action, String activityLocation, String utilityOne, String utilityTwo, String consumable, boolean fightTask, boolean miningAll) {
         alchemistThread = new Thread(() -> {
             try {
                 if (action.equals("fight")) {
                     fight(getMyCharacters.getAlchemist(), activityLocation, utilityOne, utilityTwo, consumable, fightTask);
                 } else if (action.equals("gather")) {
-                    gather(getMyCharacters.getAlchemist(), activityLocation);
+                    gather(getMyCharacters.getAlchemist(), activityLocation, miningAll);
                 } else {
                     craft(getMyCharacters.getAlchemist(), "gearcrafting", "tromatising_mask", 1);
                 }
