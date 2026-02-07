@@ -112,6 +112,16 @@ public class GetAllResources {
         });
         return listOfResourceCodes;
     }
+    public static List<String> getAllResourcesNamesAsList(String skill) {
+        var response = getAllResources(skill).getJSONArray("data");
+        List<String> listOfResourceNames = new ArrayList<>();
+        response.forEach(object -> {
+            var item = (JSONObject) object;
+            var name = item.getString("name");
+            listOfResourceNames.add(name);
+        });
+        return listOfResourceNames;
+    }
 
     //  getAllResourcesAsList 1.0
 //    public static List<String> getAllResourcesAsList() {
