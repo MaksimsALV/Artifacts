@@ -125,13 +125,12 @@ public class GetAllResources {
         return resources;
     }
 
-    //  getAllResourcesAsList 1.0
-//    public static List<String> getAllResourcesAsList() {
-//        var response = getAllResources(null).getJSONArray("data");
-//        List<String> listOfResourceCodes = new ArrayList<>();
-//        for (int i = 0; i < response.length(); i++) {
-//            listOfResourceCodes.add(response.getJSONObject(i).getString("code"));
-//        }
-//        return listOfResourceCodes;
-//    }
+    public static List<String> getAllResourceCodesAsList() {
+        var response = getAllResources(null).getJSONArray("data");
+        List<String> listOfResourceCodes = new ArrayList<>();
+        for (int i = 0; i < response.length(); i++) {
+            listOfResourceCodes.add(response.getJSONObject(i).getString("code"));
+        }
+        return listOfResourceCodes;
+    }
 }
