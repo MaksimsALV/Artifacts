@@ -1,9 +1,11 @@
 package com.artifacts.api.endpoints.get;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.artifacts.api.errorhandling.ErrorCodes.CODE_SUCCESS;
@@ -98,7 +100,7 @@ public class GetAllResources {
 
 
     //getAllResourcesAsList 2.0
-    public static List<String> getAllResourcesAsList(String skill) {
+    public static List<String> getAllResourcesAsList(String skill) { //todo later replace this with getAllResourcesAsJson
         var response = getAllResources(skill).getJSONArray("data");
         List<String> listOfResourceCodes = new ArrayList<>();
         response.forEach(object -> {
@@ -112,15 +114,15 @@ public class GetAllResources {
         });
         return listOfResourceCodes;
     }
-    public static List<String> getAllResourcesNamesAsList(String skill) {
+
+    public static JSONArray getAllResourcesAsJson(String skill) {
         var response = getAllResources(skill).getJSONArray("data");
-        List<String> listOfResourceNames = new ArrayList<>();
+        var resources = new JSONArray();
         response.forEach(object -> {
-            var item = (JSONObject) object;
-            var name = item.getString("name");
-            listOfResourceNames.add(name);
+            var itemObject = (JSONObject) object;
+            resources.put(itemObject);
         });
-        return listOfResourceNames;
+        return resources;
     }
 
     //  getAllResourcesAsList 1.0
