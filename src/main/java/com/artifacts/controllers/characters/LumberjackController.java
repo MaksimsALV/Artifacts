@@ -22,8 +22,9 @@ public class LumberjackController {
                         @RequestParam(required = false, defaultValue = "") String utilityOne,
                         @RequestParam(required = false, defaultValue = "") String utilityTwo,
                         @RequestParam(required = false, defaultValue = "") String consumable,
-                        @RequestParam(required = false, defaultValue = "false") boolean fightTask) {
-        launcher.runLumberjack(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask);
+                        @RequestParam(required = false, defaultValue = "false") boolean fightTask,
+                        @RequestParam(required = false, defaultValue = "false") boolean miningAll) {
+        launcher.runLumberjack(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask, miningAll);
         return "redirect:/";
     }
     @PostMapping("/stopLumberjack")
