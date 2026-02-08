@@ -26,8 +26,10 @@ public class WarriorController {
                         @RequestParam(required = false, defaultValue = "false") boolean miningAll,
                         @RequestParam(required = false, defaultValue = "false") boolean woodcuttingAll,
                         @RequestParam(required = false, defaultValue = "false") boolean fishingAll,
-                        @RequestParam(required = false, defaultValue = "false") boolean herbsAll) {
-        launcher.runWarrior(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask, miningAll, woodcuttingAll, fishingAll, herbsAll);
+                        @RequestParam(required = false, defaultValue = "false") boolean herbsAll,
+                        @RequestParam(required = false, defaultValue = "") String craftingItem,
+                        @RequestParam(required = false) Integer craftingQuantity) {
+        launcher.runWarrior(action, activityLocation, utilityOne, utilityTwo, consumable, fightTask, miningAll, woodcuttingAll, fishingAll, herbsAll, craftingItem, craftingQuantity);
         return "redirect:/";
     }
     @PostMapping("/stopWarrior")

@@ -53,6 +53,40 @@
                             <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
                         </select>
 
+                        <!-- Craft item (optional) -->
+                        <select class="form-select" name="craftingItem">
+                            <option value="" selected>Craft item (optional)</option>
+
+                            <optgroup label="Weapons">
+                                <option th:each="code : ${weapons}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Gear">
+                                <option th:each="code : ${gear}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Jewelry">
+                                <option th:each="code : ${jewelry}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Wood">
+                                <option th:each="code : ${wood}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Mining">
+                                <option th:each="code : ${mining}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+                        </select>
+
+                        <div class="input-group">
+                            <span class="input-group-text">Qty</span>
+                            <input type="number"
+                                   class="form-control"
+                                   name="craftingQuantity"
+                                   min="1"
+                                   placeholder="(optional)">
+                        </div>
+
                         <!-- Fight task checkbox -->
                         <div class="form-check text-start">
                             <label class="form-check-label">
@@ -145,6 +179,40 @@
                             <option value="" selected>Consumable (optional)</option>
                             <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
                         </select>
+
+                        <!-- Craft item (optional) -->
+                        <select class="form-select" name="craftingItem">
+                            <option value="" selected>Craft item (optional)</option>
+
+                            <optgroup label="Weapons">
+                                <option th:each="code : ${weapons}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Gear">
+                                <option th:each="code : ${gear}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Jewelry">
+                                <option th:each="code : ${jewelry}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Wood">
+                                <option th:each="code : ${wood}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Mining">
+                                <option th:each="code : ${mining}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+                        </select>
+
+                        <div class="input-group">
+                            <span class="input-group-text">Qty</span>
+                            <input type="number"
+                                   class="form-control"
+                                   name="craftingQuantity"
+                                   min="1"
+                                   placeholder="(optional)">
+                        </div>
 
                         <!-- Fight task checkbox -->
                         <div class="form-check text-start">
@@ -239,6 +307,40 @@
                             <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
                         </select>
 
+                        <!-- Craft item (optional) -->
+                        <select class="form-select" name="craftingItem">
+                            <option value="" selected>Craft item (optional)</option>
+
+                            <optgroup label="Weapons">
+                                <option th:each="code : ${weapons}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Gear">
+                                <option th:each="code : ${gear}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Jewelry">
+                                <option th:each="code : ${jewelry}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Wood">
+                                <option th:each="code : ${wood}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Mining">
+                                <option th:each="code : ${mining}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+                        </select>
+
+                        <div class="input-group">
+                            <span class="input-group-text">Qty</span>
+                            <input type="number"
+                                   class="form-control"
+                                   name="craftingQuantity"
+                                   min="1"
+                                   placeholder="(optional)">
+                        </div>
+
                         <!-- Fight task checkbox -->
                         <div class="form-check text-start">
                             <label class="form-check-label">
@@ -332,6 +434,40 @@
                             <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
                         </select>
 
+                        <!-- Craft item (optional) -->
+                        <select class="form-select" name="craftingItem">
+                            <option value="" selected>Craft item (optional)</option>
+
+                            <optgroup label="Weapons">
+                                <option th:each="code : ${weapons}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Gear">
+                                <option th:each="code : ${gear}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Jewelry">
+                                <option th:each="code : ${jewelry}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Wood">
+                                <option th:each="code : ${wood}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Mining">
+                                <option th:each="code : ${mining}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+                        </select>
+
+                        <div class="input-group">
+                            <span class="input-group-text">Qty</span>
+                            <input type="number"
+                                   class="form-control"
+                                   name="craftingQuantity"
+                                   min="1"
+                                   placeholder="(optional)">
+                        </div>
+
                         <!-- Fight task checkbox -->
                         <div class="form-check text-start">
                             <label class="form-check-label">
@@ -424,6 +560,40 @@
                             <option value="" selected>Consumable (optional)</option>
                             <option th:each="c : ${consumables}" th:value="${c}" th:text="${c}"></option>
                         </select>
+
+                        <!-- Craft item (optional) -->
+                        <select class="form-select" name="craftingItem">
+                            <option value="" selected>Craft item (optional)</option>
+
+                            <optgroup label="Weapons">
+                                <option th:each="code : ${weapons}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Gear">
+                                <option th:each="code : ${gear}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Jewelry">
+                                <option th:each="code : ${jewelry}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Wood">
+                                <option th:each="code : ${wood}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+
+                            <optgroup label="Mining">
+                                <option th:each="code : ${mining}" th:value="${code}" th:text="${code}"></option>
+                            </optgroup>
+                        </select>
+
+                        <div class="input-group">
+                            <span class="input-group-text">Qty</span>
+                            <input type="number"
+                                   class="form-control"
+                                   name="craftingQuantity"
+                                   min="1"
+                                   placeholder="(optional)">
+                        </div>
 
                         <!-- Fight task checkbox -->
                         <div class="form-check text-start">

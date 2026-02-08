@@ -11,6 +11,10 @@ import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownMan
 
 public class Crafting {
     public static void craft(String name, String activityLocation, String item, int quantity) throws InterruptedException {
+        if (item.equals("copper_bar") || item.equals("iron_bar") || item.equals("steel_bar") || item.equals("sapphire") || item.equals("emerald") || item.equals("ruby") || item.equals("gold_bar") || item.equals("obsidian_bar")) {
+            activityLocation = "mining";
+        } //todo need to have this for all crafting types, need some helper
+
         var response = getAllMaps(activityLocation);
         var dataArray = response.getJSONArray("data");
         var x = dataArray.getJSONObject(0).getInt("x");
