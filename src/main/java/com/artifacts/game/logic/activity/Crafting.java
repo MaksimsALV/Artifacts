@@ -11,9 +11,23 @@ import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownMan
 
 public class Crafting {
     public static void craft(String name, String activityLocation, String item, int quantity) throws InterruptedException {
-        if (item.equals("copper_bar") || item.equals("iron_bar") || item.equals("steel_bar") || item.equals("sapphire") || item.equals("emerald") || item.equals("ruby") || item.equals("gold_bar") || item.equals("obsidian_bar")) {
+        if (item.endsWith("_bar")) {
             activityLocation = "mining";
         } //todo need to have this for all crafting types, need some helper
+        if (item.equals("sapphire") || item.equals("emerald") || item.equals("ruby") || item.equals("diamond") || item.equals("alexandrite")) {
+            activityLocation = "jewelrycrafting";
+        }
+
+        //todo this doesnt work because i need item names, like ash_plank etc. this solution isnt good, need something better, like retrieve list from api or something
+//        if (item.endsWith("_wood")) {
+//            activityLocation = "woodcutting";
+//        }
+//        if (item.equals("gudgeon") || item.equals("shrimp") || item.equals("trout") || item.equals("bass") || item.equals("salmon") || item.equals("swordfish")) {
+//            activityLocation = "cooking";
+//        }
+//        if (item.equals("sunflower") || item.equals("nettle_leaf") || item.equals("glowstem_leaf") || item.equals("torch_cactus_flower")) {
+//            activityLocation = "alchemy";
+//        }
 
         var response = getAllMaps(activityLocation);
         var dataArray = response.getJSONArray("data");
