@@ -38,6 +38,12 @@ public class GetItem {
             }
         }
     }
+
+    public String getCraftingItemCraftSkill(String itemCode) {
+        var itemCodeDataObject = getItem(itemCode).getJSONObject("data");
+        var craftingSkillName = itemCodeDataObject.optJSONObject("craft").optString("skill");
+        return craftingSkillName;
+    }
 }
 
 //GetItem 1.0
