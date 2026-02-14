@@ -20,6 +20,8 @@ public class WebController {
         model.addAttribute("jewelry", getAllJewelryCraftingItemsAsList());
         model.addAttribute("wood", getAllWoodcuttingCraftingItemsAsList());
         model.addAttribute("mining", getAllMiningCraftingItemsAsList());
+        model.addAttribute("cooking", getAllCookingCraftingItemsAsList());
+        model.addAttribute("alchemy", getAllAlchemyCraftingItemsAsList());
         model.addAttribute("utilities", getAllUtilityItemsAsList());
         model.addAttribute("consumables", getAllConsumablesAsList());
         return "index";
