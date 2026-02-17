@@ -39,29 +39,3 @@ public class GetTask {
         }
     }
 }
-
-/*
-//GetTask 1.0
-public class GetTask {
-    public static JSONObject getTask(String taskCode) {
-        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/tasks/list/" + taskCode;
-
-        try {
-            HttpResponse<String> response = Send.get(endpoint, false);
-
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-                var jsonObject = new JSONObject(response.body());
-                jsonObject.put("statusCode", response.statusCode());
-                return jsonObject;
-            }
-            globalErrorHandler(response, endpoint);
-            return new JSONObject().put("statusCode", response.statusCode());
-
-        } catch (Exception getTaskException) {
-            System.err.println(endpoint + " | Exception: " + getTaskException.getMessage());
-            return null;
-        }
-    }
-}*/

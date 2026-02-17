@@ -48,39 +48,3 @@ public class GetServerDetails {
         }
     }
 }
-
-    //getServerDetails2.0
-//    public static JSONObject getServerDetails() {
-//        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-//        var endpoint = baseUrl + "/";
-//        var retryCount = 0;
-////        var retryAmount = 7;
-////        var retryDelay = 10;
-//
-//        while (true) {
-//            try {
-//                HttpResponse<String> response = Send.get(endpoint, false);
-//
-//                if (response.statusCode() == CODE_SUCCESS) {
-//                    serverIsUp = true;
-//                    System.out.println(endpoint + " | " + CODE_SUCCESS);
-//                    var jsonObject = new JSONObject(response.body());
-//                    jsonObject.put("statusCode", response.statusCode());
-//                    var seasonNumber = jsonObject.getJSONObject("data").getJSONObject("season").getInt("number");
-//                    season.put("season", seasonNumber);
-//                    return jsonObject;
-//                }
-//                globalErrorHandler(response, endpoint);
-//                serverIsUp = false;
-//                return new JSONObject().put("statusCode", response.statusCode());
-//
-//            } catch (Exception e) {
-//                serverIsUp = false;
-//                System.err.println("Exception getServerDetailsError: " + e);
-//                if (!retry(++retryCount)) {
-//                    return null;
-//                }
-//            }
-//        }
-//    }
-//}

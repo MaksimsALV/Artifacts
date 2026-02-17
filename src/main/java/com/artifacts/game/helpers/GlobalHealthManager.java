@@ -13,10 +13,6 @@ import static com.artifacts.game.helpers.GlobalCooldownManager.globalCooldownMan
 public class GlobalHealthManager {
 
     public static void globalHealthManager(String name, JSONObject response, String consumable) throws InterruptedException {
-        //fight response for characters v2.0.0 due to S6 update
-        //var characterData = response.getJSONObject("data").getJSONArray("characters").getJSONObject(0);
-//        var characterData = response.getJSONObject("data").getJSONObject("character");
-
         JSONObject data = response.optJSONObject("data");
         var characterData = data.has("characters")
                 ? data.getJSONArray("characters").getJSONObject(0)

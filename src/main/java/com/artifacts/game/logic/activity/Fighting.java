@@ -57,11 +57,8 @@ public class Fighting {
                 globalCooldownManager(name, response);
                 globalHealthManager(name, response, consumable);
                 if (fightTask) {
-                    //fight response for characters v2.0.0 due to S6 update
                     var taskTotal = response.getJSONObject("data").getJSONArray("characters").getJSONObject(0).getInt("task_total");
                     var taskCurrent = response.getJSONObject("data").getJSONArray("characters").getJSONObject(0).getInt("task_progress");
-//                    var taskTotal = response.getJSONObject("data").getJSONObject("character").getInt("task_total");
-//                    var taskCurrent = response.getJSONObject("data").getJSONObject("character").getInt("task_progress");
                     if (taskCurrent == taskTotal) {
                         completeFightTask(name); //todo check if this works as i want. When all done i execute completeFightTask, then start fightTask again from scratch, stopping current loop
                         fight(name, activityLocation, utilityOne, utilityTwo, consumable, fightTask);

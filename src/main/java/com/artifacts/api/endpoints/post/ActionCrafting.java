@@ -39,31 +39,6 @@ public class ActionCrafting {
         }
     }
 
-/*    //ActionCrafting 1.0
-    public class ActionCrafting {
-        public static JSONObject actionCrafting(String name, String item, int quantity) {
-            var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-            var endpoint = baseUrl + "/my/" + name + "/action/crafting";
-            var requestBody = actionCraftingBody(item, quantity);
-
-            try {
-                HttpResponse<String> response = Send.post(endpoint, requestBody, true);
-
-                if (response.statusCode() == CODE_SUCCESS) {
-                    System.out.println(endpoint + " | " + CODE_SUCCESS);
-                    var jsonObject = new JSONObject(response.body());
-                    jsonObject.put("statusCode", response.statusCode());
-                    return jsonObject;
-                }
-                globalErrorHandler(response, endpoint);
-                return new JSONObject().put("statusCode", response.statusCode());
-
-            } catch (Exception actionCraftingException) {
-                System.err.println(endpoint + " | Exception: " + actionCraftingException.getMessage());
-                return null;
-            }
-        }*/
-
     public static String actionCraftingBody(String item, int quantity) {
         var jsonObject = new JSONObject();
         jsonObject.put("code", item.toLowerCase());

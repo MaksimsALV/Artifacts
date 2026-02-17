@@ -38,28 +38,3 @@ public class ActionRest {
         }
     }
 }
-
-/*//ActionRest 1.0
-public class ActionRest {
-    public static JSONObject actionRest(String name) {
-        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/" + name + "/action/rest";
-
-        try {
-            HttpResponse<String> response = Send.post(endpoint, "", true);
-
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-                var jsonObject = new JSONObject(response.body());
-                jsonObject.put("statusCode", response.statusCode());
-                return jsonObject;
-            }
-            globalErrorHandler(response, endpoint);
-            return new JSONObject().put("statusCode", response.statusCode());
-
-        } catch (Exception actionRestException) {
-            System.err.println(endpoint + " | Exception: " + actionRestException.getMessage());
-            return null;
-        }
-    }
-}*/

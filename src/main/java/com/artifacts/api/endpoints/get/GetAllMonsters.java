@@ -41,30 +41,6 @@ public class GetAllMonsters {
         }
     }
 
-/*    //GetAllMonsters 1.0
-    public class GetAllMonsters {
-        public static JSONObject getAllMonsters() {
-            var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-            var endpoint = baseUrl + "/monsters";
-
-            try {
-                HttpResponse<String> response = Send.get(endpoint, false);
-
-                if (response.statusCode() == CODE_SUCCESS) {
-                    System.out.println(endpoint + " | " + CODE_SUCCESS);
-                    var jsonObject = new JSONObject(response.body());
-                    jsonObject.put("statusCode", response.statusCode());
-                    return jsonObject;
-                }
-                globalErrorHandler(response, endpoint);
-                return new JSONObject().put("statusCode", response.statusCode());
-
-            } catch (Exception getCharacterException) {
-                System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
-                return null;
-            }
-        }*/
-
     public static List<String> getAllMonstersAsList() {
         var response = getAllMonsters().getJSONArray("data");
         List<String> listOfMonsterCodes = new ArrayList<>();

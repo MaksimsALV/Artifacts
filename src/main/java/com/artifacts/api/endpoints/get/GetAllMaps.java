@@ -39,28 +39,3 @@ public class GetAllMaps {
         }
     }
 }
-/*
-//GetAllMaps 1.0
-public class GetAllMaps {
-    public static JSONObject getAllMaps(String contentCode) {
-        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/maps" + "?content_code=" + contentCode;
-
-        try {
-            HttpResponse<String> response = Send.get(endpoint, false);
-
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-                var jsonObject = new JSONObject(response.body());
-                jsonObject.put("statusCode", response.statusCode());
-                return jsonObject;
-            }
-            globalErrorHandler(response, endpoint);
-            return new JSONObject().put("statusCode", response.statusCode());
-
-        } catch (Exception getCharacterException) {
-            System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
-            return null;
-        }
-    }
-}*/

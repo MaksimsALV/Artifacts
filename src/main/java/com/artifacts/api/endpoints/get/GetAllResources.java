@@ -45,61 +45,6 @@ public class GetAllResources {
         }
     }
 
-/*    //GetAllResources 2.0
-    public class GetAllResources {
-        public static JSONObject getAllResources() {
-            var retryCount = 0;
-            var endpoint = "/resources";
-            var request = getRequest(endpoint, null);
-
-            while (true) {
-                try {
-                    HttpResponse<String> response = send(request);
-
-                    if (response.statusCode() == CODE_SUCCESS) {
-                        System.out.println(endpoint + " | " + CODE_SUCCESS);
-                        var responseBody = new JSONObject(response.body());
-                        responseBody.put("statusCode", response.statusCode());
-                        return responseBody;
-                    }
-                    globalErrorHandler(response, endpoint);
-                    return new JSONObject().put("statusCode", response.statusCode());
-
-                } catch (Exception e) {
-                    System.err.println(endpoint + " | Exception: " + e);
-                    if (!retry(++retryCount)) {
-                        return null;
-                    }
-                }
-            }
-        }*/
-
-/*    //GetAllResources 1.0
-    public class GetAllResources {
-        public static JSONObject getAllResources() {
-            var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-            var endpoint = baseUrl + "/resources";
-
-            try {
-                HttpResponse<String> response = Send.get(endpoint, false);
-
-                if (response.statusCode() == CODE_SUCCESS) {
-                    System.out.println(endpoint + " | " + CODE_SUCCESS);
-                    var jsonObject = new JSONObject(response.body());
-                    jsonObject.put("statusCode", response.statusCode());
-                    return jsonObject;
-                }
-                globalErrorHandler(response, endpoint);
-                return new JSONObject().put("statusCode", response.statusCode());
-
-            } catch (Exception getCharacterException) {
-                System.err.println(endpoint + " | Exception: " + getCharacterException.getMessage());
-                return null;
-            }
-        }*/
-
-
-    //getAllResourcesAsList 2.0
     public static List<String> getAllResourcesAsList(String skill) { //todo later replace this with getAllResourcesAsJson
         var response = getAllResources(skill).getJSONArray("data");
         List<String> listOfResourceCodes = new ArrayList<>();

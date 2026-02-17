@@ -43,45 +43,6 @@ public class GetMyCharacters {
         }
     }
 
-
-/*//GetMyCharacters 1.0
-public class GetMyCharacters {
-    public static List<HashMap<String, String>> MY_CHARACTERS = new ArrayList<>();
-
-    public static HttpResponse<String> getMyCharacters() {
-        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/characters";
-
-        try {
-            HttpResponse<String> response = Send.get(endpoint, true);
-
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-                var object = new JSONObject(response.body());
-                var responseDataArray = object.getJSONArray("data");
-                MY_CHARACTERS.clear();
-
-                for (var characterObject : responseDataArray) {
-                    var eachCharacter = (JSONObject) characterObject;
-                    HashMap<String, String> characterData = new HashMap<>();
-                    for (var key : eachCharacter.keySet()) {
-                        var value = eachCharacter.get(key).toString();
-                        characterData.put(key, value);
-                    }
-                    MY_CHARACTERS.add(characterData);
-                }
-                return response;
-            }
-            globalErrorHandler(response, endpoint);
-            return response;
-
-        } catch (Exception getMyCharactersException) {
-            System.err.println(endpoint + " | Exception: " + getMyCharactersException.getMessage());
-        }
-        return null;
-    }
-}*/
-
     public HashMap<String, String> getMyCharactersLabelAndNameAsHashMap() {
         var response = getMyCharacters().optJSONArray("data");
         MY_CHARACTERS.clear();

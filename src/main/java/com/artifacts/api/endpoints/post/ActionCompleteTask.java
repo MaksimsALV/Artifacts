@@ -40,28 +40,3 @@ public class ActionCompleteTask {
         }
     }
 }
-
-/*//ActionCompleteTask 1.0
-public class ActionCompleteTask {
-    public static JSONObject actionCompleteTask(String name) {
-        var baseUrl = BaseURL.getBaseUrl("api.baseUrl");
-        var endpoint = baseUrl + "/my/" + name + "/action/task/complete";
-
-        try {
-            HttpResponse<String> response = Send.post(endpoint, "", true);
-
-            if (response.statusCode() == CODE_SUCCESS) {
-                System.out.println(endpoint + " | " + CODE_SUCCESS);
-                var jsonObject = new JSONObject(response.body());
-                jsonObject.put("statusCode", response.statusCode());
-                return jsonObject;
-            }
-            globalErrorHandler(response, endpoint);
-            return new JSONObject().put("statusCode", response.statusCode());
-
-        } catch (Exception actionCompleteTaskException) {
-            System.err.println(endpoint + " | Exception: " + actionCompleteTaskException.getMessage());
-            return null;
-        }
-    }
-}*/
