@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -91,7 +92,7 @@ public class GetBankItems {
     public HashMap<String, Integer> countMiningResourcesFromBankAsHashMap() {
         getBankItems();
         var codes = getAllResourcesAsList("mining");
-        var resources = new HashMap<String, Integer>();
+        var resources = new LinkedHashMap<String, Integer>();
 
         codes.stream()
                 .filter(code -> code.endsWith("_ore") || code.equals("coal"))
@@ -103,7 +104,7 @@ public class GetBankItems {
     public HashMap<String, Integer> countWoodcuttingResourcesFromBankAsHashMap() {
         getBankItems();
         var codes = getAllResourcesAsList("woodcutting");
-        var resources = new HashMap<String, Integer>();
+        var resources = new LinkedHashMap<String, Integer>();
 
         codes.stream()
                 .filter(code -> code.endsWith("_wood"))
@@ -114,7 +115,7 @@ public class GetBankItems {
 
     public HashMap<String, Integer> countFishingResourcesFromBankAsHashMap() {
         getBankItems();
-        var resources = new HashMap<String, Integer>();
+        var resources = new LinkedHashMap<String, Integer>();
         resources.put("gudgeon", ALL_BANK_ITEMS.get("gudgeon"));
         resources.put("shrimp", ALL_BANK_ITEMS.get("shrimp"));
         resources.put("trout", ALL_BANK_ITEMS.get("trout"));
@@ -126,7 +127,7 @@ public class GetBankItems {
 
     public HashMap<String, Integer> countHerbsFromBankAsHashMap() {
         getBankItems();
-        var resources = new HashMap<String, Integer>();
+        var resources = new LinkedHashMap<String, Integer>();
         resources.put("sunflower", ALL_BANK_ITEMS.get("sunflower"));
         resources.put("nettle_leaf", ALL_BANK_ITEMS.get("nettle_leaf"));
         resources.put("glowstem_leaf", ALL_BANK_ITEMS.get("glowstem_leaf"));

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,9 +48,13 @@ public class GetAllResources {
 
     public static List<String> getAllResourcesAsList(String skill) { //todo later replace this with getAllResourcesAsJson
         var response = getAllResources(skill).getJSONArray("data");
+
+        List<JSONObject> listOfItems = new ArrayList<>();
+        response.forEach(object -> listOfItems.add((JSONObject) object));
+        listOfItems.sort(Comparator.comparingInt(item -> item.getInt("level")));
+
         List<String> listOfResourceCodes = new ArrayList<>();
-        response.forEach(object -> {
-            var item = (JSONObject) object;
+        listOfItems.forEach(item -> {
             var drops = item.getJSONArray("drops");
             drops.forEach(dropsObject -> {
                 var drop = (JSONObject) dropsObject;
