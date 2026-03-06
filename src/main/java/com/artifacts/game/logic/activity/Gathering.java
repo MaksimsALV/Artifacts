@@ -20,7 +20,7 @@ public class Gathering {
     public static void gather(String name, String activityLocation, boolean miningAll, boolean woodcuttingAll, boolean fishingAll, boolean herbsAll) throws InterruptedException {
         GetBankItems getBankItems = new GetBankItems();
         CodeToNameMapper codeToNameMapper = new CodeToNameMapper();
-        var resourceThreshold = 75000;
+        var resourceThreshold = 30000;
         if (miningAll) {
             var resources = getBankItems.countMiningResourcesFromBankAsHashMap();
             var resourceIsNotAtCap = resources.entrySet().stream()
