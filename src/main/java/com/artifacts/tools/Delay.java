@@ -1,7 +1,6 @@
 package com.artifacts.tools;
 
 public class Delay {
-    //delay 2.0
     public static void delay(int seconds) {
         System.out.println("Delay for: " + seconds + " seconds");
         try {

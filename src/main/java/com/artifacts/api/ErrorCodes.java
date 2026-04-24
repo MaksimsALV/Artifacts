@@ -1,4 +1,4 @@
-package com.artifacts.api.errorhandling;
+package com.artifacts.api;
 
 public class ErrorCodes {
     //https://docs.artifactsmmo.com/api_guide/response_codes
