@@ -16,7 +16,7 @@ public class ApiResponseLogger {
     }
 
     public void logResponseOnError(Logger logger, ResponseEntity<?> response) {
-        if (response.getStatusCode() == HttpStatus.OK) {
+        if (response.getStatusCode() != HttpStatus.OK) {
             try {
                 logger.error("returned status code {}, Body: {}",
                         response.getStatusCode(),
