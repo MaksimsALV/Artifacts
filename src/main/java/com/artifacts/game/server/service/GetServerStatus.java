@@ -1,6 +1,7 @@
 package com.artifacts.game.server.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.ServerDetailsApi;
 import org.openapitools.client.model.StatusResponseSchema;
@@ -15,17 +16,23 @@ public class GetServerStatus {
     private final ApiClient apiClient;
     private final Logger logger =  LoggerFactory.getLogger(GetServerStatus.class);
     private final ApiResponseLogger apiResponseLogger;
+    private final Retry retry;
 
-    public GetServerStatus(ApiClient apiClient, ApiResponseLogger apiResponseLogger) {
+    public GetServerStatus(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
         this.apiClient = apiClient;
         this.apiResponseLogger = apiResponseLogger;
+        this.retry = retry;
     }
 
     public ResponseEntity<StatusResponseSchema> getServerStatus() {
         ServerDetailsApi serverDetailsApi = new ServerDetailsApi(apiClient);
         ResponseEntity<StatusResponseSchema> response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
 
-        apiResponseLogger.logResponseOnError(logger, response);
+        while (response.getStatusCode() != HttpStatus.OK) {
+            apiResponseLogger.logResponseOnError(logger, response);
+            retry.retry();
+            response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
+        }
 
         return response;
     }

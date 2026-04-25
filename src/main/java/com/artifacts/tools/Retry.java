@@ -1,6 +1,8 @@
 package com.artifacts.tools;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class Retry {
     private final Sleep sleep;
 
@@ -8,9 +10,9 @@ public class Retry {
         this.sleep = sleep;
     }
 
-    public void retry(int count) {
-        final int delay = 30;
-        System.out.println("retry attempt: " + count);
+    public void retry() {
+        final int delay = 10;
+        System.out.println("retry attempt");
         sleep.sleep(delay);
     }
 }
