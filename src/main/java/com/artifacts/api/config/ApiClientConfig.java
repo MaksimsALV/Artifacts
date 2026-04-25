@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Client {
+public class ApiClientConfig {
     @Value("${api.baseUrl}")
     private String baseUrl;
 
