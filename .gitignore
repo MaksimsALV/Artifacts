@@ -43,3 +43,7 @@ src/test/java/com/artifacts/MethodDebug.java
 
 # Ignore generated-code
 /generated-code
+
+# Logs
+logs/*
+!logs/.gitkeep
