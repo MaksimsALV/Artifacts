@@ -29,7 +29,7 @@ public class GetServerStatus {
         ResponseEntity<StatusResponseSchema> response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
 
         while (response.getStatusCode() != HttpStatus.OK) {
-            apiResponseLogger.logResponseOnError(logger, response);
+            apiResponseLogger.logErrorResponse(logger, response);
             retry.retry();
             response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
         }

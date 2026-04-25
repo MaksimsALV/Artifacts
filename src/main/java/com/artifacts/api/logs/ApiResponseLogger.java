@@ -15,15 +15,13 @@ public class ApiResponseLogger {
         this.objectMapper = objectMapper;
     }
 
-    public void logResponseOnError(Logger logger, ResponseEntity<?> response) {
-        if (response.getStatusCode() != HttpStatus.OK) {
-            try {
-                logger.error("returned status code {}, Body: {}",
-                        response.getStatusCode(),
-                        prettyJson(response.getBody()));
-            } catch (JsonProcessingException e) {
-                logger.error(e.getMessage());
-            }
+    public void logErrorResponse(Logger logger, ResponseEntity<?> response) {
+        try {
+            logger.error("returned status code {}, Body: {}",
+                    response.getStatusCode(),
+                    prettyJson(response.getBody()));
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage());
         }
     }
 
