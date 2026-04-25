@@ -6,7 +6,6 @@ import org.openapitools.client.api.ServerDetailsApi;
 import org.openapitools.client.model.StatusResponseSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ public class GetServerStatus {
     private final Logger logger =  LoggerFactory.getLogger(GetServerStatus.class);
     private final ApiResponseLogger apiResponseLogger;
 
-    @Autowired
     public GetServerStatus(ApiClient apiClient, ApiResponseLogger apiResponseLogger) {
         this.apiClient = apiClient;
         this.apiResponseLogger = apiResponseLogger;
