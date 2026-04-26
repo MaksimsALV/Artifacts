@@ -4,7 +4,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Auth {
+public class Properties {
+
+    @Value("${api.baseUrl}")
+    private String baseUrl;
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
     @Value("${api.username}")
     private String getUsername;
 

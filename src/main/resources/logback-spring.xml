@@ -49,7 +49,7 @@
         <appender-ref ref="SERVER_STATUS_FILE"/>
     </logger>
 
-    <logger name="com.artifacts.game.server.service.Login"
+    <logger name="com.artifacts.game.server.service.GenerateToken"
             level="INFO"
             additivity="false">
         <appender-ref ref="LOGIN_FILE"/>

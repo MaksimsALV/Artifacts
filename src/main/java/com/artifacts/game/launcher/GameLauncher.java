@@ -1,27 +1,28 @@
 package com.artifacts.game.launcher;
 
-import com.artifacts.game.launcher.service.Login;
+import com.artifacts.game.server.service.GenerateToken;
 import com.artifacts.game.server.service.GetServerStatus;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StartLauncher {
+public class GameLauncher {
     private final GetServerStatus getServerStatus;
-    private final Login login;
+    private final GenerateToken generateToken;
 
-    public StartLauncher(GetServerStatus getServerStatus, Login login) {
+    public GameLauncher(GetServerStatus getServerStatus, GenerateToken generateToken) {
         this.getServerStatus = getServerStatus;
-        this.login = login;
+        this.generateToken = generateToken;
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void startLauncher() {
-        System.out.println("Launcher Started");
+    public void gameStart() {
+        System.out.println("Starting the game...");
         System.out.println("Getting Server Status...");
         if (getServerStatus.serverIsUp()) {
             System.out.println("Server is Up!");
+            System.out.println("Logging in...");
             // continue with login
         } else {
             System.out.println("Server is Down!");
