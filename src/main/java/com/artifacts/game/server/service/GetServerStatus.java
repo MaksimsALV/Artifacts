@@ -30,7 +30,7 @@ public class GetServerStatus {
         ServerDetailsApi serverDetailsApi = new ServerDetailsApi(apiClient);
         ResponseEntity<StatusResponseSchema> response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
 
-        while (response.getStatusCode() != SUCCESS) {
+        while (response.getStatusCode().value() != SUCCESS) {
             apiResponseLogger.logErrorResponse(logger, response);
             retry.retry();
             response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
@@ -39,6 +39,6 @@ public class GetServerStatus {
     }
 
     public boolean serverIsUp() {
-        return getServerStatus().getStatusCode() == SUCCESS;
+        return getServerStatus().getStatusCode().value() == SUCCESS;
     }
 }

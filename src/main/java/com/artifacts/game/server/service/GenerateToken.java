@@ -30,7 +30,7 @@ public class GenerateToken {
         ResponseEntity<TokenResponseSchema> response = tokenApi.generateTokenTokenPostWithHttpInfo();
         TokenResponseSchema token = response.getBody();
 
-        while (response.getStatusCode() != SUCCESS || token == null) {
+        while (response.getStatusCode().value() != SUCCESS || token == null) {
             apiResponseLogger.logErrorResponse(logger, response);
             retry.retry();
             response = tokenApi.generateTokenTokenPostWithHttpInfo();

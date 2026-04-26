@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientResponseException;
 
 import static com.artifacts.api.HttpCodes.*;
 import static com.artifacts.game.account.Characters.WARRIOR;
@@ -40,23 +42,34 @@ public class CreateCharacter {
 
         addCharacterSchema.setName(WARRIOR.getName());
         addCharacterSchema.setSkin(WARRIOR.getSkin());
-        ResponseEntity<CharacterResponseSchema> response = charactersApi.createCharacterCharactersCreatePostWithHttpInfo(addCharacterSchema);
 
-        while (response.getStatusCode() != SUCCESS) {
-            apiResponseLogger.logErrorResponse(logger, response);
+        var nameSuffix = 1;
 
-            var responseHttpCode = response.getStatusCode();
-            if (responseHttpCode == INVALID_PAYLOAD) {
-                return;
-            } else if (responseHttpCode == CHARACTER_NAME_ALREADY_USED) {
-                addCharacterSchema.setName(WARRIOR.getName() + "1");
-            } else if (responseHttpCode == MAX_CHARACTERS_REACHED) {
-                return;
-            } else if (responseHttpCode == ACCOUNT_SKIN_NOT_OWNED) {
-                return;
+        while (true) {
+            try {
+                ResponseEntity<CharacterResponseSchema> response = charactersApi.createCharacterCharactersCreatePostWithHttpInfo(addCharacterSchema);
+
+                if (response.getStatusCode().value() == SUCCESS) {
+                    return;
+                }
+                apiResponseLogger.logErrorResponse(logger, response);
+                retry.retry();
+
+            } catch (RestClientResponseException e) {
+                var responseHttpCode = e.getStatusCode().value();
+                if (responseHttpCode == INVALID_PAYLOAD) {
+                    return;
+                } else if (responseHttpCode == CHARACTER_NAME_ALREADY_USED) {
+                    addCharacterSchema.setName(WARRIOR.getName() + nameSuffix);
+                    nameSuffix++;
+                } else if (responseHttpCode == MAX_CHARACTERS_REACHED) {
+                    return;
+                } else if (responseHttpCode == ACCOUNT_SKIN_NOT_OWNED) {
+                    return;
+                } else {
+                    throw e;
+                }
             }
-            retry.retry();
-            response = charactersApi.createCharacterCharactersCreatePostWithHttpInfo(addCharacterSchema);
         }
     }
 }
