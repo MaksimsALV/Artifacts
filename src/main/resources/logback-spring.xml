@@ -58,19 +58,19 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.artifacts.game.server.service.GetServerStatus"
+    <logger name="com.artifacts.api.service.GetServerStatus"
             level="INFO"
             additivity="false">
         <appender-ref ref="SERVER_STATUS_FILE"/>
     </logger>
 
-    <logger name="com.artifacts.game.server.service.GenerateToken"
+    <logger name="com.artifacts.api.service.GenerateToken"
             level="INFO"
             additivity="false">
         <appender-ref ref="GENERATE_TOKEN_FILE"/>
     </logger>
 
-    <logger name="com.artifacts.game.account.service.CreateCharacter"
+    <logger name="com.artifacts.api.service.CreateCharacter"
             level="INFO"
             additivity="false">
         <appender-ref ref="CREATE_CHARACTER_FILE"/>

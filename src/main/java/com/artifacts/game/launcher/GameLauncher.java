@@ -1,8 +1,8 @@
 package com.artifacts.game.launcher;
 
 import com.artifacts.game.Events.*;
-import com.artifacts.game.server.service.GenerateToken;
-import com.artifacts.game.server.service.GetServerStatus;
+import com.artifacts.api.service.GenerateToken;
+import com.artifacts.api.service.GetServerStatus;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;

@@ -1,4 +1,4 @@
-package com.artifacts.game.server.service;
+package com.artifacts.api.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Retry;

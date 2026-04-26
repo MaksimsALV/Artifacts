@@ -1,4 +1,4 @@
-package com.artifacts.game.server.service;
+package com.artifacts.api.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Retry;
@@ -38,7 +38,7 @@ public class GenerateToken {
                     apiClient.setBearerToken(token.getToken());
                     return;
                 }
-            } catch (RestClientResponseException e) {
+            } catch (RestClientResponseException e) { //todo all exceptions under own exception and extend RestClientResponseException
                 apiResponseLogger.logErrorResponse(logger, e);
                 var responseHttpCode = e.getStatusCode().value();
 

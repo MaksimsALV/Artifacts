@@ -1,4 +1,4 @@
-package com.artifacts.game.account.service;
+package com.artifacts.api.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.game.Events;
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientResponseException;
 
 import static com.artifacts.api.HttpCodes.*;

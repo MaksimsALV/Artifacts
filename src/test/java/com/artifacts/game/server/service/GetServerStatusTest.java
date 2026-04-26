@@ -1,5 +1,6 @@
 package com.artifacts.game.server.service;
 
+import com.artifacts.api.service.GetServerStatus;
 import org.junit.jupiter.api.Test;
 import org.openapitools.client.model.StatusResponseSchema;
 import org.springframework.http.HttpStatus;
