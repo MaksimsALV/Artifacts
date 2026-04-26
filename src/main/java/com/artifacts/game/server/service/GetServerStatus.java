@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import static com.artifacts.api.HttpCodes.*;
+
 @Service
 public class GetServerStatus {
     private final ApiClient apiClient;
@@ -28,7 +30,7 @@ public class GetServerStatus {
         ServerDetailsApi serverDetailsApi = new ServerDetailsApi(apiClient);
         ResponseEntity<StatusResponseSchema> response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
 
-        while (response.getStatusCode() != HttpStatus.OK) {
+        while (response.getStatusCode() != SUCCESS) {
             apiResponseLogger.logErrorResponse(logger, response);
             retry.retry();
             response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
@@ -37,6 +39,6 @@ public class GetServerStatus {
     }
 
     public boolean serverIsUp() {
-        return getServerStatus().getStatusCode() == HttpStatus.OK;
+        return getServerStatus().getStatusCode() == SUCCESS;
     }
 }

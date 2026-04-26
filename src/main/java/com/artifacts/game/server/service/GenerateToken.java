@@ -7,9 +7,10 @@ import org.openapitools.client.api.TokenApi;
 import org.openapitools.client.model.TokenResponseSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import static com.artifacts.api.HttpCodes.*;
 
 @Service
 public class GenerateToken {
@@ -29,7 +30,7 @@ public class GenerateToken {
         ResponseEntity<TokenResponseSchema> response = tokenApi.generateTokenTokenPostWithHttpInfo();
         TokenResponseSchema token = response.getBody();
 
-        while (response.getStatusCode() != HttpStatus.OK || token == null) {
+        while (response.getStatusCode() != SUCCESS || token == null) {
             apiResponseLogger.logErrorResponse(logger, response);
             retry.retry();
             response = tokenApi.generateTokenTokenPostWithHttpInfo();
