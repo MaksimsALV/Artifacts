@@ -24,15 +24,18 @@ public class GenerateToken {
         this.retry = retry;
     }
 
-    public ResponseEntity<TokenResponseSchema> generateToken() {
+    public void generateToken() {
         TokenApi tokenApi = new TokenApi(apiClient);
         ResponseEntity<TokenResponseSchema> response = tokenApi.generateTokenTokenPostWithHttpInfo();
+        TokenResponseSchema token = response.getBody();
 
-        while (response.getStatusCode() != HttpStatus.OK) {
+        while (response.getStatusCode() != HttpStatus.OK || token == null) {
             apiResponseLogger.logErrorResponse(logger, response);
             retry.retry();
             response = tokenApi.generateTokenTokenPostWithHttpInfo();
+            token = response.getBody();
         }
-        return response;
+
+        apiClient.setBearerToken(token.getToken());
     }
 }

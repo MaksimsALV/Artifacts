@@ -28,15 +28,15 @@
         </rollingPolicy>
     </appender>
 
-    <appender name="LOGIN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/login.log</file>
+    <appender name="GENERATE_TOKEN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/generate-token.log</file>
 
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/login.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_DIR}/generate-token.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
             <maxHistory>${MAX_HISTORY}</maxHistory>
             <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
@@ -52,7 +52,7 @@
     <logger name="com.artifacts.game.server.service.GenerateToken"
             level="INFO"
             additivity="false">
-        <appender-ref ref="LOGIN_FILE"/>
+        <appender-ref ref="GENERATE_TOKEN_FILE"/>
     </logger>
 
     <root level="INFO">

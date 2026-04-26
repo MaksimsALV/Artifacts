@@ -20,10 +20,14 @@ public class GameLauncher {
     public void gameStart() {
         System.out.println("Starting the game...");
         System.out.println("Getting Server Status...");
+
         if (getServerStatus.serverIsUp()) {
             System.out.println("Server is Up!");
-            System.out.println("Logging in...");
-            // continue with login
+            System.out.println("Generating Token...");
+
+            generateToken.generateToken();
+            System.out.println("Token Generated!");
+            System.out.println("Enjoy the game!");
         } else {
             System.out.println("Server is Down!");
             System.exit(0);
