@@ -3,8 +3,8 @@ package com.artifacts.api.logs;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientResponseException;
 
 @Component
 public class ApiResponseLogger {
@@ -14,13 +14,13 @@ public class ApiResponseLogger {
         this.objectMapper = objectMapper;
     }
 
-    public void logErrorResponse(Logger logger, ResponseEntity<?> response) {
+    public void logErrorResponse(Logger logger, RestClientResponseException e) {
         try {
             logger.error("returned status code {}, Body: {}",
-                    response.getStatusCode(),
-                    prettyJson(response.getBody()));
-        } catch (JsonProcessingException e) {
-            logger.error(e.getMessage());
+                    e.getStatusCode(),
+                    prettyJson(e.getResponseBodyAsString()));
+        } catch (JsonProcessingException jsonException) {
+            logger.error(jsonException.getMessage());
         }
     }
 

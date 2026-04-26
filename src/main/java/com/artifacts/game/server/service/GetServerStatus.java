@@ -7,9 +7,9 @@ import org.openapitools.client.api.ServerDetailsApi;
 import org.openapitools.client.model.StatusResponseSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientResponseException;
 
 import static com.artifacts.api.HttpCodes.*;
 
@@ -28,14 +28,19 @@ public class GetServerStatus {
 
     public ResponseEntity<StatusResponseSchema> getServerStatus() {
         ServerDetailsApi serverDetailsApi = new ServerDetailsApi(apiClient);
-        ResponseEntity<StatusResponseSchema> response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
 
-        while (response.getStatusCode().value() != SUCCESS) {
-            apiResponseLogger.logErrorResponse(logger, response);
-            retry.retry();
-            response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
+        while (true) {
+            try {
+                ResponseEntity<StatusResponseSchema> response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
+
+                if (response.getStatusCode().value() == SUCCESS) {
+                    return response;
+                }
+            } catch (RestClientResponseException e) {
+                apiResponseLogger.logErrorResponse(logger, e);
+                retry.retry();
+            }
         }
-        return response;
     }
 
     public boolean serverIsUp() {

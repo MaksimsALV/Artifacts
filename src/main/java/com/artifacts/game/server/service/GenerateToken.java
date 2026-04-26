@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientResponseException;
 
 import static com.artifacts.api.HttpCodes.*;
 
@@ -27,16 +28,28 @@ public class GenerateToken {
 
     public void generateToken() {
         TokenApi tokenApi = new TokenApi(apiClient);
-        ResponseEntity<TokenResponseSchema> response = tokenApi.generateTokenTokenPostWithHttpInfo();
-        TokenResponseSchema token = response.getBody();
 
-        while (response.getStatusCode().value() != SUCCESS || token == null) {
-            apiResponseLogger.logErrorResponse(logger, response);
-            retry.retry();
-            response = tokenApi.generateTokenTokenPostWithHttpInfo();
-            token = response.getBody();
+        while (true) {
+            try {
+                ResponseEntity<TokenResponseSchema> response = tokenApi.generateTokenTokenPostWithHttpInfo();
+                TokenResponseSchema token = response.getBody();
+
+                if (response.getStatusCode().value() == SUCCESS && token != null) {
+                    apiClient.setBearerToken(token.getToken());
+                    return;
+                }
+            } catch (RestClientResponseException e) {
+                apiResponseLogger.logErrorResponse(logger, e);
+                var responseHttpCode = e.getStatusCode().value();
+
+                if (responseHttpCode == INVALID_PAYLOAD) {
+                    return;
+                } else if (responseHttpCode == TOKEN_GENERATION_FAIL) {
+                    return;
+                } else {
+                    retry.retry();
+                }
+            }
         }
-
-        apiClient.setBearerToken(token.getToken());
     }
 }

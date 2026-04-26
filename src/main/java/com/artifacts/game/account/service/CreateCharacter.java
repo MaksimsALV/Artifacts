@@ -52,11 +52,11 @@ public class CreateCharacter {
                 if (response.getStatusCode().value() == SUCCESS) {
                     return;
                 }
-                apiResponseLogger.logErrorResponse(logger, response);
-                retry.retry();
 
             } catch (RestClientResponseException e) {
+                apiResponseLogger.logErrorResponse(logger, e);
                 var responseHttpCode = e.getStatusCode().value();
+
                 if (responseHttpCode == INVALID_PAYLOAD) {
                     return;
                 } else if (responseHttpCode == CHARACTER_NAME_ALREADY_USED) {
@@ -67,7 +67,7 @@ public class CreateCharacter {
                 } else if (responseHttpCode == ACCOUNT_SKIN_NOT_OWNED) {
                     return;
                 } else {
-                    throw e;
+                    retry.retry();
                 }
             }
         }
