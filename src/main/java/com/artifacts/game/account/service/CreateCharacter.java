@@ -2,6 +2,7 @@ package com.artifacts.game.account.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.game.Events;
+import com.artifacts.game.account.Characters;
 import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.CharactersApi;
@@ -16,7 +17,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientResponseException;
 
 import static com.artifacts.api.HttpCodes.*;
-import static com.artifacts.game.account.Characters.WARRIOR;
+import static com.artifacts.game.account.Characters.*;
 
 @Service
 public class CreateCharacter {
@@ -33,15 +34,19 @@ public class CreateCharacter {
 
     @EventListener(Events.GameLaunchedSuccessfullyEvent.class)
     public void createCharacters() {
-        createCharacterWarrior();
+        createCharacter(WARRIOR);
+        createCharacter(MINER);
+        createCharacter(LUMBERJACK);
+        createCharacter(CHEF);
+        createCharacter(ALCHEMIST);
     }
 
-    public void createCharacterWarrior() {
+    public void createCharacter(Characters character) {
         CharactersApi charactersApi = new CharactersApi(apiClient);
         AddCharacterSchema addCharacterSchema = new AddCharacterSchema();
 
-        addCharacterSchema.setName(WARRIOR.getName());
-        addCharacterSchema.setSkin(WARRIOR.getSkin());
+        addCharacterSchema.setName(character.getName());
+        addCharacterSchema.setSkin(character.getSkin());
 
         var nameSuffix = 1;
 
