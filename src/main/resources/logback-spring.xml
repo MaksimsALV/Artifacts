@@ -43,6 +43,21 @@
         </rollingPolicy>
     </appender>
 
+    <appender name="CREATE_CHARACTER_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/create-character.log</file>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/create-character.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
     <logger name="com.artifacts.game.server.service.GetServerStatus"
             level="INFO"
             additivity="false">
@@ -53,6 +68,12 @@
             level="INFO"
             additivity="false">
         <appender-ref ref="GENERATE_TOKEN_FILE"/>
+    </logger>
+
+    <logger name="com.artifacts.game.account.service.CreateCharacter"
+            level="INFO"
+            additivity="false">
+        <appender-ref ref="CREATE_CHARACTER_FILE"/>
     </logger>
 
     <root level="INFO">

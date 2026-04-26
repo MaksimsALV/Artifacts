@@ -1,6 +1,7 @@
 package com.artifacts.game.account.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.game.Events;
 import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.CharactersApi;
@@ -8,6 +9,7 @@ import org.openapitools.client.model.AddCharacterSchema;
 import org.openapitools.client.model.CharacterResponseSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,7 @@ public class CreateCharacter {
         this.retry = retry;
     }
 
+    @EventListener(Events.GameLaunchedSuccessfullyEvent.class)
     public void createCharacters() {
         createCharacterWarrior();
     }
