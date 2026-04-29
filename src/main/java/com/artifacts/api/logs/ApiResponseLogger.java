@@ -24,6 +24,7 @@ public class ApiResponseLogger {
         }
     }
 
+    //todo need to move this to tools
     public String prettyJson(Object value) throws JsonProcessingException {
         return objectMapper
                 .writerWithDefaultPrettyPrinter()

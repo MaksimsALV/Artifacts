@@ -4,6 +4,7 @@ import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.game.Events;
 import com.artifacts.game.account.Characters;
 import com.artifacts.tools.Retry;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.CharactersApi;
 import org.openapitools.client.model.AddCharacterSchema;
@@ -24,15 +25,22 @@ public class CreateCharacter {
     private final Logger logger = LoggerFactory.getLogger(CreateCharacter.class);
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
+    private final GetAccountCharacters getAccountCharacters;
+    private final GetAccountDetails getAccountDetails;
 
-    public CreateCharacter(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
+    public CreateCharacter(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry, GetAccountCharacters getAccountCharacters, GetAccountDetails getAccountDetails) {
         this.apiClient = apiClient;
         this.apiResponseLogger = apiResponseLogger;
         this.retry = retry;
+        this.getAccountCharacters = getAccountCharacters;
+        this.getAccountDetails = getAccountDetails;
     }
 
     @EventListener(Events.GameLaunchedSuccessfullyEvent.class)
-    public void createCharacters() {
+    public void createCharacters() throws JsonProcessingException {
+        //todo continue with the logic to check if chars with names already exist, and if yes, then skip this step.
+        getAccountCharacters.retrieveAccountCharacters();
+
         createCharacter(WARRIOR);
         createCharacter(MINER);
         createCharacter(LUMBERJACK);
