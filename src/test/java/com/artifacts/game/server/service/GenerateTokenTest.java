@@ -1,7 +1,7 @@
 package com.artifacts.game.server.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
-import com.artifacts.api.service.GenerateToken;
+import com.artifacts.api.service.account.GenerateToken;
 import com.artifacts.tools.Retry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

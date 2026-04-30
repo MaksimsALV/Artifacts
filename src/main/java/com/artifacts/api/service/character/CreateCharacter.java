@@ -1,6 +1,8 @@
-package com.artifacts.api.service;
+package com.artifacts.api.service.character;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.api.service.account.GetAccountCharacters;
+import com.artifacts.api.service.account.GetAccountDetails;
 import com.artifacts.game.Events;
 import com.artifacts.game.account.Characters;
 import com.artifacts.tools.Retry;

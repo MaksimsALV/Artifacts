@@ -64,13 +64,13 @@
         <appender-ref ref="SERVER_STATUS_FILE"/>
     </logger>
 
-    <logger name="com.artifacts.api.service.GenerateToken"
+    <logger name="com.artifacts.api.service.account.GenerateToken"
             level="INFO"
             additivity="false">
         <appender-ref ref="GENERATE_TOKEN_FILE"/>
     </logger>
 
-    <logger name="com.artifacts.api.service.CreateCharacter"
+    <logger name="com.artifacts.api.service.character.CreateCharacter"
             level="INFO"
             additivity="false">
         <appender-ref ref="CREATE_CHARACTER_FILE"/>
