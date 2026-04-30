@@ -4,20 +4,23 @@ import com.artifacts.api.service.account.GetAccountCharacters;
 import com.artifacts.api.service.character.CreateCharacter;
 import com.artifacts.game.Events;
 import com.artifacts.game.account.MyCharacters;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-//todo tests
+//todo tests - try to add also onEvent test
 @Service
 public class CharactersService {
     private final GetAccountCharacters getAccountCharacters;
     private final CreateCharacter createCharacter;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public CharactersService(GetAccountCharacters getAccountCharacters, CreateCharacter createCharacter) {
+    public CharactersService(GetAccountCharacters getAccountCharacters, CreateCharacter createCharacter, ApplicationEventPublisher applicationEventPublisher) {
         this.getAccountCharacters = getAccountCharacters;
         this.createCharacter = createCharacter;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @EventListener(Events.GameLaunchedSuccessfullyEvent.class)
@@ -27,5 +30,6 @@ public class CharactersService {
         Arrays.stream(MyCharacters.values())
                 .filter(character -> !characterNames.contains(character.getName()))
                 .forEach(character -> createCharacter.createCharacter(character));
+        applicationEventPublisher.publishEvent(new Events.AllCharactersAreReadyEvent());
     }
 }
