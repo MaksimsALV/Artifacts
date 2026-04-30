@@ -38,7 +38,7 @@ public class GenerateToken {
                     apiClient.setBearerToken(token.getToken());
                     return;
                 }
-            } catch (RestClientResponseException e) { //todo all exceptions under own exception and extend RestClientResponseException
+            } catch (RestClientResponseException e) {
                 apiResponseLogger.logErrorResponse(logger, e);
                 var responseHttpCode = e.getStatusCode().value();
 
