@@ -13,7 +13,6 @@ import org.springframework.web.client.RestClientResponseException;
 
 import static com.artifacts.api.HttpCodes.*;
 
-//todo tests
 @Service
 public class GetAccountCharacters {
     private final ApiClient apiClient;
