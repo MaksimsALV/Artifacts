@@ -2,7 +2,7 @@ package com.artifacts.game.account;
 
 import org.openapitools.client.model.CharacterSkin;
 
-public enum Characters {
+public enum MyCharacters {
     WARRIOR("Max", CharacterSkin.MEN1),
     MINER("Bjorn", CharacterSkin.MEN2),
     LUMBERJACK("Axel", CharacterSkin.MEN3),
@@ -11,7 +11,7 @@ public enum Characters {
 
     private final String name;
     private final CharacterSkin skin;
-    Characters(String name, CharacterSkin skin) {
+    MyCharacters(String name, CharacterSkin skin) {
         this.name = name;
         this.skin = skin;
     }
