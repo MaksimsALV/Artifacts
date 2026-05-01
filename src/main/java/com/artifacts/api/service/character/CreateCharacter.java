@@ -35,8 +35,6 @@ public class CreateCharacter {
         addCharacterSchema.setName(character.getName());
         addCharacterSchema.setSkin(character.getSkin());
 
-        var nameSuffix = 1;
-
         while (true) {
             try {
                 ResponseEntity<CharacterResponseSchema> response = charactersApi.createCharacterCharactersCreatePostWithHttpInfo(addCharacterSchema);
@@ -52,8 +50,7 @@ public class CreateCharacter {
                 if (responseHttpCode == INVALID_PAYLOAD) {
                     return;
                 } else if (responseHttpCode == CHARACTER_NAME_ALREADY_USED) {
-                    addCharacterSchema.setName(character.getName() + nameSuffix);
-                    nameSuffix++;
+                    return;
                 } else if (responseHttpCode == MAX_CHARACTERS_REACHED) {
                     return;
                 } else if (responseHttpCode == ACCOUNT_SKIN_NOT_OWNED) {
