@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
-//todo tests - try to add also onEvent test
 @Service
 public class CharactersService {
     private final GetAccountCharacters getAccountCharacters;
