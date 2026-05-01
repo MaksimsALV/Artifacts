@@ -49,6 +49,8 @@ public final class HttpCodes {
     public static final int CHARACTER_INVENTORY_FULL = 497;
     public static final int CHARACTER_NOT_FOUND = 498;
     public static final int CHARACTER_IN_COOLDOWN = 499;
+    public static final int NO_PATH_AVAILABLE_TO_THE_DESTINATION_MAP = 595;
+    public static final int THE_MAP_IS_BLOCKED_AND_CANNOT_BE_ACCESSED = 596;
 
     // Item Error Codes
     public static final int ITEM_INSUFFICIENT_QUANTITY = 471;

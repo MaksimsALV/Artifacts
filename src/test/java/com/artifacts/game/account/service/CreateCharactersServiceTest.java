@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.*;
 
-class CharactersServiceTest {
+class CreateCharactersServiceTest {
 
     @Test
     void allCharactersShouldBeReady_whenFlowEnds() {
@@ -28,10 +28,10 @@ class CharactersServiceTest {
         when(getAccountCharacters.retrieveAccountCharacterNamesAsList())
                 .thenReturn(characterNames);
 
-        CharactersService charactersService =
-                new CharactersService(getAccountCharacters, createCharacter, applicationEventPublisher);
+        CreateCharactersService createCharactersService =
+                new CreateCharactersService(getAccountCharacters, createCharacter, applicationEventPublisher);
 
-        charactersService.createCharactersAtGameLaunchIfNotExist();
+        createCharactersService.createCharactersAtGameLaunchIfNotExist();
 
         verify(applicationEventPublisher)
                 .publishEvent(any(Events.AllCharactersAreReadyEvent.class));
@@ -50,10 +50,10 @@ class CharactersServiceTest {
         when(getAccountCharacters.retrieveAccountCharacterNamesAsList())
                 .thenReturn(characterNames);
 
-        CharactersService charactersService =
-                new CharactersService(getAccountCharacters, createCharacter, applicationEventPublisher);
+        CreateCharactersService createCharactersService =
+                new CreateCharactersService(getAccountCharacters, createCharacter, applicationEventPublisher);
 
-        charactersService.createCharactersAtGameLaunchIfNotExist();
+        createCharactersService.createCharactersAtGameLaunchIfNotExist();
 
         verify(createCharacter, never()).createCharacter(any(MyCharacters.class));
     }
@@ -77,10 +77,10 @@ class CharactersServiceTest {
         when(getAccountCharacters.retrieveAccountCharacterNamesAsList())
                 .thenReturn(characterNames);
 
-        CharactersService charactersService =
-                new CharactersService(getAccountCharacters, createCharacter, applicationEventPublisher);
+        CreateCharactersService createCharactersService =
+                new CreateCharactersService(getAccountCharacters, createCharacter, applicationEventPublisher);
 
-        charactersService.createCharactersAtGameLaunchIfNotExist();
+        createCharactersService.createCharactersAtGameLaunchIfNotExist();
 
         verify(createCharacter, times(1)).createCharacter(maxCharacter);
         verifyNoMoreInteractions(createCharacter);

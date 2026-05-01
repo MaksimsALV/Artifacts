@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 @Service
-public class CharactersService {
+public class CreateCharactersService {
     private final GetAccountCharacters getAccountCharacters;
     private final CreateCharacter createCharacter;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public CharactersService(GetAccountCharacters getAccountCharacters, CreateCharacter createCharacter, ApplicationEventPublisher applicationEventPublisher) {
+    public CreateCharactersService(GetAccountCharacters getAccountCharacters, CreateCharacter createCharacter, ApplicationEventPublisher applicationEventPublisher) {
         this.getAccountCharacters = getAccountCharacters;
         this.createCharacter = createCharacter;
         this.applicationEventPublisher = applicationEventPublisher;
