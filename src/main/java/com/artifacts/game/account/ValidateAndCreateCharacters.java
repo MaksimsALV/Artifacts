@@ -1,9 +1,8 @@
-package com.artifacts.game.account.service;
+package com.artifacts.game.account;
 
 import com.artifacts.api.service.account.GetAccountCharacters;
 import com.artifacts.api.service.character.CreateCharacter;
 import com.artifacts.game.Events;
-import com.artifacts.game.account.MyCharacters;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -11,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 @Service
-public class CreateCharactersService {
+public class ValidateAndCreateCharacters {
     private final GetAccountCharacters getAccountCharacters;
     private final CreateCharacter createCharacter;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public CreateCharactersService(GetAccountCharacters getAccountCharacters, CreateCharacter createCharacter, ApplicationEventPublisher applicationEventPublisher) {
+    public ValidateAndCreateCharacters(GetAccountCharacters getAccountCharacters, CreateCharacter createCharacter, ApplicationEventPublisher applicationEventPublisher) {
         this.getAccountCharacters = getAccountCharacters;
         this.createCharacter = createCharacter;
         this.applicationEventPublisher = applicationEventPublisher;
