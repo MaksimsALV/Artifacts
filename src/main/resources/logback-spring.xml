@@ -103,6 +103,21 @@
         </rollingPolicy>
     </appender>
 
+    <appender name="GET_ALL_MAPS_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/get-all-maps.log</file>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/get-all-maps.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
     <logger name="com.artifacts.api.service.GetServerStatus"
             level="INFO"
             additivity="false">
@@ -137,6 +152,12 @@
             level="INFO"
             additivity="false">
         <appender-ref ref="ACTION_MOVE_FILE"/>
+    </logger>
+
+    <logger name="com.artifacts.api.service.maps.GetAllMaps"
+            level="INFO"
+            additivity="false">
+        <appender-ref ref="GET_ALL_MAPS_FILE"/>
     </logger>
 
     <root level="INFO">
