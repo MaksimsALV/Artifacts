@@ -32,7 +32,7 @@ public class GetAllMaps {
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(null, null, null, null, null, 10000);
+                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(null, null, null, null, null, null, null, 10000);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

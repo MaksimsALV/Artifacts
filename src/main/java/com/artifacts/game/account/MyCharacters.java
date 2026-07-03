@@ -1,17 +1,17 @@
 package com.artifacts.game.account;
 
-import org.openapitools.client.model.CharacterSkin;
+//import org.openapitools.client.model.CharacterSkin;
 
 public enum MyCharacters {
-    WARRIOR("Max", CharacterSkin.MEN1),
-    MINER("Bjorn", CharacterSkin.MEN2),
-    LUMBERJACK("Axel", CharacterSkin.MEN3),
-    CHEF("Sushimiko", CharacterSkin.WOMEN1),
-    ALCHEMIST("Linzy", CharacterSkin.WOMEN2);
+    WARRIOR("Max", "men1"),
+    MINER("Bjorn", "men2"),
+    LUMBERJACK("Axel", "men3"),
+    CHEF("Sushimiko", "women1"),
+    ALCHEMIST("Linzy", "women2");
 
     private final String name;
-    private final CharacterSkin skin;
-    MyCharacters(String name, CharacterSkin skin) {
+    private final String skin;
+    MyCharacters(String name, String skin) {
         this.name = name;
         this.skin = skin;
     }
@@ -20,7 +20,7 @@ public enum MyCharacters {
         return name;
     }
 
-    public CharacterSkin getSkin() {
+    public String getSkin() {
         return skin;
     }
 }
