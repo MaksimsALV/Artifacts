@@ -1,5 +1,7 @@
 package com.artifacts.game;
 
+import com.artifacts.api.service.account.GetBankItems;
+import com.artifacts.api.service.mycharacters.GetMyCharacters;
 import com.artifacts.game.account.ValidateAndCreateCharacters;
 import com.artifacts.game.launcher.GameLauncher;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -10,20 +12,40 @@ import org.springframework.stereotype.Component;
 public class SequenceOrchestrator {
     private final GameLauncher gameLauncher;
     private final ValidateAndCreateCharacters validateAndCreateCharacters;
+    private final GetMyCharacters getMyCharacters;
+    private final GetBankItems getBankItems;
 
-    public SequenceOrchestrator(GameLauncher gameLauncher, ValidateAndCreateCharacters validateAndCreateCharacters) {
+    public SequenceOrchestrator(
+            GameLauncher gameLauncher,
+            ValidateAndCreateCharacters validateAndCreateCharacters,
+            GetMyCharacters getMyCharacters,
+            GetBankItems getBankItems) {
         this.gameLauncher = gameLauncher;
         this.validateAndCreateCharacters = validateAndCreateCharacters;
+        this.getMyCharacters = getMyCharacters;
+        this.getBankItems = getBankItems;
     }
 
+    // Phase 1: Game Launch, Validate and Create characters
     @EventListener(ApplicationReadyEvent.class)
-    public void execute() {
+    public void executePhase1() {
         // Step 1: Launch the game
         gameLauncher.gameStart();
-        System.out.println("Step 1 Completed!");
 
         // Step 2: Validate and Create characters
         validateAndCreateCharacters.createCharactersAtGameLaunchIfNotExist();
-        System.out.println("Step 2 Completed!");
+
+        System.out.println("Phase 1 Completed!");
+        System.out.println("Executing Phase 2...");
+        executePhase2();
+    }
+
+    // Phase 2: Get All My data (characters, banks, inventories)
+    public void executePhase2() {
+        // Step 1: Get All My characters
+        getMyCharacters.retrieveMyCharacters();
+
+        // Step 2: Get Bank Items
+        getBankItems.retrieveBankItems();
     }
 }
