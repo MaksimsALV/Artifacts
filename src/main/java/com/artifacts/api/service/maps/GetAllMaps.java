@@ -39,7 +39,7 @@ public class GetAllMaps {
                 }
 
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(logger, e);
+                apiResponseLogger.logErrorResponse(e);
                 retry.retry();
             }
         }

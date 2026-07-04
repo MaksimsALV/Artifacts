@@ -1,6 +1,5 @@
 package com.artifacts.game.launcher;
 
-import com.artifacts.game.Events.*;
 import com.artifacts.api.service.account.GenerateToken;
 import com.artifacts.api.service.GetServerStatus;
 import com.artifacts.game.account.ValidateAndCreateCharacters;

@@ -20,8 +20,10 @@ public class SequenceOrchestrator {
     public void execute() {
         // Step 1: Launch the game
         gameLauncher.gameStart();
+        System.out.println("Step 1 Completed!");
 
-        // Step 2:  Validate and Create characters
+        // Step 2: Validate and Create characters
         validateAndCreateCharacters.createCharactersAtGameLaunchIfNotExist();
+        System.out.println("Step 2 Completed!");
     }
 }

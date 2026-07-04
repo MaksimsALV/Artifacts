@@ -22,5 +22,6 @@ public class ValidateAndCreateCharacters {
         Arrays.stream(MyCharacters.values())
                 .filter(character -> !characterNames.contains(character.getName()))
                 .forEach(character -> createCharacter.createCharacter(character));
+        System.out.println("All characters are ready");
     }
 }

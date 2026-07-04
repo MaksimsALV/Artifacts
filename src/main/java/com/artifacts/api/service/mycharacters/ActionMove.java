@@ -40,7 +40,7 @@ public class ActionMove {
                     return response;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(logger, e);
+                apiResponseLogger.logErrorResponse(e);
                 var responseHttpCode = e.getStatusCode().value();
 
                 if (responseHttpCode == NOT_FOUND ||
