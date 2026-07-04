@@ -12,12 +12,12 @@ import org.springframework.web.client.RestClientResponseException;
 import static com.artifacts.api.HttpCodes.*;
 
 @Service
-public class ActionGather {
+public class ActionGathering {
     private final ApiClient apiClient;
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
 
-    public ActionGather(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
+    public ActionGathering(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
         this.apiClient = apiClient;
         this.apiResponseLogger = apiResponseLogger;
         this.retry = retry;
