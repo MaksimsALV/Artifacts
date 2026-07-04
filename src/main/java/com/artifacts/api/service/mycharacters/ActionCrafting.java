@@ -35,7 +35,7 @@ public class ActionCrafting {
                     return response;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Action Crafting");
                 var responseHttpCode = e.getStatusCode().value();
 
                 if (responseHttpCode == NOT_FOUND ||

@@ -37,7 +37,7 @@ public class ActionWithdrawBankItem {
                     return response;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Action Withdraw Bank Item");
                 var responseHttpCode = e.getStatusCode().value();
 
                 if (responseHttpCode == NOT_FOUND ||

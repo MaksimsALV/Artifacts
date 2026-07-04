@@ -36,7 +36,7 @@ public class ActionDepositBankItem {
                     return response;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Action Deposit Bank Item");
                 var responseHttpCode = e.getStatusCode().value();
 
                 if (responseHttpCode == NOT_FOUND ||

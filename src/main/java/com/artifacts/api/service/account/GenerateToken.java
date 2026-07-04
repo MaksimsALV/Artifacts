@@ -39,7 +39,7 @@ public class GenerateToken {
                     return;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Generate Token");
                 var responseHttpCode = e.getStatusCode().value();
 
                 if (responseHttpCode == INVALID_PAYLOAD) {

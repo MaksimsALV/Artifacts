@@ -27,19 +27,19 @@ public class GetAllMaps {
         this.retry = retry;
     }
 
-    public ResponseEntity<StaticDataPageMapSchema> retrieveAllMaps() { //todo need to check if <T> is correct one here, maybe should be StaticDataPageMapSchema or smth
+    public ResponseEntity<StaticDataPageMapSchema> retrieveAllMaps(String contentCode) { //todo need to check if <T> is correct one here, maybe should be StaticDataPageMapSchema or smth
         MapsApi mapsApi = new MapsApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(null, null, null, null, null, null, null, 10000);
+                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(null, null, contentCode, null, null, null, null, 10000);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
                 }
 
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Get All Maps");
                 retry.retry();
             }
         }

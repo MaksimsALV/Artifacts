@@ -38,7 +38,7 @@ public class GetAccountDetails {
                 }
 
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Get Account Details");
                 retry.retry();
             }
         }

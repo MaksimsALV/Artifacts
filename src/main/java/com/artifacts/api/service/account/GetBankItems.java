@@ -35,7 +35,7 @@ public class GetBankItems {
                 }
 
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Get Bank Items");
                 retry.retry();
             }
         }

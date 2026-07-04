@@ -39,7 +39,7 @@ public class GetMyCharacters {
                 }
 
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Get My Characters");
                 retry.retry();
             }
         }

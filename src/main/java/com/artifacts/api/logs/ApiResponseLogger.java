@@ -17,9 +17,10 @@ public class ApiResponseLogger {
         this.beautify = beautify;
     }
 
-    public void logErrorResponse(RestClientResponseException e) {
+    public void logErrorResponse(RestClientResponseException e, String apiName) {
         try {
-            logger.error("returned status code {}, Body: {}",
+            logger.error("{} returned status code {}, Body: {}",
+                    apiName,
                     e.getStatusCode(),
                     beautify.prettyJson(e.getResponseBodyAsString()));
         } catch (JsonProcessingException jsonException) {

@@ -43,7 +43,7 @@ public class GetAccountCharacters {
                     return response;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Get Account Characters");
                 retry.retry();
             }
         }

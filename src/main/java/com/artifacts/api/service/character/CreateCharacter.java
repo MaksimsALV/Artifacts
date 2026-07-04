@@ -44,7 +44,7 @@ public class CreateCharacter {
                 }
 
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Create Character");
                 var responseHttpCode = e.getStatusCode().value();
 
                 if (responseHttpCode == INVALID_PAYLOAD) {

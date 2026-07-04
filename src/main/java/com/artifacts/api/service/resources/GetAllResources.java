@@ -41,7 +41,7 @@ public class GetAllResources {
                 }
 
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Get All Resources");
                 retry.retry();
             }
         }

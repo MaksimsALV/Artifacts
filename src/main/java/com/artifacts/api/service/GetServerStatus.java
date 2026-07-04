@@ -37,7 +37,7 @@ public class GetServerStatus {
                     return response;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e);
+                apiResponseLogger.logErrorResponse(e, "Get Server Status");
                 retry.retry();
             }
         }
