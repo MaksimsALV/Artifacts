@@ -9,6 +9,7 @@ import com.artifacts.game.account.MyCharacters;
 import com.artifacts.game.resources.Validate;
 import com.artifacts.tools.Sleep;
 import org.openapitools.client.model.DestinationSchema;
+import org.openapitools.client.model.MapContentType;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,22 +45,45 @@ public class MiningResources {
             var missingResourceDestination = retrieveDestinationForMissingResource(missingResourceCode);
 
             var move = actionMove.move(MyCharacters.MINER, missingResourceDestination);
-            if (actionMove.moveSuccess(move)) {
-                sleep.sleep(actionMove.cooldownSecondsAfterMoveSuccess(move));
+            if (actionMove.success(move)) {
+                sleep.sleep(actionMove.cooldown(move));
             }
 
             while (true) {
                 var gather = actionGathering.gather(MyCharacters.MINER.getName());
-                if (actionGathering.gatherSuccess(gather)) {
-                    sleep.sleep(actionGathering.cooldownSecondsAfterGatherSuccess(gather));
+                if (actionGathering.success(gather)) {
+                    sleep.sleep(actionGathering.cooldown(gather));
+                }
+                if (actionGathering.inventoryFull(gather)) {
+                    var forestMainBank = retrieveDestinationForForestMainBank();
+                    move = actionMove.move(MyCharacters.MINER, forestMainBank);
+                    if (actionMove.success(move)) {
+                        sleep.sleep(actionMove.cooldown(move));
+                        //retrieve character inventory
+                            //deposit
+                                //start again
+                    }
                 }
             }
         }
     }
 
     private DestinationSchema retrieveDestinationForMissingResource(String missingResourceCode) {
-        var maps = getAllMaps.retrieveAllMaps(missingResourceCode);
+        var maps = getAllMaps.retrieveAllMaps(null, missingResourceCode);
         var locationData = maps.getBody().getData().getFirst();
+        return new DestinationSchema()
+                .x(locationData.getX())
+                .y(locationData.getY())
+                .mapId(locationData.getMapId());
+    }
+
+    private DestinationSchema retrieveDestinationForForestMainBank() {
+        var maps = getAllMaps.retrieveAllMaps(MapContentType.BANK, null);
+        var locationData = maps.getBody().getData().stream()
+                .filter(forestMainBank -> forestMainBank.getMapId() == 334)
+                .findFirst()
+                .orElseThrow();
+
         return new DestinationSchema()
                 .x(locationData.getX())
                 .y(locationData.getY())
