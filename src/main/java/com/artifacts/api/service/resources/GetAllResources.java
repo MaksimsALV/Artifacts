@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientResponseException;
 
+import java.util.List;
+
 import static com.artifacts.api.HttpCodes.SUCCESS;
 
 @Service
@@ -46,4 +48,10 @@ public class GetAllResources {
             }
         }
     }
+
+//    public List<String> retrieveAllResourceCodesAsList(GatheringSkill skill) {
+//        var allResources = retrieveAllResources(skill) {
+//
+//        }
+//    }
 }

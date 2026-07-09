@@ -1,7 +1,9 @@
 package com.artifacts.api.service;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.tools.Beautify;
 import com.artifacts.tools.Retry;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.ServerDetailsApi;
 import org.openapitools.client.model.StatusResponseSchema;
@@ -19,11 +21,13 @@ public class GetServerStatus {
     private final Logger logger =  LoggerFactory.getLogger(GetServerStatus.class);
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
+    private final Beautify beautify;
 
-    public GetServerStatus(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
+    public GetServerStatus(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry, Beautify beautify) {
         this.apiClient = apiClient;
         this.apiResponseLogger = apiResponseLogger;
         this.retry = retry;
+        this.beautify = beautify;
     }
 
     public ResponseEntity<StatusResponseSchema> getServerStatus() {
@@ -32,10 +36,15 @@ public class GetServerStatus {
         while (true) {
             try {
                 ResponseEntity<StatusResponseSchema> response = serverDetailsApi.getServerDetailsGetWithHttpInfo();
+//                System.out.println(beautify.prettyJson(response.getBody()));
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
                 }
+
+//            } catch (JsonProcessingException e) {
+//                logger.error("Failed to serialize response", e);
+
             } catch (RestClientResponseException e) {
                 apiResponseLogger.logErrorResponse(e, "Get Server Status");
                 retry.retry();
