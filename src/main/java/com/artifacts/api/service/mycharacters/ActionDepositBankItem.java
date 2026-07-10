@@ -1,6 +1,7 @@
 package com.artifacts.api.service.mycharacters;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.game.account.MyCharacters;
 import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MyCharactersApi;
@@ -25,12 +26,12 @@ public class ActionDepositBankItem {
         this.retry = retry;
     }
 
-    public ResponseEntity<BankItemTransactionResponseSchema> deposit(String characterName, List<SimpleItemSchema> items) {
+    public ResponseEntity<BankItemTransactionResponseSchema> deposit(MyCharacters characters, List<SimpleItemSchema> items) {
         MyCharactersApi myCharactersApi = new MyCharactersApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<BankItemTransactionResponseSchema> response = myCharactersApi.actionDepositBankItemMyNameActionBankDepositItemPostWithHttpInfo(characterName, items);
+                ResponseEntity<BankItemTransactionResponseSchema> response = myCharactersApi.actionDepositBankItemMyNameActionBankDepositItemPostWithHttpInfo(characters.getName(), items);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
@@ -55,5 +56,12 @@ public class ActionDepositBankItem {
                 }
             }
         }
+    }
+    public boolean success(ResponseEntity<BankItemTransactionResponseSchema> response) {
+        return response.getStatusCode().value() == SUCCESS;
+    }
+
+    public int cooldown(ResponseEntity<BankItemTransactionResponseSchema> response) {
+        return response.getBody().getData().getCooldown().getRemainingSeconds();
     }
 }

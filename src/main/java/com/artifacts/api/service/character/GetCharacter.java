@@ -1,6 +1,7 @@
 package com.artifacts.api.service.character;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.game.account.MyCharacters;
 import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.CharactersApi;
@@ -23,12 +24,12 @@ public class GetCharacter {
         this.retry = retry;
     }
 
-    public ResponseEntity<CharacterResponseSchema> retrieveCharacter(String characterName) {
+    public ResponseEntity<CharacterResponseSchema> retrieveCharacter(MyCharacters character) {
         CharactersApi charactersApi = new CharactersApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<CharacterResponseSchema> response = charactersApi.getCharacterCharactersNameGetWithHttpInfo(characterName);
+                ResponseEntity<CharacterResponseSchema> response = charactersApi.getCharacterCharactersNameGetWithHttpInfo(character.getName());
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

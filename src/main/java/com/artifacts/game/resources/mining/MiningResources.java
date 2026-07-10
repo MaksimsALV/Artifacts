@@ -1,7 +1,9 @@
 package com.artifacts.game.resources.mining;
 
 import com.artifacts.api.service.account.GetBankItems;
+import com.artifacts.api.service.character.GetCharacter;
 import com.artifacts.api.service.maps.GetAllMaps;
+import com.artifacts.api.service.mycharacters.ActionDepositBankItem;
 import com.artifacts.api.service.mycharacters.ActionGathering;
 import com.artifacts.api.service.mycharacters.ActionMove;
 import com.artifacts.api.service.resources.GetAllResources;
@@ -10,15 +12,20 @@ import com.artifacts.game.resources.Validate;
 import com.artifacts.tools.Sleep;
 import org.openapitools.client.model.DestinationSchema;
 import org.openapitools.client.model.MapContentType;
+import org.openapitools.client.model.SimpleItemSchema;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MiningResources {
     private final GetBankItems getBankItems;
     private final GetAllResources getAllResources;
     private final GetAllMaps getAllMaps;
+    private final GetCharacter getCharacter;
     private final ActionMove actionMove;
     private final ActionGathering actionGathering;
+    private final ActionDepositBankItem actionDepositBankItem;
     private final Sleep sleep;
     private final Validate validate;
 
@@ -26,42 +33,55 @@ public class MiningResources {
             GetBankItems getBankItems,
             GetAllResources getAllResources,
             GetAllMaps getAllMaps,
+            GetCharacter getCharacter,
             ActionMove actionMove,
             ActionGathering actionGathering,
+            ActionDepositBankItem actionDepositBankItem,
             Sleep sleep,
             Validate validate) {
         this.getBankItems = getBankItems;
         this.getAllResources = getAllResources;
         this.getAllMaps = getAllMaps;
+        this.getCharacter = getCharacter;
         this.actionMove = actionMove;
         this.actionGathering = actionGathering;
+        this.actionDepositBankItem = actionDepositBankItem;
         this.sleep = sleep;
         this.validate = validate;
     }
 
     public void gatherMiningResource() {
-        var missingResourceCode = validate.validateResourceStock();
-        if (missingResourceCode != null) {
-            var missingResourceDestination = retrieveDestinationForMissingResource(missingResourceCode);
+        while (true) {
+            var missingResourceCode = validate.validateResourceStock();
+            if (missingResourceCode != null) {
+                var missingResourceDestination = retrieveDestinationForMissingResource(missingResourceCode);
 
-            var move = actionMove.move(MyCharacters.MINER, missingResourceDestination);
-            if (actionMove.success(move)) {
-                sleep.sleep(actionMove.cooldown(move));
-            }
+                moveToDestination(MyCharacters.MINER, missingResourceDestination);
 
-            while (true) {
-                var gather = actionGathering.gather(MyCharacters.MINER.getName());
-                if (actionGathering.success(gather)) {
-                    sleep.sleep(actionGathering.cooldown(gather));
-                }
-                if (actionGathering.inventoryFull(gather)) {
-                    var forestMainBank = retrieveDestinationForForestMainBank();
-                    move = actionMove.move(MyCharacters.MINER, forestMainBank);
-                    if (actionMove.success(move)) {
-                        sleep.sleep(actionMove.cooldown(move));
-                        //retrieve character inventory
-                            //deposit
-                                //start again
+                while (true) {
+                    var gather = actionGathering.gather(MyCharacters.MINER);
+                    if (actionGathering.success(gather)) {
+                        sleep.sleep(actionGathering.cooldown(gather));
+                    }
+                    if (actionGathering.inventoryFull(gather)) {
+                        var forestMainBank = retrieveDestinationForForestMainBank();
+                        moveToDestination(MyCharacters.MINER, forestMainBank); {
+                            var characterData = getCharacter.retrieveCharacter(MyCharacters.MINER);
+                            List<SimpleItemSchema> itemsDepositPayload = characterData.getBody().getData().getInventory().stream()
+                                    .filter(nonEmptyItem -> nonEmptyItem.getQuantity() > 0)
+                                    .map(item -> {
+                                        SimpleItemSchema payload = new SimpleItemSchema();
+                                        payload.setCode(item.getCode());
+                                        payload.setQuantity(item.getQuantity());
+                                        return payload;
+                                    })
+                                    .toList();
+                            var deposit = actionDepositBankItem.deposit(MyCharacters.MINER, itemsDepositPayload);
+                            if (actionDepositBankItem.success(deposit)) {
+                                sleep.sleep(actionDepositBankItem.cooldown(deposit));
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -88,5 +108,12 @@ public class MiningResources {
                 .x(locationData.getX())
                 .y(locationData.getY())
                 .mapId(locationData.getMapId());
+    }
+
+    private void moveToDestination(MyCharacters character, DestinationSchema destination) {
+        var move = actionMove.move(character, destination);
+        if (actionMove.success(move)) {
+            sleep.sleep(actionMove.cooldown(move));
+        }
     }
 }

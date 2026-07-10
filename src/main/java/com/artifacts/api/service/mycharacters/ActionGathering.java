@@ -1,6 +1,7 @@
 package com.artifacts.api.service.mycharacters;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.game.account.MyCharacters;
 import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MyCharactersApi;
@@ -23,12 +24,12 @@ public class ActionGathering {
         this.retry = retry;
     }
 
-    public ResponseEntity<SkillResponseSchema> gather(String characterName) {
+    public ResponseEntity<SkillResponseSchema> gather(MyCharacters character) {
         MyCharactersApi myCharactersApi = new MyCharactersApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<SkillResponseSchema> response = myCharactersApi.actionGatheringMyNameActionGatheringPostWithHttpInfo(characterName);
+                ResponseEntity<SkillResponseSchema> response = myCharactersApi.actionGatheringMyNameActionGatheringPostWithHttpInfo(character.getName());
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
@@ -45,6 +46,7 @@ public class ActionGathering {
                         responseHttpCode == CHARACTER_NOT_FOUND ||
                         responseHttpCode == CHARACTER_IN_COOLDOWN ||
                         responseHttpCode == NO_PATH_AVAILABLE_TO_THE_DESTINATION_MAP ||
+                        responseHttpCode == CHARACTER_INVENTORY_FULL ||
                         responseHttpCode == THE_MAP_IS_BLOCKED_AND_CANNOT_BE_ACCESSED) {
 
                     return ResponseEntity.status(responseHttpCode).build();

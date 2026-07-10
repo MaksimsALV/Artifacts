@@ -61,6 +61,7 @@ public class SequenceOrchestrator {
     }
 
     public void executePhase3() {
+        //todo if validateresoursestockistrue then gatherminingresource (need to convert to boolean)
         validate.validateResourceStock();
         miningResources.gatherMiningResource();
     }
