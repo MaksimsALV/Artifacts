@@ -37,6 +37,8 @@ public class ValidateResourceStock {
     public List<String> retrieveResourceCodesAsList(GatheringSkill skill) {
         return getAllResources.retrieveAllResources(skill).getBody().getData().stream()
                 .map(ResourceSchema::getCode)
+                //todo this is a temporary hardcoded ignore list for now, to avoid going into the underground/other zones till code supports that
+                .filter(code -> !ignoredResourceCodes().contains(code))
                 .toList();
     }
 
@@ -48,5 +50,23 @@ public class ValidateResourceStock {
                         SimpleItemSchema::getCode,
                         SimpleItemSchema::getQuantity
                 ));
+    }
+
+    public List<String> ignoredResourceCodes() {
+        return List.of(
+                "gold_rocks",
+                "strange_rocks",
+                "mithril_rocks",
+                "adamantite_rocks",
+                "magic_tree",
+                "maple_tree",
+                "palm_tree",
+                "swordfish_spot",
+                "lava_fish_spot",
+                "nettle",
+                "glowstem",
+                "enchanted_mushroom",
+                "torch_cactus"
+                );
     }
 }
