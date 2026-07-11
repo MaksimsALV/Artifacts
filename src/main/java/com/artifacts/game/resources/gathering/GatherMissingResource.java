@@ -10,6 +10,7 @@ import com.artifacts.game.resources.ValidateResourceStock;
 import com.artifacts.tools.Sleep;
 import org.openapitools.client.model.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class GatherMissingResource {
         this.validateResourceStock = validateResourceStock;
     }
 
+    @Async
     public void gatherMissingResource(MyCharacters character, GatheringSkill skill) {
         while (true) {
             var missingResourceCode = validateResourceStock.missingResourceCode(skill);

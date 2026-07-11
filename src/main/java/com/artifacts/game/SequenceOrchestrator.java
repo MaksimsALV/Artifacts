@@ -66,5 +66,14 @@ public class SequenceOrchestrator {
         if (validateResourceStock.resourceStockHasMissingItems(GatheringSkill.MINING)) {
             gatherMissingResource.gatherMissingResource(MyCharacters.MINER, GatheringSkill.MINING);
         }
+        if (validateResourceStock.resourceStockHasMissingItems(GatheringSkill.WOODCUTTING)) {
+            gatherMissingResource.gatherMissingResource(MyCharacters.LUMBERJACK, GatheringSkill.WOODCUTTING);
+        }
+        if (validateResourceStock.resourceStockHasMissingItems(GatheringSkill.FISHING)) {
+            gatherMissingResource.gatherMissingResource(MyCharacters.CHEF, GatheringSkill.FISHING);
+        }
+        if (validateResourceStock.resourceStockHasMissingItems(GatheringSkill.ALCHEMY)) {
+            gatherMissingResource.gatherMissingResource(MyCharacters.ALCHEMIST, GatheringSkill.ALCHEMY);
+        }
     }
 }
