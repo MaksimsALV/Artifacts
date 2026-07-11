@@ -12,22 +12,32 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class Validate {
+public class ValidateResourceStock {
     private final GetBankItems getBankItems;
     private final GetAllResources getAllResources;
 
-    public Validate(GetBankItems getBankItems, GetAllResources getAllResources) {
+    public ValidateResourceStock(GetBankItems getBankItems, GetAllResources getAllResources) {
         this.getBankItems = getBankItems;
         this.getAllResources = getAllResources;
     }
 
-    public String validateResourceStock() {
-        var allMiningResources = retrieveAllMiningResourceCodesAsList();
-        var allBankItems = retrieveAllResourcesFromBankAsMap();
+    public boolean resourceStockHasMissingItems(GatheringSkill skill) {
+        return missingResourceCode(skill) != null;
+    }
 
-        return allMiningResources.stream().filter(resourceCode -> allBankItems.getOrDefault(resourceCode, 0) < 1000)
+    public String missingResourceCode(GatheringSkill skill) {
+        var resources = retrieveResourceCodesAsList(skill);
+        var bankItems = retrieveAllResourcesFromBankAsMap();
+
+        return resources.stream().filter(resourceCode -> bankItems.getOrDefault(resourceCode, 0) < 1000)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<String> retrieveResourceCodesAsList(GatheringSkill skill) {
+        return getAllResources.retrieveAllResources(skill).getBody().getData().stream()
+                .map(ResourceSchema::getCode)
+                .toList();
     }
 
     public Map<String, Integer> retrieveAllResourcesFromBankAsMap() {
@@ -38,12 +48,5 @@ public class Validate {
                         SimpleItemSchema::getCode,
                         SimpleItemSchema::getQuantity
                 ));
-    }
-
-    public List<String> retrieveAllMiningResourceCodesAsList() {
-        var allMiningResources = getAllResources.retrieveAllResources(GatheringSkill.MINING);
-        return allMiningResources.getBody().getData().stream()
-                .map(ResourceSchema::getCode)
-                .toList();
     }
 }

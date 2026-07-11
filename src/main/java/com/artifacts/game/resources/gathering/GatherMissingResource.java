@@ -1,4 +1,4 @@
-package com.artifacts.game.resources.mining;
+package com.artifacts.game.resources.gathering;
 
 import com.artifacts.api.service.account.GetBankItems;
 import com.artifacts.api.service.character.GetCharacter;
@@ -8,9 +8,10 @@ import com.artifacts.api.service.mycharacters.ActionGathering;
 import com.artifacts.api.service.mycharacters.ActionMove;
 import com.artifacts.api.service.resources.GetAllResources;
 import com.artifacts.game.account.MyCharacters;
-import com.artifacts.game.resources.Validate;
+import com.artifacts.game.resources.ValidateResourceStock;
 import com.artifacts.tools.Sleep;
 import org.openapitools.client.model.DestinationSchema;
+import org.openapitools.client.model.GatheringSkill;
 import org.openapitools.client.model.MapContentType;
 import org.openapitools.client.model.SimpleItemSchema;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MiningResources {
+public class GatherMissingResource {
     private final GetBankItems getBankItems;
     private final GetAllResources getAllResources;
     private final GetAllMaps getAllMaps;
@@ -27,9 +28,9 @@ public class MiningResources {
     private final ActionGathering actionGathering;
     private final ActionDepositBankItem actionDepositBankItem;
     private final Sleep sleep;
-    private final Validate validate;
+    private final ValidateResourceStock validateResourceStock;
 
-    public MiningResources(
+    public GatherMissingResource(
             GetBankItems getBankItems,
             GetAllResources getAllResources,
             GetAllMaps getAllMaps,
@@ -38,7 +39,7 @@ public class MiningResources {
             ActionGathering actionGathering,
             ActionDepositBankItem actionDepositBankItem,
             Sleep sleep,
-            Validate validate) {
+            ValidateResourceStock validateResourceStock) {
         this.getBankItems = getBankItems;
         this.getAllResources = getAllResources;
         this.getAllMaps = getAllMaps;
@@ -47,26 +48,27 @@ public class MiningResources {
         this.actionGathering = actionGathering;
         this.actionDepositBankItem = actionDepositBankItem;
         this.sleep = sleep;
-        this.validate = validate;
+        this.validateResourceStock = validateResourceStock;
     }
 
-    public void gatherMiningResource() {
+    public void gatherMissingResource(MyCharacters character, GatheringSkill skill) {
         while (true) {
-            var missingResourceCode = validate.validateResourceStock();
+            var missingResourceCode = validateResourceStock.missingResourceCode(skill);
             if (missingResourceCode != null) {
                 var missingResourceDestination = retrieveDestinationForMissingResource(missingResourceCode);
 
-                moveToDestination(MyCharacters.MINER, missingResourceDestination);
+                moveToDestination(character, missingResourceDestination);
 
                 while (true) {
-                    var gather = actionGathering.gather(MyCharacters.MINER);
+                    var gather = actionGathering.gather(character);
+                    //todo need to do this as funcitonal function
                     if (actionGathering.success(gather)) {
                         sleep.sleep(actionGathering.cooldown(gather));
                     }
                     if (actionGathering.inventoryFull(gather)) {
                         var forestMainBank = retrieveDestinationForForestMainBank();
-                        moveToDestination(MyCharacters.MINER, forestMainBank); {
-                            var characterData = getCharacter.retrieveCharacter(MyCharacters.MINER);
+                        moveToDestination(character, forestMainBank); {
+                            var characterData = getCharacter.retrieveCharacter(character);
                             List<SimpleItemSchema> itemsDepositPayload = characterData.getBody().getData().getInventory().stream()
                                     .filter(nonEmptyItem -> nonEmptyItem.getQuantity() > 0)
                                     .map(item -> {
@@ -76,7 +78,7 @@ public class MiningResources {
                                         return payload;
                                     })
                                     .toList();
-                            var deposit = actionDepositBankItem.deposit(MyCharacters.MINER, itemsDepositPayload);
+                            var deposit = actionDepositBankItem.deposit(character, itemsDepositPayload);
                             if (actionDepositBankItem.success(deposit)) {
                                 sleep.sleep(actionDepositBankItem.cooldown(deposit));
                                 break;
