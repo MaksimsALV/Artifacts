@@ -57,11 +57,4 @@ public class ActionDepositBankItem {
             }
         }
     }
-    public boolean success(ResponseEntity<BankItemTransactionResponseSchema> response) {
-        return response.getStatusCode().value() == SUCCESS;
-    }
-
-    public int cooldown(ResponseEntity<BankItemTransactionResponseSchema> response) {
-        return response.getBody().getData().getCooldown().getRemainingSeconds();
-    }
 }

@@ -13,6 +13,6 @@ public class Retry {
     public void retry() {
         final int delay = 10;
         System.out.println("retry attempt");
-        sleep.sleep(delay);
+        sleep.sleep(null, delay);
     }
 }

@@ -56,17 +56,4 @@ public class ActionGathering {
             }
         }
     }
-
-    //todo need to move this somewhere to the tool instead, or main API exctractor or smth, because it should be used within other classess, not just API one
-    public boolean success(ResponseEntity<SkillResponseSchema> response) {
-        return response.getStatusCode().value() == SUCCESS;
-    }
-
-    public boolean inventoryFull(ResponseEntity<SkillResponseSchema> response) {
-        return response.getStatusCode().value() == CHARACTER_INVENTORY_FULL;
-    }
-
-    public int cooldown(ResponseEntity<SkillResponseSchema> response) {
-        return response.getBody().getData().getCooldown().getRemainingSeconds();
-    }
 }

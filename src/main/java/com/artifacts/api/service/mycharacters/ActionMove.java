@@ -60,14 +60,4 @@ public class ActionMove {
             }
         }
     }
-
-
-    //todo need to move this somewhere to the tool instead, or main API exctractor or smth, because it should be used within other classess, not just API one
-    public boolean success(ResponseEntity<CharacterMovementResponseSchema> response) {
-        return response.getStatusCode().value() == SUCCESS;
-    }
-
-    public int cooldown(ResponseEntity<CharacterMovementResponseSchema> response) {
-        return response.getBody().getData().getCooldown().getRemainingSeconds();
-    }
 }
