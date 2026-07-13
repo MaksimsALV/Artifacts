@@ -5,6 +5,7 @@ import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MapsApi;
 import org.openapitools.client.model.MapContentType;
+import org.openapitools.client.model.MapLayer;
 import org.openapitools.client.model.StaticDataPageMapSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +29,12 @@ public class GetAllMaps {
         this.retry = retry;
     }
 
-    public ResponseEntity<StaticDataPageMapSchema> retrieveAllMaps(MapContentType contentType, String contentCode) { //todo need to check if <T> is correct one here, maybe should be StaticDataPageMapSchema or smth
+    public ResponseEntity<StaticDataPageMapSchema> retrieveAllMaps(MapLayer layer, MapContentType contentType, String contentCode) { //todo need to check if <T> is correct one here, maybe should be StaticDataPageMapSchema or smth
         MapsApi mapsApi = new MapsApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(null, contentType, contentCode, null, null, null, null, 10000);
+                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(layer, contentType, contentCode, null, null, null, null, 10000);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

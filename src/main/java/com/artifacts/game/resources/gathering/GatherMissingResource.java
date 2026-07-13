@@ -54,6 +54,9 @@ public class GatherMissingResource {
             }
 
             var missingResourceDestination = retrieveDestinationForMissingResource(missingResourceCode);
+            if (goldenRocks(missingResourceCode)) {
+
+            }
             moveToDestination(character, missingResourceDestination);
 
             while (true) {
@@ -84,7 +87,7 @@ public class GatherMissingResource {
     }
 
     private DestinationSchema retrieveDestinationForMissingResource(String missingResourceCode) {
-        var maps = getAllMaps.retrieveAllMaps(null, missingResourceCode);
+        var maps = getAllMaps.retrieveAllMaps(null, null, missingResourceCode);
         var locationData = maps.getBody().getData().getFirst();
         return new DestinationSchema()
                 .x(locationData.getX())
@@ -93,9 +96,22 @@ public class GatherMissingResource {
     }
 
     private DestinationSchema retrieveDestinationForForestMainBank() {
-        var maps = getAllMaps.retrieveAllMaps(MapContentType.BANK, null);
+        var maps = getAllMaps.retrieveAllMaps(null, MapContentType.BANK, null);
         var locationData = maps.getBody().getData().stream()
                 .filter(forestMainBank -> forestMainBank.getMapId() == 334)
+                .findFirst()
+                .orElseThrow();
+
+        return new DestinationSchema()
+                .x(locationData.getX())
+                .y(locationData.getY())
+                .mapId(locationData.getMapId());
+    }
+
+    private DestinationSchema retrieveDestinationForUndergroundEntrance() {
+        var maps = getAllMaps.retrieveAllMaps(MapLayer.UNDERGROUND, null, null);
+        var locationData = maps.getBody().getData().stream()
+                .filter(undergroundMapId -> undergroundMapId.getMapId() == 133)
                 .findFirst()
                 .orElseThrow();
 
@@ -111,6 +127,13 @@ public class GatherMissingResource {
             sleep.sleep(character, response.getBody().getData().getCooldown().getRemainingSeconds());;
         }
     }
+//
+//    private void moveToUndergroundDestination(MyCharacters character, DestinationSchema destination) {
+//        var response = actionMove.move(character, destination);
+//        if (response.getStatusCode().is2xxSuccessful()) {
+//            sleep.sleep(character, response.getBody().getData().getCooldown().getRemainingSeconds());;
+//        }
+//    }
 
     private void depositItemsToBank(MyCharacters character, List<SimpleItemSchema> itemsDepositPayload) {
         var response = actionDepositBankItem.deposit(character, itemsDepositPayload);
@@ -129,5 +152,9 @@ public class GatherMissingResource {
 
     private boolean inventoryIsFull(ResponseEntity<SkillResponseSchema> response) {
         return response.getStatusCode().value() == CHARACTER_INVENTORY_FULL;
+    }
+
+    private boolean goldenRocks(String missingResourceCode) {
+        return "gold_rocks".equals(missingResourceCode);
     }
 }
