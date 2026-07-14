@@ -1,10 +1,11 @@
 package com.artifacts.api.service.mycharacters;
 
 import com.artifacts.api.logs.ApiResponseLogger;
+import com.artifacts.game.account.MyCharacters;
 import com.artifacts.tools.Retry;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MyCharactersApi;
-import org.openapitools.client.model.CharacterRestResponseSchema;
+import org.openapitools.client.model.CharacterTransitionResponseSchema;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientResponseException;
@@ -12,29 +13,29 @@ import org.springframework.web.client.RestClientResponseException;
 import static com.artifacts.api.HttpCodes.*;
 
 @Service
-public class ActionRest {
+public class ActionTransition {
     private final ApiClient apiClient;
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
 
-    public ActionRest(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
+    public ActionTransition(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
         this.apiClient = apiClient;
         this.apiResponseLogger = apiResponseLogger;
         this.retry = retry;
     }
 
-    public ResponseEntity<CharacterRestResponseSchema> rest(String characterName) {
+    public ResponseEntity<CharacterTransitionResponseSchema> transition(MyCharacters character) {
         MyCharactersApi myCharactersApi = new MyCharactersApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<CharacterRestResponseSchema> response = myCharactersApi.actionRestMyNameActionRestPostWithHttpInfo(characterName);
+                ResponseEntity<CharacterTransitionResponseSchema> response = myCharactersApi.actionTransitionMyNameActionTransitionPostWithHttpInfo(character.getName());
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
                 }
             } catch (RestClientResponseException e) {
-                apiResponseLogger.logErrorResponse(e, "Action Rest");
+                apiResponseLogger.logErrorResponse(e, "Action Transition");
                 var responseHttpCode = e.getStatusCode().value();
 
                 if (responseHttpCode == NOT_FOUND ||
