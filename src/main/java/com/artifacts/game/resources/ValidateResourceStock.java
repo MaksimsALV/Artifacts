@@ -57,7 +57,6 @@ public class ValidateResourceStock {
                 "strange_rocks",
                 "adamantite_rocks",
                 "magic_tree",
-                "maple_tree",
                 "palm_tree",
                 "swordfish_spot",
                 "lava_fish_spot",

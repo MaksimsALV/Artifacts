@@ -1,7 +1,6 @@
 package com.artifacts.game.resources.gathering;
 
 import com.artifacts.api.service.character.GetCharacter;
-import com.artifacts.api.service.maps.GetAllMaps;
 import com.artifacts.api.service.mycharacters.ActionDepositBankItem;
 import com.artifacts.api.service.mycharacters.ActionGathering;
 import com.artifacts.api.service.mycharacters.ActionMove;
@@ -47,8 +46,7 @@ public class GatherMissingResource {
         this.validateResourceStock = validateResourceStock;
         this.locationService = locationService;
     }
-//todo this needs rewrite into smaller subclass helpers, else it gets too long
-//todo also I think I need something like " successful activity service " to handle all: moveto & sleep, transitoon & sleep etc. - but need to think
+
     @Async
     public void gatherMissingResource(MyCharacters character, GatheringSkill skill) {
         while (true) {
