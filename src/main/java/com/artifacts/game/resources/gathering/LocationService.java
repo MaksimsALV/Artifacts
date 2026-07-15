@@ -11,24 +11,23 @@ public class LocationService {
         this.getAllMaps = getAllMaps;
     }
 
-    public DestinationSchema resourceLocation(String resourceCode) {
-        var maps = getAllMaps.retrieveAllMaps(null, null, resourceCode, null);
-        //todo stream getData instead of findFirst and do toList for better later usage in case there is more than one location
-        var locationData = maps.getBody().getData().getFirst();
+    public DestinationSchema destination(String contentCode) {
+        var mapData = getAllMaps.retrieveAllMaps(null, null, contentCode, null);
+        var location = mapData.getBody().getData().getFirst();
         return new DestinationSchema()
-                .x(locationData.getX())
-                .y(locationData.getY())
-                .mapId(locationData.getMapId());
+                .x(location.getX())
+                .y(location.getY())
+                .mapId(location.getMapId());
     }
 
-    public DestinationSchema goldMineLocation() {
+    public DestinationSchema entranceToGoldMineLocation() {
         return new DestinationSchema()
                 .x(5)
                 .y(-3)
                 .mapId(134);
     }
 
-    public DestinationSchema mithrilMineLocation() {
+    public DestinationSchema entranceToMithrilMineLocation() {
         return new DestinationSchema()
                 .x(-2)
                 .y(6)

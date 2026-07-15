@@ -20,7 +20,6 @@ import static com.artifacts.api.HttpCodes.CHARACTER_INVENTORY_FULL;
 
 @Service
 public class GatherMissingResource {
-    private final GetAllMaps getAllMaps;
     private final GetCharacter getCharacter;
     private final ActionMove actionMove;
     private final ActionGathering actionGathering;
@@ -31,7 +30,6 @@ public class GatherMissingResource {
     private final LocationService locationService;
 
     public GatherMissingResource(
-            GetAllMaps getAllMaps,
             GetCharacter getCharacter,
             ActionMove actionMove,
             ActionGathering actionGathering,
@@ -40,7 +38,6 @@ public class GatherMissingResource {
             Sleep sleep,
             ValidateResourceStock validateResourceStock,
             LocationService locationService) {
-        this.getAllMaps = getAllMaps;
         this.getCharacter = getCharacter;
         this.actionMove = actionMove;
         this.actionGathering = actionGathering;
@@ -51,28 +48,24 @@ public class GatherMissingResource {
         this.locationService = locationService;
     }
 //todo this needs rewrite into smaller subclass helpers, else it gets too long
-//todo use LocationService -> migrate all location related methods there.
 //todo also I think I need something like " successful activity service " to handle all: moveto & sleep, transitoon & sleep etc. - but need to think
     @Async
     public void gatherMissingResource(MyCharacters character, GatheringSkill skill) {
         while (true) {
             var missingResourceCode = validateResourceStock.missingResourceCode(skill);
-
             if (missingResourceCode == null) {
                 return;
             }
-            var mapData = retrieveMapDataForMissingResourceCode(missingResourceCode);
-            var missingResourceDestination = retrieveDestinationForMissingResource(mapData);
-//            var missingResourceDestination = resourceDestinationService.resourceLocation(missingResourceCode);
+
+            var missingResourceDestination = locationService.destination(missingResourceCode);
 
             if ("gold_rocks".equals(missingResourceCode)) {
-                moveThroughMineEntrance(character, retrieveGoldMineEntrance());
-//                moveToDestination(character, resourceDestinationService.goldMineLocation());
+                moveToDestination(character, locationService.entranceToGoldMineLocation());
+                transitionToAnotherLayer(character);
 
             } else if ("mithril_rocks".equals(missingResourceCode)) {
-                moveThroughMineEntrance(character, retrieveMithrilMineEntrance());
-//                moveToDestination(character, resourceDestinationService.mithrilMineLocation());
-
+                moveToDestination(character, locationService.entranceToMithrilMineLocation());
+                transitionToAnotherLayer(character);
             }
 
             moveToDestination(character, missingResourceDestination);
@@ -81,19 +74,14 @@ public class GatherMissingResource {
                 var gather = gather(character);
 
                 if (inventoryIsFull(gather)) {
-                    var bankDestination = retrieveDestinationForForestMainBank();
-                    moveToDestination(character, bankDestination);
+                    var bankLocation = locationService.destination("bank");
+                    moveToDestination(character, bankLocation);
                     var itemsDepositPayload = retrieveItemsFromCharacterInventoryAsList(character);
                     depositItemsToBank(character, itemsDepositPayload);
                     break;
                 }
             }
         }
-    }
-
-    private void moveThroughMineEntrance(MyCharacters character, DestinationSchema mineEntrance) {
-        moveToDestination(character, mineEntrance);
-        transitionToAnotherLayer(character);
     }
 
     private List<SimpleItemSchema> retrieveItemsFromCharacterInventoryAsList(MyCharacters character) {
@@ -107,45 +95,6 @@ public class GatherMissingResource {
                     return payload;
                 })
                 .toList();
-    }
-
-    private ResponseEntity<StaticDataPageMapSchema> retrieveMapDataForMissingResourceCode(String missingResourceCode) {
-        return getAllMaps.retrieveAllMaps(null, null, missingResourceCode, null);
-    }
-
-    private DestinationSchema retrieveDestinationForMissingResource(ResponseEntity<StaticDataPageMapSchema> maps) {
-        var locationData = maps.getBody().getData().getFirst();
-        return new DestinationSchema()
-                .x(locationData.getX())
-                .y(locationData.getY())
-                .mapId(locationData.getMapId());
-    }
-
-    private DestinationSchema retrieveDestinationForForestMainBank() {
-        var maps = getAllMaps.retrieveAllMaps(null, MapContentType.BANK, null, null);
-        var locationData = maps.getBody().getData().stream()
-                .filter(forestMainBank -> forestMainBank.getMapId() == 334)
-                .findFirst()
-                .orElseThrow();
-
-        return new DestinationSchema()
-                .x(locationData.getX())
-                .y(locationData.getY())
-                .mapId(locationData.getMapId());
-    }
-
-    private DestinationSchema retrieveGoldMineEntrance() {
-        return new DestinationSchema()
-                .x(5)
-                .y(-3)
-                .mapId(134);
-    }
-
-    private DestinationSchema retrieveMithrilMineEntrance() {
-        return new DestinationSchema()
-                .x(-2)
-                .y(6)
-                .mapId(571);
     }
 
     private void moveToDestination(MyCharacters character, DestinationSchema destination) {
