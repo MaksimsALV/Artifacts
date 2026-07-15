@@ -60,7 +60,6 @@ public class ValidateResourceStock {
                 "palm_tree",
                 "swordfish_spot",
                 "lava_fish_spot",
-                "nettle",
                 "glowstem",
                 "enchanted_mushroom",
                 "torch_cactus"

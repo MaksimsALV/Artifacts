@@ -52,20 +52,25 @@ public class GatherMissingResource {
         while (true) {
             var missingResourceCode = validateResourceStock.missingResourceCode(skill);
             if (missingResourceCode == null) {
+                //todo need better fallback here
                 return;
             }
-
-            var missingResourceDestination = locationService.destination(missingResourceCode);
 
             if ("gold_rocks".equals(missingResourceCode)) {
                 moveToDestination(character, locationService.entranceToGoldMineLocation());
                 transitionToAnotherLayer(character);
-
             } else if ("mithril_rocks".equals(missingResourceCode)) {
                 moveToDestination(character, locationService.entranceToMithrilMineLocation());
                 transitionToAnotherLayer(character);
+            } else if ("nettle".equals(missingResourceCode)) {
+                var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
+                if (characterData.getAlchemyLevel() < 20) {
+                    //todo need better fallback here
+                    return;
+                }
             }
 
+            var missingResourceDestination = locationService.destination(missingResourceCode);
             moveToDestination(character, missingResourceDestination);
 
             while (true) {
