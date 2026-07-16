@@ -2,6 +2,9 @@ package com.artifacts.game.account;
 
 //import org.openapitools.client.model.CharacterSkin;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum MyCharacters {
     WARRIOR("Max", "men1"),
     MINER("Bjorn", "men2"),
@@ -11,10 +14,6 @@ public enum MyCharacters {
 
     private final String name;
     private final String skin;
-    MyCharacters(String name, String skin) {
-        this.name = name;
-        this.skin = skin;
-    }
 
     public String getName() {
         return name;

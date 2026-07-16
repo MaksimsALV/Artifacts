@@ -3,17 +3,14 @@ package com.artifacts.game.launcher;
 import com.artifacts.api.service.account.GenerateToken;
 import com.artifacts.api.service.GetServerStatus;
 import com.artifacts.game.account.ValidateAndCreateCharacters;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class GameLauncher {
     private final GetServerStatus getServerStatus;
     private final GenerateToken generateToken;
-
-    public GameLauncher(ValidateAndCreateCharacters validateAndCreateCharacters, GetServerStatus getServerStatus, GenerateToken generateToken) {
-        this.getServerStatus = getServerStatus;
-        this.generateToken = generateToken;
-    }
 
     public void gameStart() {
         System.out.println("Starting the game...");

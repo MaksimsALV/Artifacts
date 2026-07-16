@@ -1,15 +1,14 @@
 package com.artifacts.game.resources.gathering;
 
 import com.artifacts.api.service.maps.GetAllMaps;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.DestinationSchema;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class LocationService {
     private final GetAllMaps getAllMaps;
-    public LocationService(GetAllMaps getAllMaps) {
-        this.getAllMaps = getAllMaps;
-    }
 
     public DestinationSchema destination(String contentCode) {
         var mapData = getAllMaps.retrieveAllMaps(null, null, contentCode, null);

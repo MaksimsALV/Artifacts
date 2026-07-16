@@ -3,6 +3,7 @@ package com.artifacts.api.service.mycharacters;
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.game.account.MyCharacters;
 import com.artifacts.tools.Retry;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MyCharactersApi;
 import org.openapitools.client.model.CharacterMovementResponseSchema;
@@ -17,17 +18,12 @@ import static com.artifacts.api.HttpCodes.*;
 
 //todo tests
 @Service
+@RequiredArgsConstructor
 public class ActionMove {
     private final ApiClient apiClient;
     private final Logger logger = LoggerFactory.getLogger(ActionMove.class);
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
-
-    public ActionMove(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
-        this.apiClient = apiClient;
-        this.apiResponseLogger = apiResponseLogger;
-        this.retry = retry;
-    }
 
     public ResponseEntity<CharacterMovementResponseSchema> move(MyCharacters character, DestinationSchema destination) {
         MyCharactersApi myCharactersApi = new MyCharactersApi(apiClient);

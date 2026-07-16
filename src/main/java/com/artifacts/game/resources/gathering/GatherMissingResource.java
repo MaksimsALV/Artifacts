@@ -8,6 +8,7 @@ import com.artifacts.api.service.mycharacters.ActionTransition;
 import com.artifacts.game.account.MyCharacters;
 import com.artifacts.game.resources.ValidateResourceStock;
 import com.artifacts.tools.Sleep;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -18,6 +19,7 @@ import java.util.List;
 import static com.artifacts.api.HttpCodes.CHARACTER_INVENTORY_FULL;
 
 @Service
+@RequiredArgsConstructor
 public class GatherMissingResource {
     private final GetCharacter getCharacter;
     private final ActionMove actionMove;
@@ -27,25 +29,6 @@ public class GatherMissingResource {
     private final Sleep sleep;
     private final ValidateResourceStock validateResourceStock;
     private final LocationService locationService;
-
-    public GatherMissingResource(
-            GetCharacter getCharacter,
-            ActionMove actionMove,
-            ActionGathering actionGathering,
-            ActionDepositBankItem actionDepositBankItem,
-            ActionTransition actionTransition,
-            Sleep sleep,
-            ValidateResourceStock validateResourceStock,
-            LocationService locationService) {
-        this.getCharacter = getCharacter;
-        this.actionMove = actionMove;
-        this.actionGathering = actionGathering;
-        this.actionDepositBankItem = actionDepositBankItem;
-        this.actionTransition = actionTransition;
-        this.sleep = sleep;
-        this.validateResourceStock = validateResourceStock;
-        this.locationService = locationService;
-    }
 
     @Async
     public void gatherMissingResource(MyCharacters character, GatheringSkill skill) {
@@ -77,6 +60,7 @@ public class GatherMissingResource {
                 var gather = gather(character);
 
                 if (inventoryIsFull(gather)) {
+                    //todo need to somehow get out of the mine to forest
                     var bankLocation = locationService.destination("bank");
                     moveToDestination(character, bankLocation);
                     var itemsDepositPayload = retrieveItemsFromCharacterInventoryAsList(character);

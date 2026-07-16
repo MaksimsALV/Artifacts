@@ -2,6 +2,7 @@ package com.artifacts.api.service.resources;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Retry;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MapsApi;
 import org.openapitools.client.api.ResourcesApi;
@@ -20,16 +21,11 @@ import java.util.List;
 import static com.artifacts.api.HttpCodes.SUCCESS;
 
 @Service
+@RequiredArgsConstructor
 public class GetAllResources {
     private final ApiClient apiClient;
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
-
-    public GetAllResources(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
-        this.apiClient = apiClient;
-        this.apiResponseLogger = apiResponseLogger;
-        this.retry = retry;
-    }
 
     public ResponseEntity<StaticDataPageResourceSchema> retrieveAllResources(GatheringSkill skill) {
         ResourcesApi resourcesApi = new ResourcesApi(apiClient);

@@ -2,6 +2,7 @@ package com.artifacts.game.resources;
 
 import com.artifacts.api.service.account.GetBankItems;
 import com.artifacts.api.service.resources.GetAllResources;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.GatheringSkill;
 import org.openapitools.client.model.ResourceSchema;
 import org.openapitools.client.model.SimpleItemSchema;
@@ -12,14 +13,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ValidateResourceStock {
     private final GetBankItems getBankItems;
     private final GetAllResources getAllResources;
-
-    public ValidateResourceStock(GetBankItems getBankItems, GetAllResources getAllResources) {
-        this.getBankItems = getBankItems;
-        this.getAllResources = getAllResources;
-    }
 
     public boolean resourceStockHasMissingItems(GatheringSkill skill) {
         return missingResourceCode(skill) != null;

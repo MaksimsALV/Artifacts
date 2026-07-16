@@ -2,6 +2,7 @@ package com.artifacts.api.service.mycharacters;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Retry;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MyCharactersApi;
 import org.openapitools.client.model.CharacterFightResponseSchema;
@@ -14,16 +15,11 @@ import org.springframework.web.client.RestClientResponseException;
 import static com.artifacts.api.HttpCodes.*;
 
 @Service
+@RequiredArgsConstructor
 public class ActionFight {
     private final ApiClient apiClient;
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
-
-    public ActionFight(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
-        this.apiClient = apiClient;
-        this.apiResponseLogger = apiResponseLogger;
-        this.retry = retry;
-    }
 
     public ResponseEntity<CharacterFightResponseSchema> fight(String characterName) {
         MyCharactersApi myCharactersApi = new MyCharactersApi(apiClient);

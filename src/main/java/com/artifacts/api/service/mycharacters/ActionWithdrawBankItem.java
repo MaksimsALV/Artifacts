@@ -2,6 +2,7 @@ package com.artifacts.api.service.mycharacters;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Retry;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MyCharactersApi;
 import org.openapitools.client.model.BankItemTransactionResponseSchema;
@@ -15,16 +16,11 @@ import java.util.List;
 import static com.artifacts.api.HttpCodes.*;
 
 @Service
+@RequiredArgsConstructor
 public class ActionWithdrawBankItem {
     private final ApiClient apiClient;
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
-
-    public ActionWithdrawBankItem(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
-        this.apiClient = apiClient;
-        this.apiResponseLogger = apiResponseLogger;
-        this.retry = retry;
-    }
 
     public ResponseEntity<BankItemTransactionResponseSchema> withdraw(String characterName, List<SimpleItemSchema> items) {
         MyCharactersApi myCharactersApi = new MyCharactersApi(apiClient);

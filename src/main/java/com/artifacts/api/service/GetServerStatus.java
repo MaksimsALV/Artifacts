@@ -4,6 +4,7 @@ import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Beautify;
 import com.artifacts.tools.Retry;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.ServerDetailsApi;
 import org.openapitools.client.model.StatusResponseSchema;
@@ -16,19 +17,13 @@ import org.springframework.web.client.RestClientResponseException;
 import static com.artifacts.api.HttpCodes.*;
 
 @Service
+@RequiredArgsConstructor
 public class GetServerStatus {
     private final ApiClient apiClient;
     private final Logger logger =  LoggerFactory.getLogger(GetServerStatus.class);
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
     private final Beautify beautify;
-
-    public GetServerStatus(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry, Beautify beautify) {
-        this.apiClient = apiClient;
-        this.apiResponseLogger = apiResponseLogger;
-        this.retry = retry;
-        this.beautify = beautify;
-    }
 
     public ResponseEntity<StatusResponseSchema> getServerStatus() {
         ServerDetailsApi serverDetailsApi = new ServerDetailsApi(apiClient);

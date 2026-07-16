@@ -7,12 +7,14 @@ import com.artifacts.game.account.ValidateAndCreateCharacters;
 import com.artifacts.game.launcher.GameLauncher;
 import com.artifacts.game.resources.ValidateResourceStock;
 import com.artifacts.game.resources.gathering.GatherMissingResource;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.GatheringSkill;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class SequenceOrchestrator {
     private final GameLauncher gameLauncher;
     private final ValidateAndCreateCharacters validateAndCreateCharacters;
@@ -20,21 +22,6 @@ public class SequenceOrchestrator {
     private final GetBankItems getBankItems;
     private final GatherMissingResource gatherMissingResource;
     private final ValidateResourceStock validateResourceStock;
-
-    public SequenceOrchestrator(
-            GameLauncher gameLauncher,
-            ValidateAndCreateCharacters validateAndCreateCharacters,
-            GetMyCharacters getMyCharacters,
-            GetBankItems getBankItems,
-            GatherMissingResource gatherMissingResource,
-            ValidateResourceStock validateResourceStock) {
-        this.gameLauncher = gameLauncher;
-        this.validateAndCreateCharacters = validateAndCreateCharacters;
-        this.getMyCharacters = getMyCharacters;
-        this.getBankItems = getBankItems;
-        this.gatherMissingResource = gatherMissingResource;
-        this.validateResourceStock = validateResourceStock;
-    }
 
     // Phase 1: Game Launch, Validate and Create characters
     @EventListener(ApplicationReadyEvent.class)

@@ -2,6 +2,7 @@ package com.artifacts.api.service.maps;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Retry;
+import lombok.RequiredArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MapsApi;
 import org.openapitools.client.model.MapContentType;
@@ -17,17 +18,12 @@ import static com.artifacts.api.HttpCodes.SUCCESS;
 
 //todo tests
 @Service
+@RequiredArgsConstructor
 public class GetAllMaps {
     private final ApiClient apiClient;
     private final Logger logger = LoggerFactory.getLogger(GetAllMaps.class);
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
-
-    public GetAllMaps(ApiClient apiClient, ApiResponseLogger apiResponseLogger, Retry retry) {
-        this.apiClient = apiClient;
-        this.apiResponseLogger = apiResponseLogger;
-        this.retry = retry;
-    }
 
     public ResponseEntity<StaticDataPageMapSchema> retrieveAllMaps(MapLayer layer, MapContentType contentType, String contentCode, Boolean transition) { //todo need to check if <T> is correct one here, maybe should be StaticDataPageMapSchema or smth
         MapsApi mapsApi = new MapsApi(apiClient);
