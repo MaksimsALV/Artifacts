@@ -1,5 +1,6 @@
 package com.artifacts.api.endpoints.post;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.http.HttpResponse;
@@ -16,10 +17,11 @@ public class ActionEquipItem {
     public static JSONObject actionEquipItem(String name, String itemCode, String itemSlot, Integer quantity) {
         var retryCount = 0;
         var endpoint = "/my/" + name + "/action/equip";
-        var requestBody = new JSONObject()
-                .put("code", itemCode)
-                .put("slot", itemSlot)
-                .put("quantity", quantity)
+        var requestBody = new JSONArray()
+                .put(new JSONObject()
+                    .put("code", itemCode)
+                    .put("slot", itemSlot)
+                    .put("quantity", quantity))
                 .toString();
         var request = postRequest(endpoint, token, requestBody);
 
