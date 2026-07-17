@@ -1,7 +1,9 @@
 package com.artifacts.game.resources;
 
 import com.artifacts.api.service.account.GetBankItems;
+import com.artifacts.api.service.character.GetCharacter;
 import com.artifacts.api.service.resources.GetAllResources;
+import com.artifacts.game.account.MyCharacters;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.GatheringSkill;
 import org.openapitools.client.model.ResourceSchema;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 public class ValidateResourceStock {
     private final GetBankItems getBankItems;
     private final GetAllResources getAllResources;
+    private final int RESOURCE_THRESHOLD = 1000;
 
     public boolean resourceStockHasMissingItems(GatheringSkill skill) {
         return missingResourceCode(skill) != null;
@@ -26,11 +29,12 @@ public class ValidateResourceStock {
         var resources = retrieveResourceCodesAsList(skill);
         var bankItems = retrieveAllResourcesFromBankAsMap();
 
-        return resources.stream().filter(resourceCode -> bankItems.getOrDefault(resourceCode, 0) < 1000)
+        return resources.stream().filter(resourceCode -> bankItems.getOrDefault(resourceCode, 0) < RESOURCE_THRESHOLD)
                 .findFirst()
                 .orElse(null);
     }
 
+    //todo need to add character validity checker here, and if character is unavailable to farm the resource, it should ignore it, then all GatherMissingResrouce logic on booleans can go away.
     public List<String> retrieveResourceCodesAsList(GatheringSkill skill) {
         return getAllResources.retrieveAllResources(skill).getBody().getData().stream()
                 .map(ResourceSchema::getCode)
@@ -38,6 +42,7 @@ public class ValidateResourceStock {
                 .filter(code -> !ignoredResourceCodes().contains(code))
                 .toList();
     }
+
 
     public Map<String, Integer> retrieveAllResourcesFromBankAsMap() {
         var allBankItems = getBankItems.retrieveBankItems();

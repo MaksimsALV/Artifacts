@@ -5,6 +5,7 @@ import com.artifacts.api.service.mycharacters.ActionDepositBankItem;
 import com.artifacts.api.service.mycharacters.ActionGathering;
 import com.artifacts.api.service.mycharacters.ActionMove;
 import com.artifacts.api.service.mycharacters.ActionTransition;
+import com.artifacts.api.service.resources.GetResource;
 import com.artifacts.game.account.MyCharacters;
 import com.artifacts.game.resources.ValidateResourceStock;
 import com.artifacts.tools.Sleep;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.artifacts.api.HttpCodes.CHARACTER_INVENTORY_FULL;
 
@@ -22,6 +24,7 @@ import static com.artifacts.api.HttpCodes.CHARACTER_INVENTORY_FULL;
 @RequiredArgsConstructor
 public class GatherMissingResource {
     private final GetCharacter getCharacter;
+    private final GetResource getResource;
     private final ActionMove actionMove;
     private final ActionGathering actionGathering;
     private final ActionDepositBankItem actionDepositBankItem;
@@ -30,31 +33,28 @@ public class GatherMissingResource {
     private final ValidateResourceStock validateResourceStock;
     private final LocationService locationService;
 
+    private static final Set<String> EXCEPTIONAL_RESOURCE_CODES = Set.of(
+            "gold_rocks",
+            "mithril_rocks",
+            "nettle"
+    );
+
     @Async
     public void gatherMissingResource(MyCharacters character, GatheringSkill skill) {
         while (true) {
             var missingResourceCode = validateResourceStock.missingResourceCode(skill);
+
             if (missingResourceCode == null) {
                 //todo need better fallback here
                 return;
             }
 
-            if ("gold_rocks".equals(missingResourceCode)) {
-                moveToDestination(character, locationService.entranceToGoldMineLocation());
-                transitionToAnotherLayer(character);
-            } else if ("mithril_rocks".equals(missingResourceCode)) {
-                moveToDestination(character, locationService.entranceToMithrilMineLocation());
-                transitionToAnotherLayer(character);
-            } else if ("nettle".equals(missingResourceCode)) {
-                var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
-                if (characterData.getAlchemyLevel() < 20) {
-                    //todo need better fallback here
-                    return;
-                }
-            }
+            if (EXCEPTIONAL_RESOURCE_CODES.contains(missingResourceCode)) {
+                exceptionalResourceHandling(character, missingResourceCode);
 
-            var missingResourceDestination = locationService.destination(missingResourceCode);
-            moveToDestination(character, missingResourceDestination);
+            } else {
+                moveToDestination(character, locationService.destination(missingResourceCode));
+            }
 
             while (true) {
                 var gather = gather(character);
@@ -82,6 +82,51 @@ public class GatherMissingResource {
                     return payload;
                 })
                 .toList();
+    }
+
+    private void exceptionalResourceHandling(MyCharacters character, String missingResourceCode) {
+        if ("gold_rocks".equals(missingResourceCode)) {
+            //todo this can go away once logic lives in ValidResourceStock
+            if (!validToGatherMiningResources(character, missingResourceCode)) {
+                //todo need better fallback here
+                return;
+            }
+            moveToDestination(character, locationService.entranceToGoldMineLocation());
+            transitionToAnotherLayer(character);
+            moveToDestination(character, locationService.destination(missingResourceCode));
+
+        } else if ("mithril_rocks".equals(missingResourceCode)) {
+            //todo this can go away once logic lives in ValidResourceStock
+            if (!validToGatherMiningResources(character, missingResourceCode)) {
+                //todo need better fallback here
+                return;
+            }
+            moveToDestination(character, locationService.entranceToMithrilMineLocation());
+            transitionToAnotherLayer(character);
+            moveToDestination(character, locationService.destination(missingResourceCode));
+
+        } else if ("nettle".equals(missingResourceCode)) {
+            //todo this can go away once logic lives in ValidResourceStock
+            if (!validToGatherHerbResources(character, missingResourceCode)) {
+                //todo need better fallback here
+                return;
+            }
+            moveToDestination(character, locationService.destination(missingResourceCode));
+        }
+    }
+
+    //todo this can go away once logic lives in ValidResourceStock
+    private boolean validToGatherMiningResources(MyCharacters character, String missingResourceCode) {
+        var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
+        var resourceData = getResource.retrieveResource(missingResourceCode).getBody().getData();
+        return characterData.getMiningLevel() >= resourceData.getLevel();
+    }
+
+    //todo this can go away once logic lives in ValidResourceStock
+    private boolean validToGatherHerbResources(MyCharacters character, String missingResourceCode) {
+        var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
+        var resourceData = getResource.retrieveResource(missingResourceCode).getBody().getData();
+        return characterData.getAlchemyLevel() >= resourceData.getLevel();
     }
 
     private void moveToDestination(MyCharacters character, DestinationSchema destination) {
