@@ -1,6 +1,7 @@
 package com.artifacts.game;
 
 import com.artifacts.api.caching.CacheMaps;
+import com.artifacts.api.caching.CacheResources;
 import com.artifacts.api.service.account.GetBankItems;
 import com.artifacts.api.service.mycharacters.GetMyCharacters;
 import com.artifacts.game.account.MyCharacters;
@@ -26,6 +27,7 @@ public class SequenceOrchestrator {
     private final GatherMissingResource gatherMissingResource;
     private final ValidateResourceStock validateResourceStock;
     private final CacheMaps cacheMaps;
+    private final CacheResources cacheResources;
 
     // Phase 1: Game Launch, Validate and Create characters
     @EventListener(ApplicationReadyEvent.class)
@@ -56,6 +58,7 @@ public class SequenceOrchestrator {
     // Phase3: Caching
     public void executePhase3() throws IOException {
         cacheMaps.fetchAllMaps();
+        cacheResources.fetchAllResources();
         System.out.println("Phase 3 Completed!");
         System.out.println("Executing Phase 4... Initial validation and checks");
         executePhase4();

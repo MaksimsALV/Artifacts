@@ -22,25 +22,25 @@ public class CacheMaps {
     private static final Path MAPS = Paths.get("src/main/resources/data/maps.json");
 
     public List<MapSchema> fetchAllMaps() throws IOException {
-        List<MapSchema> allMapsData = new ArrayList<>();
+        List<MapSchema> allData = new ArrayList<>();
 
         var response = getAllMaps.retrieveAllMaps(null, null, null, null, 1,10000);
-        var allMapsBody = response.getBody();
+        var body = response.getBody();
 
-        if (allMapsBody == null) {
-            return allMapsData;
+        if (body == null) {
+            return allData;
         }
 
-        while (allMapsBody.getPage() < allMapsBody.getPages()) {
-            allMapsData.addAll(allMapsBody.getData());
-            allMapsBody.setPage(allMapsBody.getPage() + 1);
-            response = getAllMaps.retrieveAllMaps(null, null, null, null, allMapsBody.getPage(),10000);
-            allMapsBody = response.getBody();
+        while (body.getPage() < body.getPages()) {
+            allData.addAll(body.getData());
+            body.setPage(body.getPage() + 1);
+            response = getAllMaps.retrieveAllMaps(null, null, null, null, body.getPage(),10000);
+            body = response.getBody();
         }
-        allMapsData.addAll(allMapsBody.getData());
-        saveMapsToFile(allMapsData);
+        allData.addAll(body.getData());
+        saveMapsToFile(allData);
 
-        return allMapsData;
+        return allData;
     }
 
     private void saveMapsToFile(List<MapSchema> maps) throws IOException {

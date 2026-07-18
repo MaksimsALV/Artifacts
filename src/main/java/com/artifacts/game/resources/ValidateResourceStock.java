@@ -1,9 +1,7 @@
 package com.artifacts.game.resources;
 
+import com.artifacts.api.caching.CacheResources;
 import com.artifacts.api.service.account.GetBankItems;
-import com.artifacts.api.service.character.GetCharacter;
-import com.artifacts.api.service.resources.GetAllResources;
-import com.artifacts.game.account.MyCharacters;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.GatheringSkill;
 import org.openapitools.client.model.ResourceSchema;
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ValidateResourceStock {
     private final GetBankItems getBankItems;
-    private final GetAllResources getAllResources;
+    private final CacheResources cacheResources;
     private final int RESOURCE_THRESHOLD = 1000;
 
     public boolean resourceStockHasMissingItems(GatheringSkill skill) {
@@ -36,8 +34,10 @@ public class ValidateResourceStock {
 
     //todo need to add character validity checker here, and if character is unavailable to farm the resource, it should ignore it, then all GatherMissingResrouce logic on booleans can go away.
     public List<String> retrieveResourceCodesAsList(GatheringSkill skill) {
-        return getAllResources.retrieveAllResources(skill).getBody().getData().stream()
+        return cacheResources.getCachedResources().stream()
+                .filter(resource -> resource.getSkill() == skill)
                 .map(ResourceSchema::getCode)
+                .filter(code -> code != null)
                 //todo this is a temporary hardcoded ignore list for now, to avoid going into the underground/other zones till code supports that
                 .filter(code -> !ignoredResourceCodes().contains(code))
                 .toList();

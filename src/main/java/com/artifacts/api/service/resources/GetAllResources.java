@@ -27,12 +27,12 @@ public class GetAllResources {
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
 
-    public ResponseEntity<StaticDataPageResourceSchema> retrieveAllResources(GatheringSkill skill) {
+    public ResponseEntity<StaticDataPageResourceSchema> retrieveAllResources(Integer minLevel, Integer maxLevel, GatheringSkill skill, String drop, Integer page, Integer size) {
         ResourcesApi resourcesApi = new ResourcesApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageResourceSchema> response = resourcesApi.getAllResourcesResourcesGetWithHttpInfo(null, null, skill, null, null, 100);
+                ResponseEntity<StaticDataPageResourceSchema> response = resourcesApi.getAllResourcesResourcesGetWithHttpInfo(null, null, skill, null, null, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
