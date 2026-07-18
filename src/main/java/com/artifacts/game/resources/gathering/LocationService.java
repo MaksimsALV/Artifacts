@@ -11,7 +11,7 @@ public class LocationService {
     private final GetAllMaps getAllMaps;
 
     public DestinationSchema destination(String contentCode) {
-        var mapData = getAllMaps.retrieveAllMaps(null, null, contentCode, null);
+        var mapData = getAllMaps.retrieveAllMaps(null, null, contentCode, null, null, null);
         var location = mapData.getBody().getData().getFirst();
         return new DestinationSchema()
                 .x(location.getX())
