@@ -1,5 +1,6 @@
 package com.artifacts.game;
 
+import com.artifacts.api.caching.CacheMaps;
 import com.artifacts.api.service.account.GetBankItems;
 import com.artifacts.api.service.mycharacters.GetMyCharacters;
 import com.artifacts.game.account.MyCharacters;
@@ -13,6 +14,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 @RequiredArgsConstructor
 public class SequenceOrchestrator {
@@ -22,10 +25,11 @@ public class SequenceOrchestrator {
     private final GetBankItems getBankItems;
     private final GatherMissingResource gatherMissingResource;
     private final ValidateResourceStock validateResourceStock;
+    private final CacheMaps cacheMaps;
 
     // Phase 1: Game Launch, Validate and Create characters
     @EventListener(ApplicationReadyEvent.class)
-    public void executePhase1() {
+    public void executePhase1() throws IOException {
         // Step 1: Launch the game
         gameLauncher.gameStart();
 
@@ -38,18 +42,26 @@ public class SequenceOrchestrator {
     }
 
     // Phase 2: Get All My data (characters, banks, inventories)
-    public void executePhase2() {
+    public void executePhase2() throws IOException {
         // Step 1: Get All My characters
         getMyCharacters.retrieveMyCharacters();
 
         // Step 2: Get Bank Items
         getBankItems.retrieveBankItems();
         System.out.println("Phase 2 Completed!");
-        System.out.println("Executing Phase 3... Initial validation and checks");
+        System.out.println("Executing Phase 3... Fetching Cache");
         executePhase3();
     }
 
-    public void executePhase3() {
+    // Phase3: Caching
+    public void executePhase3() throws IOException {
+        cacheMaps.fetchAllMaps();
+        System.out.println("Phase 3 Completed!");
+        System.out.println("Executing Phase 4... Initial validation and checks");
+        executePhase4();
+    }
+
+    public void executePhase4() {
         if (validateResourceStock.resourceStockHasMissingItems(GatheringSkill.MINING)) {
             gatherMissingResource.gatherMissingResource(MyCharacters.MINER, GatheringSkill.MINING);
         }

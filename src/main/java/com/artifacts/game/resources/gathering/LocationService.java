@@ -1,6 +1,6 @@
 package com.artifacts.game.resources.gathering;
 
-import com.artifacts.api.service.maps.GetAllMaps;
+import com.artifacts.api.caching.CacheMaps;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.DestinationSchema;
 import org.springframework.stereotype.Service;
@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class LocationService {
-    private final GetAllMaps getAllMaps;
+    private final CacheMaps cacheMaps;
 
     public DestinationSchema destination(String contentCode) {
-        var mapData = getAllMaps.retrieveAllMaps(null, null, contentCode, null, null, null);
-        var location = mapData.getBody().getData().getFirst();
+        var location = cacheMaps.getCachedMaps().stream()
+                .filter(map -> map.getInteractions() != null)
+                .filter(map -> map.getInteractions().getContent() != null)
+                .filter(map -> map.getInteractions().getContent().getCode().equals(contentCode))
+                .findFirst()
+                .orElseThrow();
         return new DestinationSchema()
                 .x(location.getX())
                 .y(location.getY())

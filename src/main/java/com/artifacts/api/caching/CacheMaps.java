@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -44,5 +45,13 @@ public class CacheMaps {
 
     private void saveMapsToFile(List<MapSchema> maps) throws IOException {
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(MAPS.toFile(), maps);
+    }
+
+    public List<MapSchema> getCachedMaps() {
+        try {
+            return Arrays.asList(objectMapper.readValue(MAPS.toFile(), MapSchema[].class));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

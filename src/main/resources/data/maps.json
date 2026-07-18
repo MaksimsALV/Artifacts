@@ -2249,7 +2249,10 @@
     "conditions" : [ ]
   },
   "interactions" : {
-    "content" : null,
+    "content" : {
+      "type" : "monster",
+      "code" : ""
+    },
     "transition" : null
   }
 }, {
@@ -7276,7 +7279,7 @@
 }, {
   "map_id" : 470,
   "name" : "Mine",
-  "skin" : "mine_3_event",
+  "skin" : "mine_3",
   "x" : -2,
   "y" : 4,
   "layer" : "underground",
@@ -7287,7 +7290,7 @@
   "interactions" : {
     "content" : {
       "type" : "monster",
-      "code" : "echoless_bat"
+      "code" : "bat"
     },
     "transition" : null
   }
@@ -13807,7 +13810,7 @@
 }, {
   "map_id" : 892,
   "name" : "Forest",
-  "skin" : "forest_strangerocks1",
+  "skin" : "forest_4",
   "x" : 3,
   "y" : 12,
   "layer" : "overworld",
@@ -13816,10 +13819,7 @@
     "conditions" : [ ]
   },
   "interactions" : {
-    "content" : {
-      "type" : "resource",
-      "code" : "strange_rocks"
-    },
+    "content" : null,
     "transition" : null
   }
 }, {
