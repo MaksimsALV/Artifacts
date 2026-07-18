@@ -6,8 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.MapSchema;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,16 +18,17 @@ public class CacheMaps {
     private final GetAllMaps getAllMaps;
     private final ObjectMapper objectMapper;
 
-    private static final String MAPS = "src/main/resources/data/maps.json";
+    private static final Path MAPS = Paths.get("src/main/resources/data/maps.json");
 
     public List<MapSchema> fetchAllMaps() throws IOException {
-        File file = new File(MAPS);
-
-        objectMapper.writeValue(file, new ArrayList<>());
         List<MapSchema> allMapsData = new ArrayList<>();
 
         var response = getAllMaps.retrieveAllMaps(null, null, null, null, 1,10000);
         var allMapsBody = response.getBody();
+
+        if (allMapsBody == null) {
+            return allMapsData;
+        }
 
         while (allMapsBody.getPage() < allMapsBody.getPages()) {
             allMapsData.addAll(allMapsBody.getData());
@@ -35,8 +37,12 @@ public class CacheMaps {
             allMapsBody = response.getBody();
         }
         allMapsData.addAll(allMapsBody.getData());
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, allMapsData);
+        saveMapsToFile(allMapsData);
 
         return allMapsData;
+    }
+
+    private void saveMapsToFile(List<MapSchema> maps) throws IOException {
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(MAPS.toFile(), maps);
     }
 }
