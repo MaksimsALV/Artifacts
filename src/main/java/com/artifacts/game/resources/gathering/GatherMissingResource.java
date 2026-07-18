@@ -1,5 +1,6 @@
 package com.artifacts.game.resources.gathering;
 
+import com.artifacts.api.caching.CacheResources;
 import com.artifacts.api.service.character.GetCharacter;
 import com.artifacts.api.service.mycharacters.ActionDepositBankItem;
 import com.artifacts.api.service.mycharacters.ActionGathering;
@@ -25,6 +26,7 @@ import static com.artifacts.api.HttpCodes.CHARACTER_INVENTORY_FULL;
 public class GatherMissingResource {
     private final GetCharacter getCharacter;
     private final GetResource getResource;
+    private final CacheResources cacheResources;
     private final ActionMove actionMove;
     private final ActionGathering actionGathering;
     private final ActionDepositBankItem actionDepositBankItem;
@@ -118,14 +120,20 @@ public class GatherMissingResource {
     //todo this can go away once logic lives in ValidResourceStock
     private boolean validToGatherMiningResources(MyCharacters character, String missingResourceCode) {
         var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
-        var resourceData = getResource.retrieveResource(missingResourceCode).getBody().getData();
+        var resourceData = cacheResources.getCachedResources().stream()
+                .filter(resource -> resource.getCode().equals(missingResourceCode))
+                .findFirst()
+                .orElseThrow();
         return characterData.getMiningLevel() >= resourceData.getLevel();
     }
 
     //todo this can go away once logic lives in ValidResourceStock
     private boolean validToGatherHerbResources(MyCharacters character, String missingResourceCode) {
         var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
-        var resourceData = getResource.retrieveResource(missingResourceCode).getBody().getData();
+        var resourceData = cacheResources.getCachedResources().stream()
+                .filter(resource -> resource.getCode().equals(missingResourceCode))
+                .findFirst()
+                .orElseThrow();
         return characterData.getAlchemyLevel() >= resourceData.getLevel();
     }
 
