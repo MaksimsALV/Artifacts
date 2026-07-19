@@ -31,6 +31,7 @@ public class SequenceOrchestrator {
     private final CacheItems cacheItems;
     private final CacheNpcs cacheNpcs;
     private final CacheNpcsItems cacheNpcsItems;
+    private final CacheTasks cacheTasks;
 
     // Phase 1: Game Launch, Validate and Create characters
     @EventListener(ApplicationReadyEvent.class)
@@ -66,6 +67,7 @@ public class SequenceOrchestrator {
         cacheItems.fetchAllItems();
         cacheNpcs.fetchAllNpcs();
         cacheNpcsItems.fetchAllNpcsItems();
+        cacheTasks.fetchAllTasks();
         System.out.println("Phase 3 Completed!");
         System.out.println("Executing Phase 4... Initial validation and checks");
         executePhase4();
