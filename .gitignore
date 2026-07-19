@@ -47,3 +47,4 @@ src/test/java/com/artifacts/MethodDebug.java
 # Logs
 logs/*
 !logs/.gitkeep
+/src/main/resources/data/

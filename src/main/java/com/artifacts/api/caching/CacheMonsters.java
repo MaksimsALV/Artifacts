@@ -7,6 +7,7 @@ import org.openapitools.client.model.MonsterSchema;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class CacheMonsters {
     private final GetAllMonsters getAllMonsters;
     private final ObjectMapper objectMapper;
 
-    private static final Path MONSTERS = Paths.get("src/main/resources/data/monsters.json");
+    private final Path MONSTERS = Paths.get("src/main/resources/data/monsters.json");
 
     public List<MonsterSchema> fetchAllMonsters() throws IOException {
         List<MonsterSchema> allData = new ArrayList<>();
@@ -44,6 +45,9 @@ public class CacheMonsters {
     }
 
     private void saveMonstersToFile(List<MonsterSchema> monsters) throws IOException {
+        if (Files.notExists(MONSTERS)) {
+            Files.createFile(MONSTERS);
+        }
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(MONSTERS.toFile(), monsters);
     }
 

@@ -7,6 +7,7 @@ import org.openapitools.client.model.NPCItemSchema;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class CacheNpcsItems {
     private final GetAllNpcsItems getAllNpcsItems;
     private final ObjectMapper objectMapper;
 
-    private static final Path NPCS_ITEMS = Paths.get("src/main/resources/data/npcs-items.json");
+    private final Path NPCS_ITEMS = Paths.get("src/main/resources/data/npcs-items.json");
 
     public List<NPCItemSchema> fetchAllNpcsItems() throws IOException {
         List<NPCItemSchema> allData = new ArrayList<>();
@@ -44,6 +45,9 @@ public class CacheNpcsItems {
     }
 
     private void saveNpcsItemsToFile(List<NPCItemSchema> npcsItems) throws IOException {
+        if (Files.notExists(NPCS_ITEMS)) {
+            Files.createFile(NPCS_ITEMS);
+        }
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(NPCS_ITEMS.toFile(), npcsItems);
     }
 

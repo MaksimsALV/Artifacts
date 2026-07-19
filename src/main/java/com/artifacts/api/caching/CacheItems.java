@@ -7,6 +7,7 @@ import org.openapitools.client.model.ItemSchema;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class CacheItems {
     private final GetAllItems getAllItems;
     private final ObjectMapper objectMapper;
 
-    private static final Path ITEMS = Paths.get("src/main/resources/data/items.json");
+    private final Path ITEMS = Paths.get("src/main/resources/data/items.json");
 
     public List<ItemSchema> fetchAllItems() throws IOException {
         List<ItemSchema> allData = new ArrayList<>();
@@ -44,6 +45,9 @@ public class CacheItems {
     }
 
     private void saveItemsToFile(List<ItemSchema> items) throws IOException {
+        if (Files.notExists(ITEMS)) {
+            Files.createFile(ITEMS);
+        }
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(ITEMS.toFile(), items);
     }
 

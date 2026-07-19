@@ -7,6 +7,7 @@ import org.openapitools.client.model.MapSchema;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class CacheMaps {
     private final GetAllMaps getAllMaps;
     private final ObjectMapper objectMapper;
 
-    private static final Path MAPS = Paths.get("src/main/resources/data/maps.json");
+    private final Path MAPS = Paths.get("src/main/resources/data/maps.json");
 
     public List<MapSchema> fetchAllMaps() throws IOException {
         List<MapSchema> allData = new ArrayList<>();
@@ -44,6 +45,9 @@ public class CacheMaps {
     }
 
     private void saveMapsToFile(List<MapSchema> maps) throws IOException {
+        if (Files.notExists(MAPS)) {
+            Files.createFile(MAPS);
+        }
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(MAPS.toFile(), maps);
     }
 

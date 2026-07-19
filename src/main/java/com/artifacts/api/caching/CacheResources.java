@@ -7,6 +7,7 @@ import org.openapitools.client.model.ResourceSchema;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class CacheResources {
     private final GetAllResources getAllResources;
     private final ObjectMapper objectMapper;
 
-    private static final Path RESOURCES = Paths.get("src/main/resources/data/resources.json");
+    private final Path RESOURCES = Paths.get("src/main/resources/data/resources.json");
 
     public List<ResourceSchema> fetchAllResources() throws IOException {
         List<ResourceSchema> allData = new ArrayList<>();
@@ -44,6 +45,9 @@ public class CacheResources {
     }
 
     private void saveResourcesToFile(List<ResourceSchema> resources) throws IOException {
+        if (Files.notExists(RESOURCES)) {
+            Files.createFile(RESOURCES);
+        }
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(RESOURCES.toFile(), resources);
     }
 
