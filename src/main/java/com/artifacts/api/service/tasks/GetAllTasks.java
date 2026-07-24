@@ -1,4 +1,4 @@
-package com.artifacts.api.tasks;
+package com.artifacts.api.service.tasks;
 
 import com.artifacts.api.logs.ApiResponseLogger;
 import com.artifacts.tools.Retry;

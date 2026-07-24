@@ -1,6 +1,6 @@
 package com.artifacts.api.caching;
 
-import com.artifacts.api.tasks.GetAllTasks;
+import com.artifacts.api.service.tasks.GetAllTasks;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.TaskFullSchema;
