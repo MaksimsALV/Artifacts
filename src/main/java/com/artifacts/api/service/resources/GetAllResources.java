@@ -25,7 +25,7 @@ public class GetAllResources {
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageResourceSchema> response = api.getAllResourcesResourcesGetWithHttpInfo(null, null, skill, null, null, size);
+                ResponseEntity<StaticDataPageResourceSchema> response = api.getAllResourcesResourcesGetWithHttpInfo(minLevel, maxLevel, skill, drop, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

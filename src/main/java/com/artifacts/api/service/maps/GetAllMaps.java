@@ -25,12 +25,12 @@ public class GetAllMaps {
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
 
-    public ResponseEntity<StaticDataPageMapSchema> retrieveAllMaps(MapLayer layer, MapContentType contentType, String contentCode, Boolean transition, Integer page, Integer size) { //todo need to check if <T> is correct one here, maybe should be StaticDataPageMapSchema or smth
+    public ResponseEntity<StaticDataPageMapSchema> retrieveAllMaps(MapLayer layer, MapContentType contentType, String contentCode, Boolean hideBlockedMaps, Boolean hideEvent, Boolean transition, Integer page, Integer size) { //todo need to check if <T> is correct one here, maybe should be StaticDataPageMapSchema or smth
         MapsApi mapsApi = new MapsApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(layer, contentType, contentCode, transition, null, null, page, size);
+                ResponseEntity<StaticDataPageMapSchema> response = mapsApi.getAllMapsMapsGetWithHttpInfo(layer, contentType, contentCode, hideBlockedMaps, hideEvent, transition, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

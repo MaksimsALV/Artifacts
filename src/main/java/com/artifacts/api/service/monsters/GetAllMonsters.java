@@ -24,7 +24,7 @@ public class GetAllMonsters {
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageMonsterSchema> response = api.getAllMonstersMonstersGetWithHttpInfo(null, null, null, null, null, size);
+                ResponseEntity<StaticDataPageMonsterSchema> response = api.getAllMonstersMonstersGetWithHttpInfo(name, minLevel, maxLevel, drop, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

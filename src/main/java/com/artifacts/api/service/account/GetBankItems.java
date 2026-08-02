@@ -24,7 +24,7 @@ public class GetBankItems {
 
         while (true) {
             try {
-                ResponseEntity<DataPageSimpleItemSchema> response = myAccountApi.getBankItemsMyBankItemsGetWithHttpInfo(null, page, size);
+                ResponseEntity<DataPageSimpleItemSchema> response = myAccountApi.getBankItemsMyBankItemsGetWithHttpInfo(itemCode, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

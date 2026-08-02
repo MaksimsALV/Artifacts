@@ -5,6 +5,7 @@ import com.artifacts.tools.Retry;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.TasksApi;
+import org.openapitools.client.model.Skill;
 import org.openapitools.client.model.StaticDataPageTaskFullSchema;
 import org.openapitools.client.model.TaskType;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,12 @@ public class GetAllTasks {
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
 
-    public ResponseEntity<StaticDataPageTaskFullSchema> retrieveAllTasks(Integer minLevel, Integer maxLevel, String skill, TaskType taskType, Integer page, Integer size) {
+    public ResponseEntity<StaticDataPageTaskFullSchema> retrieveAllTasks(Integer minLevel, Integer maxLevel, Skill skill, TaskType taskType, Integer page, Integer size) {
         TasksApi api = new TasksApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageTaskFullSchema> response = api.getAllTasksTasksListGetWithHttpInfo(null, null, null, null, null, size);
+                ResponseEntity<StaticDataPageTaskFullSchema> response = api.getAllTasksTasksListGetWithHttpInfo(minLevel, maxLevel, skill, taskType, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

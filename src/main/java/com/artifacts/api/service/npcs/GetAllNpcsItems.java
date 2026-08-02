@@ -24,7 +24,7 @@ public class GetAllNpcsItems {
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageNPCItemSchema> response = api.getAllNpcsItemsNpcsItemsGetWithHttpInfo(null, null, null, null, size);
+                ResponseEntity<StaticDataPageNPCItemSchema> response = api.getAllNpcsItemsNpcsItemsGetWithHttpInfo(code, npc, currency, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

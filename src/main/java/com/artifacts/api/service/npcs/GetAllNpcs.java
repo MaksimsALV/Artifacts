@@ -25,7 +25,7 @@ public class GetAllNpcs {
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageNPCSchema> response = api.getAllNpcsNpcsDetailsGetWithHttpInfo(null, null, null, null, null, size);
+                ResponseEntity<StaticDataPageNPCSchema> response = api.getAllNpcsNpcsDetailsGetWithHttpInfo(name, npcType, currency, item, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;

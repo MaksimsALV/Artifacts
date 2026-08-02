@@ -25,7 +25,7 @@ public class CacheMaps {
     public List<MapSchema> fetchAllMaps() throws IOException {
         List<MapSchema> allData = new ArrayList<>();
 
-        var response = getAllMaps.retrieveAllMaps(null, null, null, null, 1,10000);
+        var response = getAllMaps.retrieveAllMaps(null, null, null, null, null, null, 1,10000);
         var body = response.getBody();
 
         if (body == null) {
@@ -35,7 +35,7 @@ public class CacheMaps {
         while (body.getPage() < body.getPages()) {
             allData.addAll(body.getData());
             body.setPage(body.getPage() + 1);
-            response = getAllMaps.retrieveAllMaps(null, null, null, null, body.getPage(),10000);
+            response = getAllMaps.retrieveAllMaps(null, null, null, null, null, null, body.getPage(),10000);
             body = response.getBody();
         }
         allData.addAll(body.getData());

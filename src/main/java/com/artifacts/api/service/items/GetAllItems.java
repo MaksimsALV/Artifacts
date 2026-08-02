@@ -26,7 +26,7 @@ public class GetAllItems {
 
         while (true) {
             try {
-                ResponseEntity<StaticDataPageItemSchema> response = api.getAllItemsItemsGetWithHttpInfo(null, null, null, null, null, null, null, size);
+                ResponseEntity<StaticDataPageItemSchema> response = api.getAllItemsItemsGetWithHttpInfo(name, minLevel, maxLevel, itemType, craftSkill, craftMaterial, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
