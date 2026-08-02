@@ -33,35 +33,19 @@ public class SequenceOrchestrator {
     private final CacheNpcsItems cacheNpcsItems;
     private final CacheTasks cacheTasks;
     private final CacheMyCharacters cacheMyCharacters;
+    private final CacheBankItems cacheBankItems;
 
-    // Phase 1: Game Launch, Validate and Create characters
     @EventListener(ApplicationReadyEvent.class)
     public void executePhase1() throws IOException {
-        // Step 1: Launch the game
         gameLauncher.gameStart();
-
-        // Step 2: Validate and Create characters
         validateAndCreateCharacters.createCharactersAtGameLaunchIfNotExist();
 
         System.out.println("Phase 1 Completed!");
-        System.out.println("Executing Phase 2...");
+        System.out.println("Executing Phase 2... Fetching data");
         executePhase2();
     }
 
-    // Phase 2: Get All My data (characters, banks, inventories)
     public void executePhase2() throws IOException {
-        // Step 1: Get All My characters
-        getMyCharacters.retrieveMyCharacters();
-
-        // Step 2: Get Bank Items
-        getBankItems.retrieveBankItems();
-        System.out.println("Phase 2 Completed!");
-        System.out.println("Executing Phase 3... Fetching Cache");
-        executePhase3();
-    }
-
-    // Phase3: Caching
-    public void executePhase3() throws IOException {
         cacheMaps.fetchAllMaps();
         cacheResources.fetchAllResources();
         cacheMonsters.fetchAllMonsters();
@@ -70,12 +54,13 @@ public class SequenceOrchestrator {
         cacheNpcsItems.fetchAllNpcsItems();
         cacheTasks.fetchAllTasks();
         cacheMyCharacters.fetchAllCharacters();
-        System.out.println("Phase 3 Completed!");
-        System.out.println("Executing Phase 4... Initial validation and checks");
-        executePhase4();
+        cacheBankItems.fetchAllBankItems();
+        System.out.println("Phase 2 Completed!");
+        System.out.println("Executing Phase 3... Initial validation and checks\"");
+        executePhase3();
     }
 
-    public void executePhase4() {
+    public void executePhase3() {
         if (validateResourceStock.resourceStockHasMissingItems(GatheringSkill.MINING)) {
             gatherMissingResource.gatherMissingResource(MyCharacters.MINER, GatheringSkill.MINING);
         }

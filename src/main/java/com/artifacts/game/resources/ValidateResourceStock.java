@@ -1,7 +1,7 @@
 package com.artifacts.game.resources;
 
+import com.artifacts.api.caching.CacheBankItems;
 import com.artifacts.api.caching.CacheResources;
-import com.artifacts.api.service.account.GetBankItems;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.GatheringSkill;
 import org.openapitools.client.model.ResourceSchema;
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ValidateResourceStock {
-    private final GetBankItems getBankItems;
     private final CacheResources cacheResources;
+    private final CacheBankItems cacheBankItems;
     private final int RESOURCE_THRESHOLD = 1000;
 
     public boolean resourceStockHasMissingItems(GatheringSkill skill) {
@@ -45,9 +45,9 @@ public class ValidateResourceStock {
 
 
     public Map<String, Integer> retrieveAllResourcesFromBankAsMap() {
-        var allBankItems = getBankItems.retrieveBankItems();
+        var allBankItems = cacheBankItems.getCachedBankItems();
 
-        return allBankItems.getBody().getData().stream()
+        return allBankItems.stream()
                 .collect(Collectors.toMap(
                         SimpleItemSchema::getCode,
                         SimpleItemSchema::getQuantity

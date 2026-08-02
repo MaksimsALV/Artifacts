@@ -19,12 +19,12 @@ public class GetBankItems {
     private final ApiResponseLogger apiResponseLogger;
     private final Retry retry;
 
-    public ResponseEntity<DataPageSimpleItemSchema> retrieveBankItems() {
+    public ResponseEntity<DataPageSimpleItemSchema> retrieveBankItems(String itemCode, Integer page, Integer size) {
         MyAccountApi myAccountApi = new MyAccountApi(apiClient);
 
         while (true) {
             try {
-                ResponseEntity<DataPageSimpleItemSchema> response = myAccountApi.getBankItemsMyBankItemsGetWithHttpInfo(null, null, 100);
+                ResponseEntity<DataPageSimpleItemSchema> response = myAccountApi.getBankItemsMyBankItemsGetWithHttpInfo(null, page, size);
 
                 if (response.getStatusCode().value() == SUCCESS) {
                     return response;
