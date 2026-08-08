@@ -25,10 +25,9 @@ public class GatherMissingResource {
     @Async
     public void gatherMissingResource(MyCharacters character, GatheringSkill skill) {
         while (true) {
-            //todo I thnk validator shouldnt be here. this whole class is for gatherning logic, not to validate what is missing
             var missingResourceCode = validateResourceStock.missingResourceCode(skill);
 
-            if (missingResourceCode == null) {
+            if (missingResourceCode == null || !gatheringService.allowedToGather(character, missingResourceCode)) {
                 //todo need better fallback here
                 return;
             }
@@ -45,25 +44,5 @@ public class GatherMissingResource {
                 }
             }
         }
-    }
-
-    //todo this can go away once logic lives in ValidResourceStock
-    private boolean validToGatherMiningResources(MyCharacters character, String missingResourceCode) {
-        var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
-        var resourceData = cacheResources.getCachedResources().stream()
-                .filter(resource -> resource.getCode().equals(missingResourceCode))
-                .findFirst()
-                .orElseThrow();
-        return characterData.getMiningLevel() >= resourceData.getLevel();
-    }
-
-    //todo this can go away once logic lives in ValidResourceStock
-    private boolean validToGatherHerbResources(MyCharacters character, String missingResourceCode) {
-        var characterData = getCharacter.retrieveCharacter(character).getBody().getData();
-        var resourceData = cacheResources.getCachedResources().stream()
-                .filter(resource -> resource.getCode().equals(missingResourceCode))
-                .findFirst()
-                .orElseThrow();
-        return characterData.getAlchemyLevel() >= resourceData.getLevel();
     }
 }

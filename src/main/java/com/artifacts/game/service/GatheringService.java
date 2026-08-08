@@ -1,5 +1,6 @@
 package com.artifacts.game.service;
 
+import com.artifacts.api.caching.CacheResources;
 import com.artifacts.api.service.mycharacters.ActionGathering;
 import com.artifacts.game.account.MyCharacters;
 import com.artifacts.tools.Sleep;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GatheringService {
     private final ActionGathering actionGathering;
+    private final CharacterService characterService;
+    private final CacheResources cacheResources;
     private final Sleep sleep;
 
     public ResponseEntity<SkillResponseSchema> gather(MyCharacters character) {
@@ -24,5 +27,14 @@ public class GatheringService {
 
     public boolean fullInventory(ResponseEntity<SkillResponseSchema> response) {
         return actionGathering.errorCharacterInventoryFull(response);
+    }
+
+    public boolean allowedToGather(MyCharacters character, String missingResourceCode) {
+        var characterData = characterService.characterGatheringSkills(character);
+        var resourceData = cacheResources.getCachedResources().stream()
+                .filter(resource -> resource.getCode().equals(missingResourceCode))
+                .findFirst()
+                .orElseThrow();
+        return characterData.get(resourceData.getSkill()) >= resourceData.getLevel();
     }
 }
