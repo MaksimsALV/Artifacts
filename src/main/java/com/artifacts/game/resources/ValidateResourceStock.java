@@ -17,7 +17,22 @@ import java.util.stream.Collectors;
 public class ValidateResourceStock {
     private final CacheResources cacheResources;
     private final CacheBankItems cacheBankItems;
-    private final int RESOURCE_THRESHOLD = 1000;
+
+    private static final int RESOURCE_THRESHOLD = 1000;
+    private static final List<String> IGNORED_RESOURCE_CODES = List.of(
+            "gold_rocks",
+            "mithril_rocks",
+            "strange_rocks",
+            "adamantite_rocks",
+            "magic_tree",
+            "palm_tree",
+            "swordfish_spot",
+            "lava_fish_spot",
+            "nettle",
+            "glowstem",
+            "enchanted_mushroom",
+            "torch_cactus"
+    );
 
     public boolean resourceStockHasMissingItems(GatheringSkill skill) {
         return missingResourceCode(skill) != null;
@@ -32,14 +47,12 @@ public class ValidateResourceStock {
                 .orElse(null);
     }
 
-    //todo need to add character validity checker here, and if character is unavailable to farm the resource, it should ignore it, then all GatherMissingResrouce logic on booleans can go away.
     public List<String> retrieveResourceCodesAsList(GatheringSkill skill) {
         return cacheResources.getCachedResources().stream()
                 .filter(resource -> resource.getSkill() == skill)
                 .map(ResourceSchema::getCode)
                 .filter(code -> code != null)
-                //todo this is a temporary hardcoded ignore list for now, to avoid going into the underground/other zones till code supports that
-                .filter(code -> !ignoredResourceCodes().contains(code))
+                .filter(code -> !IGNORED_RESOURCE_CODES.contains(code))
                 .toList();
     }
 
@@ -52,22 +65,5 @@ public class ValidateResourceStock {
                         SimpleItemSchema::getCode,
                         SimpleItemSchema::getQuantity
                 ));
-    }
-
-    public List<String> ignoredResourceCodes() {
-        return List.of(
-                "gold_rocks",
-                "mithril_rocks",
-                "strange_rocks",
-                "adamantite_rocks",
-                "magic_tree",
-                "palm_tree",
-                "swordfish_spot",
-                "lava_fish_spot",
-                "nettle",
-                "glowstem",
-                "enchanted_mushroom",
-                "torch_cactus"
-                );
     }
 }
