@@ -3,6 +3,7 @@ package com.artifacts.api.caching;
 import com.artifacts.api.service.account.GetBankItems;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.openapitools.client.model.CharacterSchema;
 import org.openapitools.client.model.SimpleItemSchema;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,14 @@ public class CacheBankItems {
         saveBankItemsToFile(allData);
 
         return allData;
+    }
+
+    public void updateBank(List<SimpleItemSchema> items) {
+        try {
+            saveBankItemsToFile(items);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void saveBankItemsToFile(List<SimpleItemSchema> items) throws IOException {

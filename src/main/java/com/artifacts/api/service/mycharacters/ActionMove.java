@@ -8,6 +8,7 @@ import org.openapitools.client.ApiClient;
 import org.openapitools.client.api.MyCharactersApi;
 import org.openapitools.client.model.CharacterMovementResponseSchema;
 import org.openapitools.client.model.DestinationSchema;
+import org.openapitools.client.model.SkillResponseSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -55,5 +56,13 @@ public class ActionMove {
                 }
             }
         }
+    }
+
+    public boolean success(ResponseEntity<CharacterMovementResponseSchema> response) {
+        return response.getStatusCode().is2xxSuccessful();
+    }
+
+    public boolean errorCharacterAlreadyMap(ResponseEntity<SkillResponseSchema> response) {
+        return response.getStatusCode().value() == CHARACTER_ALREADY_MAP;
     }
 }

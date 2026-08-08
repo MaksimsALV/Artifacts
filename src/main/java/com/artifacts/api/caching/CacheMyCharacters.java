@@ -1,6 +1,7 @@
 package com.artifacts.api.caching;
 
 import com.artifacts.api.service.mycharacters.GetMyCharacters;
+import com.artifacts.game.account.MyCharacters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.CharacterSchema;
@@ -38,6 +39,20 @@ public class CacheMyCharacters {
         return allData;
     }
 
+    public void updateCharacter(CharacterSchema character) {
+        try {
+            var characters = getCachedCharacters().stream()
+                    .map(c -> c.getName().equals(character.getName())
+                            ? character
+                            : c)
+                    .toList();
+
+            saveCharactersToFile(characters);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void saveCharactersToFile(List<CharacterSchema> characters) throws IOException {
         if (Files.notExists(CHARACTERS)) {
             Files.createFile(CHARACTERS);
@@ -51,5 +66,12 @@ public class CacheMyCharacters {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public CharacterSchema getCachedCharacter(MyCharacters character) {
+        return getCachedCharacters().stream()
+                .filter(c -> c.getName().equals(character.getName()))
+                .findFirst()
+                .orElseThrow();
     }
 }

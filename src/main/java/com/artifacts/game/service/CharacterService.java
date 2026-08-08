@@ -1,6 +1,6 @@
 package com.artifacts.game.service;
 
-import com.artifacts.api.service.character.GetCharacter;
+import com.artifacts.api.caching.CacheMyCharacters;
 import com.artifacts.game.account.MyCharacters;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.client.model.GatheringSkill;
@@ -13,12 +13,12 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class CharacterService {
-    private final GetCharacter getCharacter;
+    private final CacheMyCharacters cacheMyCharacters;
 
     public List<SimpleItemSchema> characterInventoryItems(MyCharacters character) {
-        var response = getCharacter.retrieveCharacter(character);
+        var characterData = cacheMyCharacters.getCachedCharacter(character);
 
-        return response.getBody().getData().getInventory().stream()
+        return characterData.getInventory().stream()
                 .filter(nonEmptyItem -> nonEmptyItem.getQuantity() > 0)
                 .map(item -> {
                     SimpleItemSchema inventoryItem = new SimpleItemSchema();
@@ -30,12 +30,12 @@ public class CharacterService {
     }
 
     public Map<GatheringSkill, Integer> characterGatheringSkills(MyCharacters character) {
-        var response = getCharacter.retrieveCharacter(character);
+        var characterData = cacheMyCharacters.getCachedCharacter(character);
         return Map.of(
-                GatheringSkill.MINING, response.getBody().getData().getMiningLevel(),
-                GatheringSkill.WOODCUTTING, response.getBody().getData().getWoodcuttingLevel(),
-                GatheringSkill.FISHING, response.getBody().getData().getFishingLevel(),
-                GatheringSkill.ALCHEMY, response.getBody().getData().getAlchemyLevel()
+                GatheringSkill.MINING, characterData.getMiningLevel(),
+                GatheringSkill.WOODCUTTING, characterData.getWoodcuttingLevel(),
+                GatheringSkill.FISHING, characterData.getFishingLevel(),
+                GatheringSkill.ALCHEMY, characterData.getAlchemyLevel()
         );
     }
 }
