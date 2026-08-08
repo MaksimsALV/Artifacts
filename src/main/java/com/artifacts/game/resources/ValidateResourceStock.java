@@ -56,12 +56,15 @@ public class ValidateResourceStock {
 
     public List<String> ignoredResourceCodes() {
         return List.of(
+                "gold_rocks",
+                "mithril_rocks",
                 "strange_rocks",
                 "adamantite_rocks",
                 "magic_tree",
                 "palm_tree",
                 "swordfish_spot",
                 "lava_fish_spot",
+                "nettle",
                 "glowstem",
                 "enchanted_mushroom",
                 "torch_cactus"

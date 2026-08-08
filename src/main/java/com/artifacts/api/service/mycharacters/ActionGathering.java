@@ -52,4 +52,12 @@ public class ActionGathering {
             }
         }
     }
+
+    public boolean success(ResponseEntity<SkillResponseSchema> response) {
+        return response.getStatusCode().is2xxSuccessful();
+    }
+
+    public boolean errorCharacterInventoryFull(ResponseEntity<SkillResponseSchema> response) {
+        return response.getStatusCode().value() == CHARACTER_INVENTORY_FULL;
+    }
 }

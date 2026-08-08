@@ -1,4 +1,4 @@
-package com.artifacts.game.resources.gathering;
+package com.artifacts.game.service;
 
 import com.artifacts.api.caching.CacheMaps;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LocationService {
+public class DestinationService {
     private final CacheMaps cacheMaps;
 
     public DestinationSchema destination(String contentCode) {
@@ -21,19 +21,5 @@ public class LocationService {
                 .x(location.getX())
                 .y(location.getY())
                 .mapId(location.getMapId());
-    }
-
-    public DestinationSchema entranceToGoldMineLocation() {
-        return new DestinationSchema()
-                .x(5)
-                .y(-3)
-                .mapId(134);
-    }
-
-    public DestinationSchema entranceToMithrilMineLocation() {
-        return new DestinationSchema()
-                .x(-2)
-                .y(6)
-                .mapId(571);
     }
 }
