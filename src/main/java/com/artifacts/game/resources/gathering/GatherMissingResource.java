@@ -1,7 +1,5 @@
 package com.artifacts.game.resources.gathering;
 
-import com.artifacts.api.caching.CacheResources;
-import com.artifacts.api.service.character.GetCharacter;
 import com.artifacts.game.account.MyCharacters;
 import com.artifacts.game.resources.ValidateResourceStock;
 import com.artifacts.game.service.*;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class GatherMissingResource {
-    private final GetCharacter getCharacter;
-    private final CacheResources cacheResources;
     private final ValidateResourceStock validateResourceStock;
     private final DestinationService destinationService;
     private final MovementService movementService;
