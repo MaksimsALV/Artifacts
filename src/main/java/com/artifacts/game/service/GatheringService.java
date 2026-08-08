@@ -1,5 +1,6 @@
 package com.artifacts.game.service;
 
+import com.artifacts.api.caching.CacheMyCharacters;
 import com.artifacts.api.caching.CacheResources;
 import com.artifacts.api.service.mycharacters.ActionGathering;
 import com.artifacts.game.account.MyCharacters;
@@ -15,12 +16,17 @@ public class GatheringService {
     private final ActionGathering actionGathering;
     private final CharacterService characterService;
     private final CacheResources cacheResources;
+    private final CacheMyCharacters cacheMyCharacters;
     private final Sleep sleep;
 
-    public ResponseEntity<SkillResponseSchema> gather(MyCharacters character) {
+    public ResponseEntity<SkillResponseSchema> gatherResource(MyCharacters character) {
         var response = actionGathering.gather(character);
         if (actionGathering.success(response)) {
-            sleep.sleep(character, response.getBody().getData().getCooldown().getRemainingSeconds());
+            var cooldown = response.getBody().getData().getCooldown().getRemainingSeconds();
+            var characterData = response.getBody().getData().getCharacter();
+
+            cacheMyCharacters.updateCharacter(characterData);
+            sleep.sleep(character, cooldown);
         }
         return response;
     }

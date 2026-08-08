@@ -31,7 +31,7 @@ public class GatherMissingResource {
             movementService.moveToDestination(character, destinationService.destination(missingResourceCode));
 
             while (true) {
-                var gather = gatheringService.gather(character);
+                var gather = gatheringService.gatherResource(character);
 
                 if (gatheringService.fullInventory(gather)) {
                     movementService.moveToDestination(character, destinationService.destination("bank"));
